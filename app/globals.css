@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&family=Sarabun:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-orbitron: 'Orbitron', sans-serif;
+  --font-jetbrains: 'JetBrains Mono', monospace;
+  --font-sarabun: 'Sarabun', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0a0c10;
+  color: #e0e8f0;
+  font-family: 'Sarabun', sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0f1318; }
+::-webkit-scrollbar-thumb { background: #1e2a38; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #00e87a40; }
+
+/* Selection */
+::selection { background: #00e87a30; color: #00e87a; }
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid #00e87a;
+  outline-offset: 2px;
+}
+
+/* Grid bg utility */
+.bg-grid {
+  background-image: linear-gradient(rgba(0,232,122,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,232,122,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Scan line effect */
+.scanline {
+  position: relative;
+  overflow: hidden;
+}
+.scanline::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,232,122,0.01) 2px,
+    rgba(0,232,122,0.01) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Glow utilities */
+.glow-green { box-shadow: 0 0 20px rgba(0,232,122,0.2); }
+.glow-amber { box-shadow: 0 0 20px rgba(255,187,0,0.2); }
+.glow-blue  { box-shadow: 0 0 20px rgba(0,170,255,0.2); }
+
+/* Neon border */
+.border-neon-green { border-color: #00e87a; box-shadow: 0 0 8px rgba(0,232,122,0.3); }
+
+@layer utilities {
+  .font-orbitron { font-family: 'Orbitron', sans-serif; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+  .font-sarabun { font-family: 'Sarabun', sans-serif; }
+}
+
+/* Mobile tap highlight */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* Smooth transitions */
+a, button { transition: all 0.15s ease; }
+
+/* Code block */
+pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
