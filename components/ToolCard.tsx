@@ -11,11 +11,11 @@ interface ToolCardProps {
 }
 
 const accentMap = {
-  green:  { border: "border-green-DEFAULT/20",  hover: "hover:border-green-DEFAULT/60 hover:bg-green-muted/20",  icon: "bg-green-muted border-green-DEFAULT/40 text-green-DEFAULT",  badge: "bg-green-muted text-green-DEFAULT" },
-  amber:  { border: "border-amber-DEFAULT/20",  hover: "hover:border-amber-DEFAULT/60 hover:bg-amber-muted/20",  icon: "bg-amber-muted border-amber-DEFAULT/40 text-amber-DEFAULT",  badge: "bg-amber-muted text-amber-DEFAULT" },
-  blue:   { border: "border-blue-DEFAULT/20",   hover: "hover:border-blue-DEFAULT/60 hover:bg-blue-muted/20",   icon: "bg-blue-muted border-blue-DEFAULT/40 text-blue-DEFAULT",   badge: "bg-blue-muted text-blue-DEFAULT" },
-  cyan:   { border: "border-cyan-DEFAULT/20",   hover: "hover:border-cyan-DEFAULT/60 hover:bg-cyan-muted/20",   icon: "bg-cyan-muted border-cyan-DEFAULT/40 text-cyan-DEFAULT",   badge: "bg-cyan-muted text-cyan-DEFAULT" },
-  purple: { border: "border-purple-DEFAULT/20", hover: "hover:border-purple-DEFAULT/60 hover:bg-purple-muted/20", icon: "bg-purple-muted border-purple-DEFAULT/40 text-purple-DEFAULT", badge: "bg-purple-muted text-purple-DEFAULT" },
+  green:  { border: "border-green-DEFAULT/20",  hover: "hover:border-green-DEFAULT/60 hover:-translate-y-1 hover:bg-green-muted/20",  icon: "bg-green-muted/80 border-green-DEFAULT/40 text-green-DEFAULT",  badge: "bg-green-muted/80 text-green-DEFAULT" },
+  amber:  { border: "border-amber-DEFAULT/20",  hover: "hover:border-amber-DEFAULT/60 hover:-translate-y-1 hover:bg-amber-muted/20",  icon: "bg-amber-muted/80 border-amber-DEFAULT/40 text-amber-DEFAULT",  badge: "bg-amber-muted/80 text-amber-DEFAULT" },
+  blue:   { border: "border-blue-DEFAULT/20",   hover: "hover:border-blue-DEFAULT/60 hover:-translate-y-1 hover:bg-blue-muted/20",   icon: "bg-blue-muted/80 border-blue-DEFAULT/40 text-blue-DEFAULT",   badge: "bg-blue-muted/80 text-blue-DEFAULT" },
+  cyan:   { border: "border-cyan-DEFAULT/20",   hover: "hover:border-cyan-DEFAULT/60 hover:-translate-y-1 hover:bg-cyan-muted/20",   icon: "bg-cyan-muted/80 border-cyan-DEFAULT/40 text-cyan-DEFAULT",   badge: "bg-cyan-muted/80 text-cyan-DEFAULT" },
+  purple: { border: "border-purple-DEFAULT/20", hover: "hover:border-purple-DEFAULT/60 hover:-translate-y-1 hover:bg-purple-muted/20", icon: "bg-purple-muted/80 border-purple-DEFAULT/40 text-purple-DEFAULT", badge: "bg-purple-muted/80 text-purple-DEFAULT" },
 };
 
 export default function ToolCard({
@@ -33,41 +33,51 @@ export default function ToolCard({
     <Link
       href={href}
       className={`
-        group block p-5 rounded-xl border bg-bg-surface
-        transition-all duration-200 active:scale-98
+        hud-card group block p-5
+        transition-all duration-300 active:scale-[0.99]
         ${a.border} ${a.hover}
       `}
     >
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-current to-transparent opacity-15" />
       <div className="flex items-start gap-4">
-        {/* Icon */}
-        <div className={`flex-shrink-0 w-12 h-12 rounded-lg border flex items-center justify-center ${a.icon}`}>
+        <div className={`relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl border ${a.icon}`}>
+          <div className="absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_60%)]" />
           {icon}
         </div>
 
-        {/* Text */}
-        <div className="flex-1 min-w-0">
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">
-            <h3 className="font-orbitron font-semibold text-sm text-text group-hover:text-inherit transition-colors">
+            <h3 className="font-orbitron text-sm font-semibold tracking-wide text-text transition-colors group-hover:text-inherit">
               {title}
             </h3>
             {badge && (
-              <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded uppercase tracking-wider ${a.badge}`}>
+              <span className={`hud-chip px-2 py-0.5 text-[9px] font-mono uppercase tracking-[0.22em] ${a.badge}`}>
                 {badge}
               </span>
             )}
           </div>
-          <p className="text-[13px] text-text-muted mt-0.5 font-sarabun leading-relaxed">
+          <p className="mt-1 font-sarabun text-[13px] leading-relaxed text-text-muted">
+            {titleTh}
+          </p>
+          <p className="mt-1.5 font-sarabun text-[13px] leading-relaxed text-text-muted/90">
             {description}
           </p>
         </div>
 
-        {/* Arrow */}
         <svg
-          className="flex-shrink-0 w-4 h-4 text-text-faint group-hover:text-text-muted group-hover:translate-x-0.5 transition-all mt-1"
+          className="mt-1 h-4 w-4 flex-shrink-0 text-text-faint transition-all group-hover:translate-x-1 group-hover:text-text-muted"
           viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
         >
           <path d="M9 18l6-6-6-6"/>
         </svg>
+      </div>
+
+      <div className="mt-4 flex items-center gap-2">
+        <div className="hud-accent-line flex-1" />
+        <span className="text-[10px] font-mono uppercase tracking-[0.28em] text-text-faint">
+          OPEN MODULE
+        </span>
+        <div className="hud-accent-line flex-1" />
       </div>
     </Link>
   );

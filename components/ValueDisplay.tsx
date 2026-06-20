@@ -7,12 +7,12 @@ interface ValueDisplayProps {
 }
 
 const colorMap = {
-  green:  { text: "text-green-DEFAULT",  bg: "bg-green-muted",  border: "border-green-DEFAULT/30" },
-  amber:  { text: "text-amber-DEFAULT",  bg: "bg-amber-muted",  border: "border-amber-DEFAULT/30" },
-  blue:   { text: "text-blue-DEFAULT",   bg: "bg-blue-muted",   border: "border-blue-DEFAULT/30" },
-  cyan:   { text: "text-cyan-DEFAULT",   bg: "bg-cyan-muted",   border: "border-cyan-DEFAULT/30" },
-  purple: { text: "text-purple-DEFAULT", bg: "bg-purple-muted", border: "border-purple-DEFAULT/30" },
-  red:    { text: "text-red-DEFAULT",    bg: "bg-red-muted",    border: "border-red-DEFAULT/30" },
+  green:  { text: "text-green-DEFAULT",  bg: "bg-green-muted/60",  border: "border-green-DEFAULT/30" },
+  amber:  { text: "text-amber-DEFAULT",  bg: "bg-amber-muted/60",  border: "border-amber-DEFAULT/30" },
+  blue:   { text: "text-blue-DEFAULT",   bg: "bg-blue-muted/60",   border: "border-blue-DEFAULT/30" },
+  cyan:   { text: "text-cyan-DEFAULT",   bg: "bg-cyan-muted/60",   border: "border-cyan-DEFAULT/30" },
+  purple: { text: "text-purple-DEFAULT", bg: "bg-purple-muted/60", border: "border-purple-DEFAULT/30" },
+  red:    { text: "text-red-DEFAULT",    bg: "bg-red-muted/60",    border: "border-red-DEFAULT/30" },
 };
 
 export default function ValueDisplay({
@@ -27,12 +27,12 @@ export default function ValueDisplay({
   const labelSize = size === "sm" ? "text-[9px]" : "text-[10px]";
 
   return (
-    <div className={`flex flex-col items-center justify-center p-3 rounded-lg border ${c.bg} ${c.border} min-w-[60px]`}>
-      <span className={`${labelSize} font-mono text-text-muted uppercase tracking-widest mb-1`}>
+    <div className={`hud-card flex min-w-[72px] flex-col items-center justify-center rounded-2xl border px-3 py-3 ${c.bg} ${c.border}`}>
+      <span className={`${labelSize} mb-1 font-mono uppercase tracking-[0.25em] text-text-muted`}>
         {label}
       </span>
       <div className="flex items-baseline gap-0.5">
-        <span className={`${textSize} font-orbitron font-bold ${c.text} leading-none`}>
+        <span className={`${textSize} leading-none font-orbitron font-bold ${c.text}`}>
           {value}
         </span>
         {unit && (

@@ -72,65 +72,71 @@ export default function Nav() {
 
   return (
     <>
-      {/* ── Desktop top nav ─────────────────────────────── */}
-      <nav className="hidden md:flex fixed top-0 left-0 right-0 z-50 items-center justify-between px-6 h-16 bg-bg-surface/90 backdrop-blur-md border-b border-bg-border">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-7 h-7 rounded border border-green-DEFAULT/60 flex items-center justify-center group-hover:border-green-DEFAULT group-hover:glow-green transition-all">
-            <span className="text-green-DEFAULT font-orbitron font-bold text-xs">OX</span>
+      {/* Desktop top nav */}
+      <nav className="hidden md:flex fixed top-4 left-1/2 z-50 w-[min(1120px,calc(100%-1.5rem))] -translate-x-1/2 items-center justify-between rounded-2xl hud-card px-4 py-3">
+        <Link href="/" className="group flex items-center gap-3">
+          <div className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-green-DEFAULT/60 bg-green-muted/40 transition-all group-hover:border-green-DEFAULT group-hover:shadow-[0_0_24px_rgba(0,232,122,0.22)]">
+            <div className="absolute inset-0 rounded-xl bg-green-DEFAULT/10 blur-md opacity-0 transition-opacity group-hover:opacity-100" />
+            <span className="relative text-xs font-orbitron font-black text-green-DEFAULT">OX</span>
           </div>
-          <span className="font-orbitron font-bold text-base tracking-widest text-text group-hover:text-green-DEFAULT transition-colors">
-            OBIXCORE
-          </span>
+          <div>
+            <span className="block font-orbitron text-base font-bold tracking-[0.35em] text-text transition-colors group-hover:text-green-DEFAULT">
+              OBIXCORE
+            </span>
+            <span className="block text-[10px] font-mono tracking-[0.28em] text-text-faint">
+              FPV TUNING PLATFORM
+            </span>
+          </div>
         </Link>
 
-        {/* Nav links */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 rounded-full border border-bg-border/80 bg-bg-surface/70 p-1">
           {navItems.slice(1).map((item) => {
             const active = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`group relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
                   active
-                    ? "bg-green-muted text-green-DEFAULT border border-green-DEFAULT/40"
-                    : "text-text-muted hover:text-text hover:bg-bg-elevated"
+                    ? "bg-green-muted/80 text-green-DEFAULT shadow-[0_0_24px_rgba(0,232,122,0.14)]"
+                    : "text-text-muted hover:bg-bg-elevated/80 hover:text-text"
                 }`}
               >
-                {item.icon(active)}
-                <span>{item.label}</span>
+                <span className={`transition-transform duration-200 ${active ? "scale-110" : "group-hover:scale-105"}`}>
+                  {item.icon(active)}
+                </span>
+                <span className="font-mono text-[13px] tracking-wide">{item.label}</span>
+                {active && <span className="absolute inset-0 rounded-full ring-1 ring-green-DEFAULT/30" />}
               </Link>
             );
           })}
         </div>
 
-        {/* Version badge */}
-        <div className="text-xs font-mono text-text-faint border border-bg-border rounded px-2 py-1">
+        <div className="hud-chip flex items-center gap-2 px-3 py-2 text-[11px] font-mono tracking-[0.22em] text-text-faint">
+          <span className="h-2 w-2 rounded-full bg-green-DEFAULT shadow-[0_0_16px_rgba(0,232,122,0.55)] animate-pulse-green" />
           v0.1.0
         </div>
       </nav>
 
-      {/* ── Mobile bottom nav ───────────────────────────── */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-bg-surface/95 backdrop-blur-md border-t border-bg-border">
-        <div className="flex items-stretch justify-around h-16">
+      {/* Mobile bottom nav */}
+      <nav className="md:hidden fixed bottom-3 left-3 right-3 z-50 hud-card px-2 py-2">
+        <div className="flex items-stretch justify-around gap-1">
           {navItems.map((item) => {
             const active = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex flex-col items-center justify-center gap-1 flex-1 text-[10px] transition-all ${
+                className={`relative flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-2 py-2 text-[10px] transition-all ${
                   active ? "text-green-DEFAULT" : "text-text-muted"
                 }`}
               >
-                <div className={`transition-transform ${active ? "scale-110" : ""}`}>
+                <div className={`relative transition-transform ${active ? "scale-110" : ""}`}>
+                  <span className={`absolute inset-0 rounded-full blur-xl transition-opacity ${active ? "bg-green-DEFAULT/20 opacity-100 animate-glow-pulse" : "opacity-0"}`} />
                   {item.icon(active)}
                 </div>
                 <span className="font-sarabun">{item.labelTh}</span>
-                {active && (
-                  <div className="absolute bottom-0 w-8 h-0.5 bg-green-DEFAULT rounded-full" />
-                )}
+                {active && <span className="absolute bottom-0 left-1/2 h-0.5 w-8 -translate-x-1/2 rounded-full bg-green-DEFAULT" />}
               </Link>
             );
           })}

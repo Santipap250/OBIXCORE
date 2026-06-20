@@ -15,14 +15,14 @@ export default function Badge({ children, variant = "default", value, className 
   } else if (variant === "style" && value) {
     colorClasses = STYLE_COLORS[value] || colorClasses;
   } else if (variant === "outline") {
-    colorClasses = "text-text-muted border-bg-border";
+    colorClasses = "text-text-muted border-bg-border bg-bg-surface";
   }
 
   return (
     <span
       className={`
-        inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-medium
-        border uppercase tracking-wider
+        hud-chip inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-mono font-medium
+        uppercase tracking-[0.22em]
         ${colorClasses} ${className}
       `}
     >
