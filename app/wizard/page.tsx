@@ -145,7 +145,7 @@ export default function WizardPage() {
               label="Prop Size"
               sublabel="ขนาด prop (x10)"
               value={input.propSize}
-              min={20} max={75} step={1} unit="×0.1\""
+              min={20} max={75} step={1} unit={'×0.1"'}
               onChange={(v) => set("propSize", v)}
             />
           </div>
