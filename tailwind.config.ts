@@ -58,9 +58,14 @@ const config: Config = {
       },
       animation: {
         "pulse-green": "pulseGreen 2s ease-in-out infinite",
-        "scan": "scan 3s linear infinite",
+        scan: "scan 3s linear infinite",
         "fade-in": "fadeIn 0.3s ease-out",
         "slide-up": "slideUp 0.3s ease-out",
+        "float-slow": "floatSlow 9s ease-in-out infinite",
+        "float-slower": "floatSlower 14s ease-in-out infinite",
+        "glow-pulse": "glowPulse 3s ease-in-out infinite",
+        "grid-drift": "gridDrift 18s linear infinite",
+        shimmer: "shimmer 2.5s linear infinite",
       },
       keyframes: {
         pulseGreen: {
@@ -78,6 +83,26 @@ const config: Config = {
         slideUp: {
           from: { opacity: "0", transform: "translateY(12px)" },
           to: { opacity: "1", transform: "translateY(0)" },
+        },
+        floatSlow: {
+          "0%, 100%": { transform: "translate3d(0, 0, 0) scale(1)" },
+          "50%": { transform: "translate3d(0, -14px, 0) scale(1.03)" },
+        },
+        floatSlower: {
+          "0%, 100%": { transform: "translate3d(0, 0, 0) scale(1)" },
+          "50%": { transform: "translate3d(0, 12px, 0) scale(0.98)" },
+        },
+        glowPulse: {
+          "0%, 100%": { opacity: "0.85" },
+          "50%": { opacity: "1" },
+        },
+        gridDrift: {
+          "0%": { backgroundPosition: "0 0" },
+          "100%": { backgroundPosition: "40px 40px" },
+        },
+        shimmer: {
+          "0%": { transform: "translateX(-120%)" },
+          "100%": { transform: "translateX(120%)" },
         },
       },
       backgroundImage: {
