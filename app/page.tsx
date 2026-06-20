@@ -65,113 +65,113 @@ const quickStats = [
   { value: "FREE", label: "ฟรีทั้งหมด", color: "text-green-DEFAULT" },
 ];
 
+const highlights = [
+  "HUD neon interface",
+  "Responsive mobile-first design",
+  "Fast copy-ready outputs",
+];
+
 export default function HomePage() {
   return (
-    <div className="max-w-2xl mx-auto px-4">
+    <div className="mx-auto max-w-2xl px-4 py-6">
+      <section className="hud-card overflow-hidden rounded-[1.5rem] p-5 md:p-6">
+        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-green-DEFAULT to-transparent opacity-70" />
+        <div className="absolute -right-12 top-8 h-40 w-40 rounded-full bg-blue-DEFAULT/10 blur-3xl" />
+        <div className="absolute -left-14 bottom-6 h-44 w-44 rounded-full bg-green-DEFAULT/10 blur-3xl" />
 
-      {/* ── Hero ─────────────────────────────────────── */}
-      <div className="pt-8 pb-6 relative">
-        {/* Glow behind title */}
-        <div className="absolute top-8 left-1/2 -translate-x-1/2 w-64 h-24 bg-green-DEFAULT/5 rounded-full blur-3xl pointer-events-none" />
-
-        {/* Logo mark */}
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-lg border border-green-DEFAULT/50 bg-green-muted flex items-center justify-center glow-green">
-            <span className="font-orbitron font-black text-green-DEFAULT text-sm">OX</span>
+        <div className="relative">
+          <div className="mb-4 flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-green-DEFAULT/40 bg-green-muted/60 shadow-[0_0_30px_rgba(0,232,122,0.15)]">
+              <span className="font-orbitron text-sm font-black tracking-[0.2em] text-green-DEFAULT">OX</span>
+            </div>
+            <div>
+              <h1 className="font-orbitron text-2xl font-black tracking-[0.35em] text-text">
+                OBIXCORE
+              </h1>
+              <p className="mt-1 text-[11px] font-mono tracking-[0.3em] text-green-DEFAULT">
+                FPV TUNING PLATFORM
+              </p>
+            </div>
           </div>
-          <div>
-            <h1 className="font-orbitron font-black text-xl tracking-widest text-text leading-none">
-              OBIXCORE
-            </h1>
-            <p className="text-[11px] font-mono text-green-DEFAULT tracking-widest mt-0.5">
-              FPV TUNING PLATFORM
-            </p>
+
+          <p className="max-w-xl text-[15px] leading-relaxed text-text-muted">
+            เครื่องมือจูนโดรน FPV ที่ใช้งานได้จริง — ตั้งค่า, วิเคราะห์, คำนวณ และ copy ค่าพร้อมใช้ได้ในที่เดียว
+          </p>
+
+          <div className="mt-5 flex flex-wrap gap-2">
+            {highlights.map((item) => (
+              <span key={item} className="hud-chip px-3 py-1 text-[10px] font-mono tracking-[0.22em] text-text-muted">
+                {item}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {quickStats.map((s) => (
+              <div key={s.label} className="hud-panel rounded-2xl p-3 text-center">
+                <div className={`font-orbitron text-xl font-bold ${s.color}`}>{s.value}</div>
+                <div className="mt-1 text-[11px] text-text-muted">{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6">
+            <Link
+              href="/wizard"
+              className="group flex items-center justify-between rounded-2xl border border-green-DEFAULT/40 bg-green-muted/20 px-4 py-4 transition-all hover:border-green-DEFAULT hover:bg-green-muted/35 hover:shadow-[0_0_28px_rgba(0,232,122,0.12)] active:scale-[0.99]"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-green-DEFAULT text-bg-DEFAULT shadow-[0_0_24px_rgba(0,232,122,0.25)]">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M13 2L4 14h7l-1 8 10-14h-7l1-6z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="font-orbitron text-sm font-bold tracking-[0.28em] text-text">
+                    START WIZARD
+                  </div>
+                  <div className="mt-1 text-sm text-text-muted">
+                    เปิดหน้า Tuning Wizard เพื่อเริ่มคำนวณค่า PID / Filter / Rates
+                  </div>
+                </div>
+              </div>
+              <svg className="h-5 w-5 text-green-DEFAULT transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M13 5l7 7-7 7"/>
+              </svg>
+            </Link>
           </div>
         </div>
+      </section>
 
-        <p className="text-text-muted font-sarabun text-[15px] leading-relaxed max-w-md">
-          เครื่องมือจูนโดรน FPV ที่<span className="text-text">ใช้งานได้จริง</span> ไม่ใช่แค่บทความ —
-          กรอกสเปค, เลือกอาการ, คำนวณ, copy ค่าไปใช้ได้เลย
-        </p>
-
-        {/* Quick stats */}
-        <div className="flex gap-4 mt-5 flex-wrap">
-          {quickStats.map((s) => (
-            <div key={s.label} className="flex items-baseline gap-1.5">
-              <span className={`font-orbitron font-bold text-lg ${s.color}`}>{s.value}</span>
-              <span className="text-xs text-text-muted font-sarabun">{s.label}</span>
-            </div>
-          ))}
+      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+        <div className="hud-panel rounded-2xl p-4">
+          <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-text-faint">System</div>
+          <div className="mt-2 flex items-center gap-2 text-sm text-text">
+            <span className="h-2.5 w-2.5 rounded-full bg-green-DEFAULT shadow-[0_0_18px_rgba(0,232,122,0.5)] animate-pulse-green" />
+            Online & ready
+          </div>
+        </div>
+        <div className="hud-panel rounded-2xl p-4">
+          <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-text-faint">Theme</div>
+          <div className="mt-2 text-sm text-text">Dark Neon HUD</div>
+        </div>
+        <div className="hud-panel rounded-2xl p-4">
+          <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-text-faint">Mode</div>
+          <div className="mt-2 text-sm text-text">Mobile + Desktop</div>
         </div>
       </div>
 
-      {/* ── Quick action CTA ──────────────────────────── */}
-      <Link
-        href="/wizard"
-        className="flex items-center justify-between w-full p-4 rounded-xl bg-green-muted border border-green-DEFAULT/40 hover:border-green-DEFAULT hover:bg-green-muted/80 transition-all group mb-6 active:scale-99"
-      >
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-green-DEFAULT flex items-center justify-center flex-shrink-0">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0a0c10" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-            </svg>
-          </div>
-          <div>
-            <p className="text-sm font-orbitron font-semibold text-green-DEFAULT">เริ่มจูนโดรนเดี๋ยวนี้</p>
-            <p className="text-xs text-green-dim font-sarabun mt-0.5">กรอกสเปค → ได้ค่า PID พร้อมใช้ใน 30 วินาที</p>
-          </div>
+      <section className="mt-6">
+        <div className="mb-3 flex items-center gap-3">
+          <h2 className="font-orbitron text-xs font-bold uppercase tracking-[0.35em] text-text-muted">Core Modules</h2>
+          <div className="hud-accent-line flex-1" />
         </div>
-        <svg className="w-5 h-5 text-green-DEFAULT group-hover:translate-x-1 transition-transform flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </Link>
-
-      {/* ── Tools grid ────────────────────────────────── */}
-      <section>
-        <div className="flex items-center gap-3 mb-3">
-          <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">เครื่องมือทั้งหมด</h2>
-          <div className="flex-1 h-px bg-bg-border" />
-        </div>
-        <div className="flex flex-col gap-3">
+        <div className="grid gap-3">
           {tools.map((tool) => (
             <ToolCard key={tool.href} {...tool} />
           ))}
         </div>
       </section>
-
-      {/* ── Coming soon ───────────────────────────────── */}
-      <section className="mt-6 mb-4">
-        <div className="flex items-center gap-3 mb-3">
-          <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">กำลังจะมา</h2>
-          <div className="flex-1 h-px bg-bg-border" />
-        </div>
-        <div className="grid grid-cols-3 gap-2">
-          {[
-            { label: "Trick Library", icon: "🎯" },
-            { label: "Parts Match", icon: "🔧" },
-            { label: "Drone Profile", icon: "👤" },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="p-3 rounded-xl border border-bg-border bg-bg-surface text-center opacity-50"
-            >
-              <div className="text-xl mb-1">{item.icon}</div>
-              <p className="text-[11px] font-sarabun text-text-muted">{item.label}</p>
-              <p className="text-[9px] font-mono text-text-faint mt-0.5">Phase 2</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Footer note ───────────────────────────────── */}
-      <div className="py-6 text-center">
-        <p className="text-[11px] font-mono text-text-faint">
-          OBIXCORE v0.1.0 — Built for FPV Pilots
-        </p>
-        <p className="text-[11px] font-sarabun text-text-faint mt-1">
-          ข้อมูลเป็นค่าเริ่มต้นแนะนำ ควร fine-tune ตามโดรนจริงของคุณ
-        </p>
-      </div>
     </div>
   );
 }

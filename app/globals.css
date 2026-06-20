@@ -48,11 +48,12 @@ body {
   background-size: 40px 40px;
 }
 
-/* Scan line effect */
+/* Scanline effect */
 .scanline {
   position: relative;
   overflow: hidden;
 }
+
 .scanline::after {
   content: '';
   position: absolute;
@@ -66,6 +67,83 @@ body {
   );
   pointer-events: none;
   z-index: 1;
+}
+
+/* HUD layers */
+.hud-noise {
+  background-image: radial-gradient(rgba(255,255,255,0.07) 0.7px, transparent 0.7px);
+  background-size: 3px 3px;
+  opacity: 0.10;
+  mix-blend-mode: screen;
+}
+
+.scanline-overlay {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 232, 122, 0.025) 50%,
+    transparent 100%
+  );
+  background-size: 100% 10px;
+  opacity: 0.18;
+  animation: scanlineDrift 14s linear infinite;
+}
+
+.hud-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(30, 42, 56, 0.95);
+  background: linear-gradient(180deg, rgba(15, 19, 24, 0.96), rgba(10, 12, 16, 0.90));
+  box-shadow:
+    0 18px 60px rgba(0, 0, 0, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(18px);
+}
+
+.hud-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(0, 232, 122, 0.08), transparent 34%),
+    linear-gradient(225deg, rgba(0, 170, 255, 0.06), transparent 40%);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.hud-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(0,232,122,0.10), transparent);
+  transform: translateX(-120%);
+  animation: shimmerSweep 8s linear infinite;
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.hud-chip {
+  border-radius: 9999px;
+  border: 1px solid rgba(30, 42, 56, 0.95);
+  background: rgba(20, 26, 34, 0.90);
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.hud-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(30, 42, 56, 0.95);
+  background: linear-gradient(180deg, rgba(15, 19, 24, 0.96), rgba(10, 12, 16, 0.90));
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(16px);
+}
+
+.hud-accent-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,232,122,0.7), transparent);
 }
 
 /* Glow utilities */
@@ -93,4 +171,24 @@ pre {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.8rem;
   line-height: 1.7;
+}
+
+@keyframes shimmerSweep {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
+@keyframes scanlineDrift {
+  0% { background-position: 0 -20px; }
+  100% { background-position: 0 20px; }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -14px, 0) scale(1.03); }
+}
+
+@keyframes floatSlower {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, 12px, 0) scale(0.98); }
 }
