@@ -69,7 +69,7 @@ function FlightTimeCalc() {
         <NumberInput label="Motor KV" sublabel="KV rating" value={motorKV} min={1000} max={4000} step={50} unit="KV" onChange={setMotorKV} />
         <NumberInput label="Motors" sublabel="จำนวนมอเตอร์" value={motorCount} min={1} max={8} step={1} unit="pcs" onChange={setMotorCount} />
       </div>
-      <NumberInput label="Prop Size" sublabel="ขนาด prop (x10)" value={propSize} min={20} max={75} step={1} unit="×0.1\"" onChange={setPropSize} />
+      <NumberInput label="Prop Size" sublabel="ขนาด prop (x10)" value={propSize} min={20} max={75} step={1} unit={'×0.1"'} onChange={setPropSize} />
 
       <SectionLabel>ผลลัพธ์โดยประมาณ</SectionLabel>
 
