@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { copyToClipboard } from "@/lib/utils";
 
 interface CopyButtonProps {
@@ -18,11 +18,24 @@ export default function CopyButton({
   className = "",
 }: CopyButtonProps) {
   const [status, setStatus] = useState<"idle" | "copied" | "error">("idle");
+  const timerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current !== null) {
+        window.clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
 
   const handleCopy = async () => {
     const success = await copyToClipboard(text);
     setStatus(success ? "copied" : "error");
-    setTimeout(() => setStatus("idle"), 2000);
+
+    if (timerRef.current !== null) {
+      window.clearTimeout(timerRef.current);
+    }
+    timerRef.current = window.setTimeout(() => setStatus("idle"), 2000);
   };
 
   const sizeClasses = {
