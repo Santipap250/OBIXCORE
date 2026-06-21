@@ -32,9 +32,9 @@ export default function CopyButton({
   };
 
   const variantClasses = {
-    default: "bg-green-DEFAULT text-bg-DEFAULT font-semibold hover:bg-green-dim",
-    outline: "border border-green-DEFAULT/35 text-green-DEFAULT hover:bg-green-muted/55 hover:border-green-DEFAULT",
-    ghost: "text-text-muted hover:text-green-DEFAULT hover:bg-bg-elevated",
+    default: "bg-gradient-to-r from-green-DEFAULT to-cyan-DEFAULT text-bg-DEFAULT font-semibold hover:opacity-90",
+    outline: "border border-green-DEFAULT/40 text-green-DEFAULT hover:bg-green-muted/70 hover:border-green-DEFAULT",
+    ghost: "text-text-muted hover:text-green-DEFAULT hover:bg-bg-elevated/80",
   };
 
   const statusConfig = {
@@ -55,7 +55,7 @@ export default function CopyButton({
         </svg>
       ),
       text: "Copied!",
-      classes: "border border-green-DEFAULT bg-green-muted/55 text-green-DEFAULT",
+      classes: "border border-green-DEFAULT bg-green-muted/70 text-green-DEFAULT shadow-[0_0_18px_rgba(0,232,122,0.15)]",
     },
     error: {
       icon: (
@@ -76,7 +76,7 @@ export default function CopyButton({
     <button
       onClick={handleCopy}
       className={`
-        inline-flex items-center rounded-lg border font-mono select-none transition-colors
+        hud-chip inline-flex items-center rounded-lg font-mono transition-all select-none
         active:scale-95
         ${sizeClasses[size]}
         ${current.classes}

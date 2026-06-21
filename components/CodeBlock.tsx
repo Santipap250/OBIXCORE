@@ -11,8 +11,8 @@ export default function CodeBlock({ lines, title, maxHeight = "320px" }: CodeBlo
   const text = lines.join("\n");
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-bg-border bg-bg-surface/92 shadow-[0_10px_24px_rgba(0,0,0,0.18)]">
-      <div className="flex items-center justify-between border-b border-bg-border/80 bg-bg-surface/95 px-4 py-2.5">
+    <div className="hud-card overflow-hidden rounded-2xl border border-bg-border">
+      <div className="flex items-center justify-between border-b border-bg-border/80 bg-bg-surface/70 px-4 py-2.5 backdrop-blur-md">
         <div className="flex items-center gap-2">
           <div className="h-3 w-3 rounded-full bg-red-muted border border-red-DEFAULT/30" />
           <div className="h-3 w-3 rounded-full bg-amber-muted border border-amber-DEFAULT/30" />
@@ -24,7 +24,7 @@ export default function CodeBlock({ lines, title, maxHeight = "320px" }: CodeBlo
         <CopyButton text={text} label="Copy All" size="sm" />
       </div>
 
-      <div className="overflow-y-auto bg-bg-surface/95" style={{ maxHeight }}>
+      <div className="overflow-y-auto bg-bg-surface/90" style={{ maxHeight }}>
         <pre className="p-4 text-xs leading-relaxed">
           {lines.map((line, i) => (
             <div key={i} className="flex">

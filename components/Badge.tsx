@@ -21,7 +21,7 @@ export default function Badge({ children, variant = "default", value, className 
   return (
     <span
       className={`
-        inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-mono font-medium bg-bg-surface/90
+        hud-chip inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-mono font-medium
         uppercase tracking-[0.22em]
         ${colorClasses} ${className}
       `}
