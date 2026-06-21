@@ -45,6 +45,16 @@ const config: Config = {
           dim: "#cc2040",
           muted: "#400010",
         },
+        orange: {
+          DEFAULT: "#ff8a3d",
+          dim: "#cc6e2f",
+          muted: "#3d1d00",
+        },
+        pink: {
+          DEFAULT: "#ff5fb7",
+          dim: "#cc4790",
+          muted: "#3b1030",
+        },
         text: {
           DEFAULT: "#e0e8f0",
           muted: "#6b7a90",
@@ -64,7 +74,6 @@ const config: Config = {
         "float-slow": "floatSlow 9s ease-in-out infinite",
         "float-slower": "floatSlower 14s ease-in-out infinite",
         "glow-pulse": "glowPulse 3s ease-in-out infinite",
-        "grid-drift": "gridDrift 18s linear infinite",
         shimmer: "shimmer 2.5s linear infinite",
       },
       keyframes: {
@@ -84,6 +93,14 @@ const config: Config = {
           from: { opacity: "0", transform: "translateY(12px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
+        glowPulse: {
+          "0%, 100%": { opacity: "0.75" },
+          "50%": { opacity: "1" },
+        },
+        shimmer: {
+          "0%": { transform: "translateX(-120%)" },
+          "100%": { transform: "translateX(120%)" },
+        },
         floatSlow: {
           "0%, 100%": { transform: "translate3d(0, 0, 0) scale(1)" },
           "50%": { transform: "translate3d(0, -14px, 0) scale(1.03)" },
@@ -92,18 +109,6 @@ const config: Config = {
           "0%, 100%": { transform: "translate3d(0, 0, 0) scale(1)" },
           "50%": { transform: "translate3d(0, 12px, 0) scale(0.98)" },
         },
-        glowPulse: {
-          "0%, 100%": { opacity: "0.85" },
-          "50%": { opacity: "1" },
-        },
-        gridDrift: {
-          "0%": { backgroundPosition: "0 0" },
-          "100%": { backgroundPosition: "40px 40px" },
-        },
-        shimmer: {
-          "0%": { transform: "translateX(-120%)" },
-          "100%": { transform: "translateX(120%)" },
-        },
       },
       backgroundImage: {
         "grid-pattern":
@@ -111,7 +116,7 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
       backgroundSize: {
-        "grid": "40px 40px",
+        grid: "40px 40px",
       },
     },
   },
