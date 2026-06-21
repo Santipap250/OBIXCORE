@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import problemsData from "@/data/problems.json";
 import type { Problem } from "@/types";
 import CopyButton from "@/components/CopyButton";
@@ -26,9 +26,9 @@ export default function ProblemsPage() {
   const [selected, setSelected] = useState<Problem | null>(null);
   const [openSteps, setOpenSteps] = useState<Set<number>>(new Set([0]));
 
-  const filtered = category === "all"
+  const filtered = useMemo(() => (category === "all"
     ? problems
-    : problems.filter((p) => p.category === category);
+    : problems.filter((p) => p.category === category)), [category]);
 
   const selectProblem = (p: Problem) => {
     setSelected(p);
