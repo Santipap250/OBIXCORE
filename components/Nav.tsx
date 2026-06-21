@@ -72,11 +72,10 @@ export default function Nav() {
 
   return (
     <>
-      {/* Desktop top nav */}
       <nav className="hidden md:flex fixed top-4 left-1/2 z-50 w-[min(1120px,calc(100%-1.5rem))] -translate-x-1/2 items-center justify-between rounded-2xl hud-card px-4 py-3">
         <Link href="/" className="group flex items-center gap-3">
-          <div className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-green-DEFAULT/60 bg-green-muted/40 transition-all group-hover:border-green-DEFAULT group-hover:shadow-[0_0_24px_rgba(0,232,122,0.22)]">
-            <div className="absolute inset-0 rounded-xl bg-green-DEFAULT/10 blur-md opacity-0 transition-opacity group-hover:opacity-100" />
+          <div className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-green-DEFAULT/60 bg-green-muted/40 transition-all duration-300 group-hover:border-green-DEFAULT group-hover:shadow-[0_0_28px_rgba(0,232,122,0.22)]">
+            <div className="absolute inset-0 rounded-xl bg-green-DEFAULT/10 blur-md opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             <span className="relative text-xs font-orbitron font-black text-green-DEFAULT">OX</span>
           </div>
           <div>
@@ -89,20 +88,16 @@ export default function Nav() {
           </div>
         </Link>
 
-        <div className="flex items-center gap-1 rounded-full border border-bg-border/80 bg-bg-surface/70 p-1">
+        <div className="flex items-center gap-1 rounded-full border border-bg-border/80 bg-bg-surface/70 p-1 backdrop-blur-xl">
           {navItems.slice(1).map((item) => {
             const active = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`group relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
-                  active
-                    ? "bg-green-muted/80 text-green-DEFAULT shadow-[0_0_24px_rgba(0,232,122,0.14)]"
-                    : "text-text-muted hover:bg-bg-elevated/80 hover:text-text"
-                }`}
+                className={`relative flex items-center gap-2 overflow-hidden rounded-full px-4 py-2 text-sm transition-all duration-300 ${active ? "bg-green-muted/80 text-green-DEFAULT shadow-[0_0_24px_rgba(0,232,122,0.14)]" : "text-text-muted hover:bg-bg-elevated/80 hover:text-text"}`}
               >
-                <span className={`transition-transform duration-200 ${active ? "scale-110" : "group-hover:scale-105"}`}>
+                <span className={`transition-transform duration-300 ${active ? "scale-110" : "group-hover:scale-105"}`}>
                   {item.icon(active)}
                 </span>
                 <span className="font-mono text-[13px] tracking-wide">{item.label}</span>
@@ -118,7 +113,6 @@ export default function Nav() {
         </div>
       </nav>
 
-      {/* Mobile bottom nav */}
       <nav className="md:hidden fixed bottom-3 left-3 right-3 z-50 hud-card px-2 py-2">
         <div className="flex items-stretch justify-around gap-1">
           {navItems.map((item) => {
@@ -127,16 +121,14 @@ export default function Nav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-2 py-2 text-[10px] transition-all ${
-                  active ? "text-green-DEFAULT" : "text-text-muted"
-                }`}
+                className={`relative flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-2 py-2 text-[10px] transition-all duration-300 ${active ? "text-green-DEFAULT" : "text-text-muted"}`}
               >
-                <div className={`relative transition-transform ${active ? "scale-110" : ""}`}>
-                  <span className={`absolute inset-0 rounded-full blur-xl transition-opacity ${active ? "bg-green-DEFAULT/20 opacity-100 animate-glow-pulse" : "opacity-0"}`} />
+                <div className={`relative transition-transform duration-300 ${active ? "scale-110" : ""}`}>
+                  <span className={`absolute inset-0 rounded-full blur-xl transition-opacity duration-300 ${active ? "bg-green-DEFAULT/20 opacity-100 animate-glow-pulse" : "opacity-0"}`} />
                   {item.icon(active)}
                 </div>
                 <span className="font-sarabun">{item.labelTh}</span>
-                {active && <span className="absolute bottom-0 left-1/2 h-0.5 w-8 -translate-x-1/2 rounded-full bg-green-DEFAULT" />}
+                {active && <span className="absolute bottom-0 left-1/2 h-0.5 w-8 -translate-x-1/2 rounded-full bg-green-DEFAULT shadow-[0_0_14px_rgba(0,232,122,0.55)]" />}
               </Link>
             );
           })}

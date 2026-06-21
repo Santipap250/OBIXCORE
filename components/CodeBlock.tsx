@@ -11,12 +11,12 @@ export default function CodeBlock({ lines, title, maxHeight = "320px" }: CodeBlo
   const text = lines.join("\n");
 
   return (
-    <div className="hud-card overflow-hidden rounded-2xl border border-bg-border">
-      <div className="flex items-center justify-between border-b border-bg-border/80 bg-bg-surface/70 px-4 py-2.5 backdrop-blur-md">
+    <div className="hud-card overflow-hidden rounded-2xl border border-bg-border/80 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+      <div className="flex items-center justify-between border-b border-bg-border/80 bg-bg-surface/80 px-4 py-2.5 backdrop-blur-md">
         <div className="flex items-center gap-2">
-          <div className="h-3 w-3 rounded-full bg-red-muted border border-red-DEFAULT/30" />
-          <div className="h-3 w-3 rounded-full bg-amber-muted border border-amber-DEFAULT/30" />
-          <div className="h-3 w-3 rounded-full bg-green-muted border border-green-DEFAULT/30" />
+          <div className="h-3 w-3 rounded-full bg-red-muted border border-red-DEFAULT/30 shadow-[0_0_12px_rgba(255,64,96,0.18)]" />
+          <div className="h-3 w-3 rounded-full bg-amber-muted border border-amber-DEFAULT/30 shadow-[0_0_12px_rgba(255,187,0,0.18)]" />
+          <div className="h-3 w-3 rounded-full bg-green-muted border border-green-DEFAULT/30 shadow-[0_0_12px_rgba(0,232,122,0.18)]" />
           {title && (
             <span className="ml-2 text-xs font-mono text-text-muted">{title}</span>
           )}

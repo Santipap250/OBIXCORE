@@ -55,7 +55,7 @@ export default function CopyButton({
         </svg>
       ),
       text: "Copied!",
-      classes: "border border-green-DEFAULT bg-green-muted/70 text-green-DEFAULT shadow-[0_0_18px_rgba(0,232,122,0.15)]",
+      classes: "border border-green-DEFAULT bg-green-muted/70 text-green-DEFAULT shadow-[0_0_18px_rgba(0,232,122,0.2)]",
     },
     error: {
       icon: (
@@ -76,15 +76,13 @@ export default function CopyButton({
     <button
       onClick={handleCopy}
       className={`
-        hud-chip inline-flex items-center font-mono rounded-lg transition-all select-none
-        active:scale-95
-        ${sizeClasses[size]}
-        ${current.classes}
-        ${className}
+        hud-chip inline-flex items-center rounded-full transition-all duration-300
+        hover:-translate-y-0.5 active:scale-95
+        ${sizeClasses[size]} ${current.classes} ${className}
       `}
     >
       {current.icon}
-      <span>{current.text}</span>
+      <span className="font-mono tracking-wide">{current.text}</span>
     </button>
   );
 }

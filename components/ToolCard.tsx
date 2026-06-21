@@ -33,21 +33,24 @@ export default function ToolCard({
     <Link
       href={href}
       className={`
-        hud-card group block p-5
-        transition-all duration-300 active:scale-[0.99]
+        hud-card group relative block overflow-hidden p-5
+        transition-all duration-300 ease-out active:scale-[0.99]
+        hover:-translate-y-1.5 hover:shadow-[0_22px_70px_rgba(0,0,0,0.52)]
         ${a.border} ${a.hover}
       `}
     >
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-current to-transparent opacity-15" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent opacity-20" />
+      <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-white/6 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       <div className="flex items-start gap-4">
-        <div className={`relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl border ${a.icon}`}>
-          <div className="absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_60%)]" />
-          {icon}
+        <div className={`relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl border backdrop-blur-xl transition-all duration-300 group-hover:scale-105 group-hover:rotate-3 ${a.icon}`}>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_transparent_60%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),transparent_35%,rgba(255,255,255,0.02))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+          <span className="relative">{icon}</span>
         </div>
 
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">
-            <h3 className="font-orbitron text-sm font-semibold tracking-wide text-text transition-colors group-hover:text-inherit">
+            <h3 className="font-orbitron text-sm font-semibold tracking-wide text-text transition-colors group-hover:text-white">
               {title}
             </h3>
             {badge && (
@@ -65,7 +68,7 @@ export default function ToolCard({
         </div>
 
         <svg
-          className="mt-1 h-4 w-4 flex-shrink-0 text-text-faint transition-all group-hover:translate-x-1 group-hover:text-text-muted"
+          className="mt-1 h-4 w-4 flex-shrink-0 text-text-faint transition-all duration-300 group-hover:translate-x-1 group-hover:text-text-muted"
           viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
         >
           <path d="M9 18l6-6-6-6"/>
