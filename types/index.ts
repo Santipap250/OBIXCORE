@@ -83,6 +83,9 @@ export interface WizardResult {
   cliCommands: string[];
   warnings: string[];
   tips: string[];
+  confidence: number;
+  setupClass: "micro" | "small" | "mid" | "standard" | "long-range";
+  summary: string;
 }
 
 export interface CalculatorResult {
