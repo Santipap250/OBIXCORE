@@ -81,7 +81,7 @@ function FlightTimeCalc() {
 
       <div className="p-3 rounded-xl bg-bg-elevated border border-bg-border">
         <div className="flex justify-between text-xs font-mono mb-2">
-          <span className="text-text-faint">เวลาบินโดยประมาณ (~80% capacity)</span>
+          <span className="text-text-faint">เวลาบินโดยประมาณ (~78% capacity)</span>
           <span className={`font-semibold ${ratingColor === "green" ? "text-green-DEFAULT" : ratingColor === "amber" ? "text-amber-DEFAULT" : "text-red-DEFAULT"}`}>
             {flightMin >= 5 ? "✓ ดี" : flightMin >= 3 ? "~ พอใช้" : "✗ สั้น"}
           </span>
@@ -94,7 +94,7 @@ function FlightTimeCalc() {
           />
         </div>
         <p className="text-[10px] text-text-faint font-sarabun mt-2">
-          * ประมาณการจาก average throttle ~65% — เวลาบินจริงขึ้นอยู่กับสไตล์การบิน
+          * ประมาณการจาก prop / KV / cell ที่กรอก — เวลาบินจริงขึ้นอยู่กับน้ำหนัก, prop pitch และสไตล์การบิน
         </p>
       </div>
     </div>
@@ -164,41 +164,41 @@ function PropMatcherCalc() {
   const [motorKV, setMotorKV] = useState(2306);
   const [batteryS, setBatteryS] = useState(4);
 
-  // Simple prop suggestion logic
   const voltage = batteryS * 3.7;
   const rpm = motorKV * voltage;
+  const propPowerBias = (motorKV / 2306) * (batteryS / 4);
 
   type PropRec = { size: string; pitch: string; notes: string };
-  
+
   let suggestions: PropRec[] = [];
 
   if (frameSize <= 100) {
     suggestions = [
       { size: "2.5\"", pitch: "2-blade", notes: "เบา ประหยัดพลังงาน" },
-      { size: "3\"",   pitch: "3-blade", notes: "thrust ดีขึ้น แต่หนักขึ้น" },
+      { size: "3\"",   pitch: "3-blade", notes: propPowerBias > 1 ? "พอมีแรง แต่ควรเช็กอุณหภูมิ" : "บาลานซ์ดีสำหรับเฟรมเล็ก" },
     ];
   } else if (frameSize <= 160) {
     suggestions = [
-      { size: "3\"",   pitch: "3-blade", notes: "มาตรฐาน 3 inch" },
-      { size: "3.5\"", pitch: "2-blade", notes: "flight time ดีกว่า" },
+      { size: "3\"",   pitch: propPowerBias > 1.05 ? "3-blade" : "2-blade", notes: "มาตรฐาน 3 inch" },
+      { size: "3.5\"", pitch: "2-blade", notes: propPowerBias > 1 ? "เร่งดีขึ้น แต่กินไฟมากขึ้น" : "flight time ดีขึ้น" },
     ];
   } else if (frameSize <= 240) {
     if (batteryS <= 4) {
       suggestions = [
-        { size: "5.1\"", pitch: "3-blade HQ5.1", notes: "freestyle ยอดนิยม" },
-        { size: "5.1\"", pitch: "2-blade",        notes: "flight time ดีกว่า" },
-        { size: "4.8\"", pitch: "3-blade",        notes: "lighter thrust" },
+        { size: "5.1\"", pitch: propPowerBias > 1.1 ? "3-blade low pitch" : "3-blade", notes: "freestyle ยอดนิยม" },
+        { size: "5.1\"", pitch: "2-blade", notes: "flight time ดีกว่า" },
+        { size: "4.8\"", pitch: "3-blade", notes: "เบาและคุมกระแสดี" },
       ];
     } else {
       suggestions = [
-        { size: "5.1\"", pitch: "3-blade",        notes: "6S มาตรฐาน" },
-        { size: "4.5\"", pitch: "3-blade",        notes: "ลด current draw" },
+        { size: "5.1\"", pitch: propPowerBias > 1.15 ? "2-blade / low pitch" : "3-blade", notes: "6S มาตรฐาน" },
+        { size: "4.5\"", pitch: "3-blade", notes: "ลด current draw" },
       ];
     }
   } else {
     suggestions = [
-      { size: "7\"",  pitch: "3-blade", notes: "7 inch มาตรฐาน" },
-      { size: "6.5\"", pitch: "2-blade", notes: "efficiency สูงกว่า" },
+      { size: "7\"",  pitch: "2-blade", notes: "ประหยัดและนิ่งกว่า" },
+      { size: "6.5\"", pitch: "3-blade", notes: propPowerBias > 1.1 ? "แรงขึ้น แต่กินไฟมากขึ้น" : "efficiency สูงกว่า" },
     ];
   }
 
@@ -252,7 +252,7 @@ export default function CalculatorPage() {
           <h1 className="font-orbitron font-bold text-lg text-text tracking-wide">Calculator</h1>
         </div>
         <p className="text-sm text-text-muted font-sarabun ml-3.5">
-          คำนวณ flight time, thrust/weight ratio, และ prop matching
+          คำนวณ flight time, thrust/weight, และ prop matching
         </p>
       </div>
 
