@@ -22,7 +22,7 @@ const STYLE_CONFIG: Record<string, { label: string; color: string }> = {
 const DIFF_CONFIG: Record<string, { label: string; color: string }> = {
   beginner:     { label: "มือใหม่",   color: "text-green-DEFAULT"  },
   intermediate: { label: "กลาง",     color: "text-amber-DEFAULT"  },
-  advanced:     { label: "เก่า",     color: "text-red-DEFAULT"    },
+  advanced:     { label: "ขั้นสูง", color: "text-red-DEFAULT"    },
 };
 
 export default function PresetsPage() {
