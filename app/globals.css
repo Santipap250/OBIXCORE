@@ -29,8 +29,8 @@ body {
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #0f1318; }
-::-webkit-scrollbar-thumb { background: #1e2a38; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #00e87a40; }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #00e87a, #00aaff); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #00ffa2, #69c8ff); }
 
 /* Selection */
 ::selection { background: #00e87a30; color: #00e87a; }
@@ -41,11 +41,12 @@ body {
   outline-offset: 2px;
 }
 
-/* Grid bg utility */
+/* Grid background */
 .bg-grid {
   background-image: linear-gradient(rgba(0,232,122,0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0,232,122,0.03) 1px, transparent 1px);
   background-size: 40px 40px;
+  animation: gridDrift 28s linear infinite;
 }
 
 /* Scanline effect */
@@ -57,13 +58,13 @@ body {
 .scanline::after {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;
   background: repeating-linear-gradient(
     0deg,
     transparent,
     transparent 2px,
-    rgba(0,232,122,0.01) 2px,
-    rgba(0,232,122,0.01) 4px
+    rgba(0,232,122,0.015) 2px,
+    rgba(0,232,122,0.015) 4px
   );
   pointer-events: none;
   z-index: 1;
@@ -71,9 +72,9 @@ body {
 
 /* HUD layers */
 .hud-noise {
-  background-image: radial-gradient(rgba(255,255,255,0.07) 0.7px, transparent 0.7px);
+  background-image: radial-gradient(rgba(255,255,255,0.08) 0.8px, transparent 0.8px);
   background-size: 3px 3px;
-  opacity: 0.10;
+  opacity: 0.08;
   mix-blend-mode: screen;
 }
 
@@ -81,24 +82,27 @@ body {
   background: linear-gradient(
     180deg,
     transparent 0%,
-    rgba(0, 232, 122, 0.018) 50%,
+    rgba(0, 232, 122, 0.022) 50%,
     transparent 100%
   );
   background-size: 100% 12px;
-  opacity: 0.06;
-  animation: none;
+  opacity: 0.08;
+  animation: scanlineDrift 16s linear infinite;
 }
 
 .hud-card {
   position: relative;
   overflow: hidden;
-  border-radius: 1.25rem;
-  border: 1px solid rgba(30, 42, 56, 0.90);
-  background: linear-gradient(180deg, rgba(15, 19, 24, 0.96), rgba(10, 12, 16, 0.92));
+  border-radius: 1.5rem;
+  border: 1px solid rgba(30, 42, 56, 0.9);
+  background:
+    linear-gradient(180deg, rgba(15, 19, 24, 0.96), rgba(10, 12, 16, 0.92)),
+    radial-gradient(circle at top left, rgba(0,232,122,0.08), transparent 28%),
+    radial-gradient(circle at top right, rgba(0,170,255,0.07), transparent 26%);
   box-shadow:
     0 12px 36px rgba(0, 0, 0, 0.28),
     inset 0 1px 0 rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
 }
 
 .hud-card::before {
@@ -106,37 +110,74 @@ body {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(135deg, rgba(0, 232, 122, 0.05), transparent 34%),
-    linear-gradient(225deg, rgba(0, 170, 255, 0.04), transparent 40%);
-  opacity: 0.35;
+    linear-gradient(135deg, rgba(0, 232, 122, 0.06), transparent 34%),
+    linear-gradient(225deg, rgba(0, 170, 255, 0.05), transparent 40%),
+    linear-gradient(315deg, rgba(176, 96, 255, 0.04), transparent 34%);
+  opacity: 0.7;
   pointer-events: none;
 }
 
 .hud-card::after {
-  content: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  transform: translateX(-120%);
+  animation: shimmerSweep 10s linear infinite;
+  pointer-events: none;
+  opacity: 0.18;
 }
 
 .hud-chip {
   border-radius: 9999px;
-  border: 1px solid rgba(30, 42, 56, 0.90);
+  border: 1px solid rgba(30, 42, 56, 0.95);
   background: rgba(20, 26, 34, 0.88);
-  backdrop-filter: blur(4px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .hud-panel {
   position: relative;
   overflow: hidden;
   border-radius: 1.25rem;
-  border: 1px solid rgba(30, 42, 56, 0.90);
-  background: linear-gradient(180deg, rgba(15, 19, 24, 0.96), rgba(10, 12, 16, 0.92));
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
-  backdrop-filter: blur(4px);
+  border: 1px solid rgba(30, 42, 56, 0.95);
+  background: linear-gradient(180deg, rgba(15, 19, 24, 0.96), rgba(10, 12, 16, 0.90));
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
 }
 
 .hud-accent-line {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0,232,122,0.7), transparent);
+  background: linear-gradient(90deg, transparent, rgba(0,232,122,0.75), rgba(0,170,255,0.65), rgba(176,96,255,0.55), transparent);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #00e87a, #00d8ff 35%, #b060ff 68%, #ffbb00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.color-strip {
+  background: linear-gradient(90deg, #00e87a, #00aaff 33%, #b060ff 66%, #ffbb00);
+}
+
+.page-shell {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-title__line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(0,232,122,0.45), rgba(0,170,255,0.45), rgba(176,96,255,0.35), rgba(255,255,255,0.02));
 }
 
 /* Glow utilities */
@@ -144,7 +185,6 @@ body {
 .glow-amber { box-shadow: 0 0 20px rgba(255,187,0,0.2); }
 .glow-blue  { box-shadow: 0 0 20px rgba(0,170,255,0.2); }
 
-/* Neon border */
 .border-neon-green { border-color: #00e87a; box-shadow: 0 0 8px rgba(0,232,122,0.3); }
 
 @layer utilities {
@@ -153,22 +193,29 @@ body {
   .font-sarabun { font-family: 'Sarabun', sans-serif; }
 }
 
-/* Mobile tap highlight */
 * { -webkit-tap-highlight-color: transparent; }
 
-/* Smooth transitions */
-a, button { transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease; }
+a, button { transition: all 0.18s ease; }
 
-/* Code block */
 pre {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.8rem;
   line-height: 1.7;
 }
 
+@keyframes shimmerSweep {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
 @keyframes scanlineDrift {
   0% { background-position: 0 -20px; }
   100% { background-position: 0 20px; }
+}
+
+@keyframes gridDrift {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
 }
 
 @keyframes floatSlow {
@@ -179,13 +226,4 @@ pre {
 @keyframes floatSlower {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
   50% { transform: translate3d(0, 12px, 0) scale(0.98); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
 }

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "OBIXCORE — FPV Tuning Platform",
   description: "เครื่องมือจูนโดรน FPV ครบครัน Tuning Wizard, Problem Solver, Calculator และ Preset Library",
   keywords: ["FPV", "drone", "betaflight", "tuning", "PID", "preset", "โดรน"],
-  themeColor: "#0a0c10",
+  themeColor: "#07090d",
 };
 
 export default function RootLayout({
@@ -22,9 +22,14 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="relative isolate min-h-screen overflow-x-hidden bg-bg font-sarabun text-text antialiased">
-        {/* Lighter HUD background */}
-        <div className="pointer-events-none fixed inset-0 -z-30 bg-[radial-gradient(circle_at_top,_rgba(0,232,122,0.08),_transparent_28%),radial-gradient(circle_at_80%_18%,_rgba(0,170,255,0.06),_transparent_22%),linear-gradient(180deg,#07090d_0%,#0a0c10_50%,#07090d_100%)]" />
+        <div className="pointer-events-none fixed inset-0 -z-30 bg-[radial-gradient(circle_at_top_left,_rgba(0,232,122,0.18),_transparent_28%),radial-gradient(circle_at_82%_16%,_rgba(0,170,255,0.14),_transparent_22%),radial-gradient(circle_at_16%_78%,_rgba(176,96,255,0.16),_transparent_24%),radial-gradient(circle_at_78%_82%,_rgba(255,187,0,0.10),_transparent_20%),linear-gradient(180deg,#07090d_0%,#0a0c10_44%,#07090d_100%)]" />
         <div className="pointer-events-none fixed inset-0 -z-20 bg-grid opacity-35" />
+        <div className="pointer-events-none fixed inset-0 -z-10 hud-noise" />
+        <div className="pointer-events-none fixed inset-0 -z-10 scanline-overlay" />
+
+        <div className="pointer-events-none fixed -top-28 -left-24 h-72 w-72 rounded-full bg-green-DEFAULT/15 blur-3xl animate-float-slow" />
+        <div className="pointer-events-none fixed top-20 -right-24 h-80 w-80 rounded-full bg-blue-DEFAULT/12 blur-3xl animate-float-slower" />
+        <div className="pointer-events-none fixed bottom-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-purple-DEFAULT/10 blur-3xl animate-float-slow" />
 
         <Nav />
 

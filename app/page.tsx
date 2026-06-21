@@ -66,22 +66,22 @@ const quickStats = [
 ];
 
 const highlights = [
-  "HUD neon interface",
-  "Responsive mobile-first design",
+  "Aurora color system",
+  "Glass HUD modules",
   "Fast copy-ready outputs",
 ];
 
 export default function HomePage() {
   return (
-    <div className="mx-auto max-w-2xl px-4 py-6">
-      <section className="overflow-hidden rounded-[1.5rem] border border-bg-border bg-bg-surface/92 p-5 shadow-[0_12px_28px_rgba(0,0,0,0.20)]">
-        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-green-DEFAULT to-transparent opacity-70" />
+    <div className="page-shell py-6">
+      <section className="hud-card overflow-hidden rounded-[1.75rem] p-5 md:p-6">
+        <div className="absolute inset-x-0 top-0 h-1 color-strip" />
         <div className="absolute -right-12 top-8 h-40 w-40 rounded-full bg-blue-DEFAULT/10 blur-3xl" />
-        <div className="absolute -left-14 bottom-6 h-44 w-44 rounded-full bg-green-DEFAULT/10 blur-3xl" />
+        <div className="absolute -left-14 bottom-6 h-44 w-44 rounded-full bg-pink-DEFAULT/10 blur-3xl" />
 
         <div className="relative">
           <div className="mb-4 flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-green-DEFAULT/40 bg-green-muted/60 shadow-[0_0_18px_rgba(0,232,122,0.10)]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-green-DEFAULT/40 bg-green-muted/60 shadow-[0_0_30px_rgba(0,232,122,0.15)]">
               <span className="font-orbitron text-sm font-black tracking-[0.2em] text-green-DEFAULT">OX</span>
             </div>
             <div>
@@ -94,7 +94,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <p className="max-w-xl text-[15px] leading-relaxed text-text-muted">
+          <p className="max-w-2xl text-[15px] leading-relaxed text-text-muted">
             เครื่องมือจูนโดรน FPV ที่ใช้งานได้จริง — ตั้งค่า, วิเคราะห์, คำนวณ และ copy ค่าพร้อมใช้ได้ในที่เดียว
           </p>
 
@@ -118,10 +118,10 @@ export default function HomePage() {
           <div className="mt-6">
             <Link
               href="/wizard"
-              className="group flex items-center justify-between rounded-2xl border border-green-DEFAULT/40 bg-green-muted/20 px-4 py-4 transition-all hover:border-green-DEFAULT hover:bg-green-muted/35 hover:shadow-[0_0_14px_rgba(0,232,122,0.10)] active:scale-[0.99]"
+              className="group flex items-center justify-between rounded-2xl border border-green-DEFAULT/35 bg-gradient-to-r from-green-muted/25 via-bg-surface/75 to-blue-muted/15 px-4 py-4 transition-all hover:border-green-DEFAULT hover:shadow-[0_0_28px_rgba(0,232,122,0.12)] active:scale-[0.99]"
             >
               <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-green-DEFAULT text-bg-DEFAULT shadow-[0_0_16px_rgba(0,232,122,0.16)]">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-green-DEFAULT to-cyan-DEFAULT text-bg-DEFAULT shadow-[0_0_24px_rgba(0,232,122,0.25)]">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M13 2L4 14h7l-1 8 10-14h-7l1-6z"/>
                   </svg>
@@ -143,28 +143,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-3">
-        <div className="rounded-2xl border border-bg-border bg-bg-surface/92 p-4 shadow-[0_10px_22px_rgba(0,0,0,0.16)]">
+      <section className="mt-6 grid gap-3 sm:grid-cols-3">
+        <div className="hud-panel rounded-2xl p-4">
           <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-text-faint">System</div>
           <div className="mt-2 flex items-center gap-2 text-sm text-text">
             <span className="h-2.5 w-2.5 rounded-full bg-green-DEFAULT shadow-[0_0_18px_rgba(0,232,122,0.5)] animate-pulse-green" />
             Online & ready
           </div>
         </div>
-        <div className="rounded-2xl border border-bg-border bg-bg-surface/92 p-4 shadow-[0_10px_22px_rgba(0,0,0,0.16)]">
+        <div className="hud-panel rounded-2xl p-4">
           <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-text-faint">Theme</div>
-          <div className="mt-2 text-sm text-text">Dark Neon HUD</div>
+          <div className="mt-2 text-sm text-text">Aurora Color Mode</div>
         </div>
-        <div className="rounded-2xl border border-bg-border bg-bg-surface/92 p-4 shadow-[0_10px_22px_rgba(0,0,0,0.16)]">
+        <div className="hud-panel rounded-2xl p-4">
           <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-text-faint">Mode</div>
           <div className="mt-2 text-sm text-text">Mobile + Desktop</div>
         </div>
-      </div>
+      </section>
 
       <section className="mt-6">
-        <div className="mb-3 flex items-center gap-3">
+        <div className="section-title mb-3">
           <h2 className="font-orbitron text-xs font-bold uppercase tracking-[0.35em] text-text-muted">Core Modules</h2>
-          <div className="hud-accent-line flex-1" />
+          <div className="section-title__line" />
         </div>
         <div className="grid gap-3">
           {tools.map((tool) => (
