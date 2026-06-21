@@ -1,6 +1,28 @@
 import type { Metadata } from "next";
+import { JetBrains_Mono, Orbitron, Sarabun } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
+
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-orbitron",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
+
+const sarabun = Sarabun({
+  subsets: ["latin", "thai"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-sarabun",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "OBIXCORE — FPV Tuning Platform",
@@ -15,11 +37,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="th" className="dark">
+    <html lang="th" className={`dark ${orbitron.variable} ${jetbrainsMono.variable} ${sarabun.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="relative isolate min-h-screen overflow-x-hidden bg-bg font-sarabun text-text antialiased">
         <div className="pointer-events-none fixed inset-0 -z-30 bg-[radial-gradient(circle_at_top_left,_rgba(0,232,122,0.18),_transparent_28%),radial-gradient(circle_at_82%_16%,_rgba(0,170,255,0.14),_transparent_22%),radial-gradient(circle_at_16%_78%,_rgba(176,96,255,0.16),_transparent_24%),radial-gradient(circle_at_78%_82%,_rgba(255,187,0,0.10),_transparent_20%),linear-gradient(180deg,#07090d_0%,#0a0c10_44%,#07090d_100%)]" />
