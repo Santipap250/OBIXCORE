@@ -11,11 +11,11 @@ interface ToolCardProps {
 }
 
 const accentMap = {
-  green:  { border: "border-green-DEFAULT/20",  hover: "hover:border-green-DEFAULT/60 hover:-translate-y-1 hover:bg-green-muted/20",  icon: "bg-green-muted/80 border-green-DEFAULT/40 text-green-DEFAULT",  badge: "bg-green-muted/80 text-green-DEFAULT" },
-  amber:  { border: "border-amber-DEFAULT/20",  hover: "hover:border-amber-DEFAULT/60 hover:-translate-y-1 hover:bg-amber-muted/20",  icon: "bg-amber-muted/80 border-amber-DEFAULT/40 text-amber-DEFAULT",  badge: "bg-amber-muted/80 text-amber-DEFAULT" },
-  blue:   { border: "border-blue-DEFAULT/20",   hover: "hover:border-blue-DEFAULT/60 hover:-translate-y-1 hover:bg-blue-muted/20",   icon: "bg-blue-muted/80 border-blue-DEFAULT/40 text-blue-DEFAULT",   badge: "bg-blue-muted/80 text-blue-DEFAULT" },
-  cyan:   { border: "border-cyan-DEFAULT/20",   hover: "hover:border-cyan-DEFAULT/60 hover:-translate-y-1 hover:bg-cyan-muted/20",   icon: "bg-cyan-muted/80 border-cyan-DEFAULT/40 text-cyan-DEFAULT",   badge: "bg-cyan-muted/80 text-cyan-DEFAULT" },
-  purple: { border: "border-purple-DEFAULT/20", hover: "hover:border-purple-DEFAULT/60 hover:-translate-y-1 hover:bg-purple-muted/20", icon: "bg-purple-muted/80 border-purple-DEFAULT/40 text-purple-DEFAULT", badge: "bg-purple-muted/80 text-purple-DEFAULT" },
+  green:  { border: "border-green-DEFAULT/20",  hover: "hover:border-green-DEFAULT/60 hover:-translate-y-0.5 hover:bg-green-muted/20",  icon: "bg-green-muted/80 border-green-DEFAULT/40 text-green-DEFAULT",  badge: "bg-green-muted/80 text-green-DEFAULT" },
+  amber:  { border: "border-amber-DEFAULT/20",  hover: "hover:border-amber-DEFAULT/60 hover:-translate-y-0.5 hover:bg-amber-muted/20",  icon: "bg-amber-muted/80 border-amber-DEFAULT/40 text-amber-DEFAULT",  badge: "bg-amber-muted/80 text-amber-DEFAULT" },
+  blue:   { border: "border-blue-DEFAULT/20",   hover: "hover:border-blue-DEFAULT/60 hover:-translate-y-0.5 hover:bg-blue-muted/20",   icon: "bg-blue-muted/80 border-blue-DEFAULT/40 text-blue-DEFAULT",   badge: "bg-blue-muted/80 text-blue-DEFAULT" },
+  cyan:   { border: "border-cyan-DEFAULT/20",   hover: "hover:border-cyan-DEFAULT/60 hover:-translate-y-0.5 hover:bg-cyan-muted/20",   icon: "bg-cyan-muted/80 border-cyan-DEFAULT/40 text-cyan-DEFAULT",   badge: "bg-cyan-muted/80 text-cyan-DEFAULT" },
+  purple: { border: "border-purple-DEFAULT/20", hover: "hover:border-purple-DEFAULT/60 hover:-translate-y-0.5 hover:bg-purple-muted/20", icon: "bg-purple-muted/80 border-purple-DEFAULT/40 text-purple-DEFAULT", badge: "bg-purple-muted/80 text-purple-DEFAULT" },
 };
 
 export default function ToolCard({
@@ -33,24 +33,21 @@ export default function ToolCard({
     <Link
       href={href}
       className={`
-        hud-card group relative block overflow-hidden p-5
-        transition-all duration-300 ease-out active:scale-[0.99]
-        hover:-translate-y-1.5 hover:shadow-[0_22px_70px_rgba(0,0,0,0.52)]
+        group block rounded-2xl border bg-bg-surface/92 p-5 shadow-[0_12px_28px_rgba(0,0,0,0.20)]
+        transition-transform duration-200 active:scale-[0.99]
         ${a.border} ${a.hover}
       `}
     >
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent opacity-20" />
-      <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-white/6 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-current to-transparent opacity-15" />
       <div className="flex items-start gap-4">
-        <div className={`relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl border backdrop-blur-xl transition-all duration-300 group-hover:scale-105 group-hover:rotate-3 ${a.icon}`}>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_transparent_60%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),transparent_35%,rgba(255,255,255,0.02))] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-          <span className="relative">{icon}</span>
+        <div className={`relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl border ${a.icon}`}>
+          <div className="absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.04),_transparent_60%)]" />
+          {icon}
         </div>
 
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">
-            <h3 className="font-orbitron text-sm font-semibold tracking-wide text-text transition-colors group-hover:text-white">
+            <h3 className="font-orbitron text-sm font-semibold tracking-wide text-text transition-colors group-hover:text-inherit">
               {title}
             </h3>
             {badge && (
@@ -68,7 +65,7 @@ export default function ToolCard({
         </div>
 
         <svg
-          className="mt-1 h-4 w-4 flex-shrink-0 text-text-faint transition-all duration-300 group-hover:translate-x-1 group-hover:text-text-muted"
+          className="mt-1 h-4 w-4 flex-shrink-0 text-text-faint transition-all group-hover:translate-x-1 group-hover:text-text-muted"
           viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
         >
           <path d="M9 18l6-6-6-6"/>
@@ -76,11 +73,11 @@ export default function ToolCard({
       </div>
 
       <div className="mt-4 flex items-center gap-2">
-        <div className="hud-accent-line flex-1" />
+        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-green-DEFAULT/60 to-transparent" />
         <span className="text-[10px] font-mono uppercase tracking-[0.28em] text-text-faint">
           OPEN MODULE
         </span>
-        <div className="hud-accent-line flex-1" />
+        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-green-DEFAULT/60 to-transparent" />
       </div>
     </Link>
   );
