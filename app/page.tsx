@@ -59,8 +59,8 @@ const tools = [
 ];
 
 const quickStats = [
-  { value: "4+", label: "Presets", color: "text-purple-DEFAULT" },
-  { value: "5+", label: "Problems", color: "text-amber-DEFAULT" },
+  { value: "4", label: "Presets", color: "text-purple-DEFAULT" },
+  { value: "5", label: "Problems", color: "text-amber-DEFAULT" },
   { value: "3", label: "Calculators", color: "text-blue-DEFAULT" },
   { value: "FREE", label: "ฟรีทั้งหมด", color: "text-green-DEFAULT" },
 ];
