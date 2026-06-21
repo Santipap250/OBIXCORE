@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import presetsData from "@/data/presets.json";
 import type { Preset } from "@/types";
 import Badge from "@/components/Badge";
@@ -31,12 +31,12 @@ export default function PresetsPage() {
   const [diffFilter,  setDiffFilter]  = useState<string>("all");
   const [expanded, setExpanded] = useState<string | null>(null);
 
-  const filtered = presets.filter((p) => {
+  const filtered = useMemo(() => presets.filter((p) => {
     if (frameFilter !== "all" && p.frameSize !== frameFilter) return false;
     if (styleFilter !== "all" && p.type     !== styleFilter) return false;
     if (diffFilter  !== "all" && p.difficulty !== diffFilter) return false;
     return true;
-  });
+  }), [diffFilter, frameFilter, styleFilter]);
 
   const toggle = (id: string) =>
     setExpanded((prev) => (prev === id ? null : id));
