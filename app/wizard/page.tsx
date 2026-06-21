@@ -20,6 +20,14 @@ const STYLE_OPTIONS = [
   { value: "cinematic", label: "Cinematic", labelTh: "ถ่ายวิดีโอ",   color: "blue" },
 ] as const;
 
+const SETUP_LABELS: Record<WizardResult["setupClass"], string> = {
+  micro: "Micro / Toothpick",
+  small: "3 inch class",
+  mid: "5 inch class",
+  standard: "6 inch class",
+  "long-range": "7 inch+ / LR",
+};
+
 function InputField({
   label, sublabel, value, min, max, step = 1, unit, onChange,
 }: {
@@ -163,7 +171,7 @@ export default function WizardPage() {
               { label: "Frame", value: `${input.frameSize}mm` },
               { label: "Motor", value: `${input.motorKV}KV` },
               { label: "Battery", value: `${input.batteryS}S` },
-              { label: "Prop", value: `${(input.propSize / 10).toFixed(1)}"` },
+              { label: "Prop", value: `${(input.propSize / 10).toFixed(1)}\"` },
               { label: "AUW", value: `${input.weight}g` },
             ].map((s) => (
               <div key={s.label} className="flex items-center gap-1.5">
@@ -209,6 +217,17 @@ export default function WizardPage() {
               : input.style === "cinematic" ? "bg-blue-muted text-blue-DEFAULT"
               : "bg-purple-muted text-purple-DEFAULT"
             }`}>{input.style}</span>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-bg-border text-text-muted">
+              {SETUP_LABELS[result.setupClass]}
+            </span>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-green-DEFAULT/30 bg-green-muted/30 text-green-DEFAULT">
+              Confidence {result.confidence}%
+            </span>
+          </div>
+
+          <div className="p-3 rounded-xl border border-blue-DEFAULT/20 bg-blue-muted/15">
+            <p className="text-[10px] font-mono text-blue-DEFAULT uppercase tracking-widest mb-1">Why this tuning</p>
+            <p className="text-xs font-sarabun text-text leading-relaxed">{result.summary}</p>
           </div>
 
           {/* Warnings */}
@@ -337,9 +356,9 @@ export default function WizardPage() {
           {/* Recalculate */}
           <button
             onClick={() => setStep("form")}
-            className="w-full py-3 rounded-xl border border-green-DEFAULT/30 text-green-DEFAULT font-orbitron text-sm hover:bg-green-muted transition-all active:scale-99"
+            className="w-full py-3 rounded-xl bg-bg-elevated border border-bg-border text-text-muted font-sarabun text-sm hover:bg-bg-surface transition-all"
           >
-            คำนวณใหม่
+            ← คำนวณใหม่
           </button>
         </div>
       )}
