@@ -1,177 +1,243 @@
-import ToolCard from "@/components/ToolCard";
-import Link from "next/link";
+"use client";
+import { useMemo, useState } from "react";
+import presetsData from "@/data/presets.json";
+import type { Preset } from "@/types";
+import Badge from "@/components/Badge";
+import CodeBlock from "@/components/CodeBlock";
+import ValueDisplay from "@/components/ValueDisplay";
 
-const tools = [
-  {
-    href: "/wizard",
-    title: "Tuning Wizard",
-    titleTh: "ตั้งค่า PID อัตโนมัติ",
-    description: "กรอกสเปกโดรน → ได้ค่า PID + Filter + Rates + CLI พร้อม copy",
-    accentColor: "green" as const,
-    badge: "แนะนำ",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
-      </svg>
-    ),
-  },
-  {
-    href: "/problems",
-    title: "Problem Solver",
-    titleTh: "แก้ปัญหาโดรน",
-    description: "เลือกอาการที่เจอ → ได้ขั้นตอนแก้ไขทีละ step พร้อม CLI command",
-    accentColor: "amber" as const,
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-      </svg>
-    ),
-  },
-  {
-    href: "/calculator",
-    title: "Calculator",
-    titleTh: "คำนวณ Thrust / Flight Time",
-    description: "คำนวณ thrust-to-weight, flight time, และ current draw โดยประมาณ",
-    accentColor: "blue" as const,
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="4" y="2" width="16" height="20" rx="2"/>
-        <line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/>
-        <line x1="8" y1="14" x2="12" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/>
-      </svg>
-    ),
-  },
-  {
-    href: "/presets",
-    title: "Preset Library",
-    titleTh: "คลัง Preset พร้อมใช้",
-    description: "ค่า PID + Rates + Filters ที่ผ่านการทดสอบจริง กด copy แล้ววางใน CLI ได้เลย",
-    accentColor: "purple" as const,
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
-      </svg>
-    ),
-  },
-];
+const presets = presetsData as Preset[];
 
-const quickStats = [
-  { value: "4+", label: "Presets", color: "text-purple-DEFAULT" },
-  { value: "5+", label: "Problems", color: "text-amber-DEFAULT" },
-  { value: "3", label: "Calculators", color: "text-blue-DEFAULT" },
-  { value: "FREE", label: "ฟรีทั้งหมด", color: "text-green-DEFAULT" },
-];
+const FRAME_FILTERS = ["all", "2inch", "3inch", "5inch", "7inch"] as const;
+const STYLE_FILTERS = ["all", "freestyle", "race", "cinematic", "beginner"] as const;
+const DIFF_FILTERS  = ["all", "beginner", "intermediate", "advanced"] as const;
 
-const highlights = [
-  "Aurora color system",
-  "Glass HUD modules",
-  "Fast copy-ready outputs",
-];
+const STYLE_CONFIG: Record<string, { label: string; color: string }> = {
+  race:      { label: "Race",      color: "text-red-DEFAULT    border-red-DEFAULT/40    bg-red-muted"    },
+  freestyle: { label: "Freestyle", color: "text-purple-DEFAULT border-purple-DEFAULT/40 bg-purple-muted" },
+  cinematic: { label: "Cinematic", color: "text-blue-DEFAULT   border-blue-DEFAULT/40   bg-blue-muted"   },
+  beginner:  { label: "Beginner",  color: "text-green-DEFAULT  border-green-DEFAULT/40  bg-green-muted"  },
+};
 
-export default function HomePage() {
+const DIFF_CONFIG: Record<string, { label: string; color: string }> = {
+  beginner:     { label: "มือใหม่",   color: "text-green-DEFAULT"  },
+  intermediate: { label: "กลาง",     color: "text-amber-DEFAULT"  },
+  advanced:     { label: "เก่า",     color: "text-red-DEFAULT"    },
+};
+
+export default function PresetsPage() {
+  const [frameFilter, setFrameFilter] = useState<string>("all");
+  const [styleFilter, setStyleFilter] = useState<string>("all");
+  const [diffFilter,  setDiffFilter]  = useState<string>("all");
+  const [expanded, setExpanded] = useState<string | null>(null);
+
+  const filtered = useMemo(() => presets.filter((p) => {
+    if (frameFilter !== "all" && p.frameSize !== frameFilter) return false;
+    if (styleFilter !== "all" && p.type     !== styleFilter) return false;
+    if (diffFilter  !== "all" && p.difficulty !== diffFilter) return false;
+    return true;
+  }), [diffFilter, frameFilter, styleFilter]);
+
+  const toggle = (id: string) =>
+    setExpanded((prev) => (prev === id ? null : id));
+
   return (
-    <div className="page-shell py-6">
-      <section className="hud-card overflow-hidden rounded-[1.75rem] p-5 md:p-6">
-        <div className="absolute inset-x-0 top-0 h-1 color-strip" />
-        <div className="absolute -right-12 top-8 h-40 w-40 rounded-full bg-blue-DEFAULT/10 blur-3xl" />
-        <div className="absolute -left-14 bottom-6 h-44 w-44 rounded-full bg-pink-DEFAULT/10 blur-3xl" />
+    <div className="max-w-2xl mx-auto px-4 py-6">
+      {/* Header */}
+      <div className="mb-5">
+        <div className="flex items-center gap-2 mb-1">
+          <span className="w-1.5 h-5 bg-purple-DEFAULT rounded-full" />
+          <h1 className="font-orbitron font-bold text-lg text-text tracking-wide">Preset Library</h1>
+        </div>
+        <p className="text-sm text-text-muted font-sarabun ml-3.5">
+          ค่า PID + Rates + Filters ที่ผ่านการทดสอบ — กด copy แล้ววางใน Betaflight CLI
+        </p>
+      </div>
 
-        <div className="relative">
-          <div className="mb-4 flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-green-DEFAULT/40 bg-green-muted/60 shadow-[0_0_30px_rgba(0,232,122,0.15)]">
-              <span className="font-orbitron text-sm font-black tracking-[0.2em] text-green-DEFAULT">OX</span>
-            </div>
-            <div>
-              <h1 className="font-orbitron text-2xl font-black tracking-[0.35em] text-text">
-                OBIXCORE
-              </h1>
-              <p className="mt-1 text-[11px] font-mono tracking-[0.3em] text-green-DEFAULT">
-                FPV TUNING PLATFORM
-              </p>
-            </div>
-          </div>
-
-          <p className="max-w-2xl text-[15px] leading-relaxed text-text-muted">
-            เครื่องมือจูนโดรน FPV ที่ใช้งานได้จริง — ตั้งค่า, วิเคราะห์, คำนวณ และ copy ค่าพร้อมใช้ได้ในที่เดียว
-          </p>
-
-          <div className="mt-5 flex flex-wrap gap-2">
-            {highlights.map((item) => (
-              <span key={item} className="hud-chip px-3 py-1 text-[10px] font-mono tracking-[0.22em] text-text-muted">
-                {item}
-              </span>
+      {/* Filters */}
+      <div className="space-y-3 mb-5 p-4 rounded-xl bg-bg-surface border border-bg-border">
+        <div>
+          <p className="text-[10px] font-mono text-text-faint uppercase tracking-widest mb-2">Frame Size</p>
+          <div className="flex gap-1.5 flex-wrap">
+            {FRAME_FILTERS.map((f) => (
+              <button key={f} onClick={() => setFrameFilter(f)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
+                  frameFilter === f ? "border-purple-DEFAULT bg-purple-muted text-purple-DEFAULT" : "border-bg-border text-text-muted hover:bg-bg-elevated"
+                }`}>
+                {f === "all" ? "ทั้งหมด" : f}
+              </button>
             ))}
           </div>
+        </div>
 
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {quickStats.map((s) => (
-              <div key={s.label} className="hud-panel rounded-2xl p-3 text-center">
-                <div className={`font-orbitron text-xl font-bold ${s.color}`}>{s.value}</div>
-                <div className="mt-1 text-[11px] text-text-muted">{s.label}</div>
-              </div>
+        <div>
+          <p className="text-[10px] font-mono text-text-faint uppercase tracking-widest mb-2">Style</p>
+          <div className="flex gap-1.5 flex-wrap">
+            {STYLE_FILTERS.map((f) => (
+              <button key={f} onClick={() => setStyleFilter(f)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
+                  styleFilter === f
+                    ? f === "all" ? "border-purple-DEFAULT bg-purple-muted text-purple-DEFAULT"
+                      : STYLE_CONFIG[f]?.color || "border-purple-DEFAULT bg-purple-muted text-purple-DEFAULT"
+                    : "border-bg-border text-text-muted hover:bg-bg-elevated"
+                }`}>
+                {f === "all" ? "ทั้งหมด" : STYLE_CONFIG[f]?.label || f}
+              </button>
             ))}
           </div>
+        </div>
 
-          <div className="mt-6">
-            <Link
-              href="/wizard"
-              className="group flex items-center justify-between rounded-2xl border border-green-DEFAULT/35 bg-gradient-to-r from-green-muted/25 via-bg-surface/75 to-blue-muted/15 px-4 py-4 transition-all hover:border-green-DEFAULT hover:shadow-[0_0_28px_rgba(0,232,122,0.12)] active:scale-[0.99]"
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-green-DEFAULT to-cyan-DEFAULT text-bg-DEFAULT shadow-[0_0_24px_rgba(0,232,122,0.25)]">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M13 2L4 14h7l-1 8 10-14h-7l1-6z"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="font-orbitron text-sm font-bold tracking-[0.28em] text-text">
-                    START WIZARD
+        <div>
+          <p className="text-[10px] font-mono text-text-faint uppercase tracking-widest mb-2">ระดับ</p>
+          <div className="flex gap-1.5 flex-wrap">
+            {DIFF_FILTERS.map((f) => (
+              <button key={f} onClick={() => setDiffFilter(f)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
+                  diffFilter === f ? "border-purple-DEFAULT bg-purple-muted text-purple-DEFAULT" : "border-bg-border text-text-muted hover:bg-bg-elevated"
+                }`}>
+                {f === "all" ? "ทั้งหมด" : DIFF_CONFIG[f]?.label || f}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Count */}
+      <p className="text-xs font-mono text-text-faint mb-3">
+        แสดง <span className="text-purple-DEFAULT">{filtered.length}</span> preset จาก {presets.length}
+      </p>
+
+      {/* Preset cards */}
+      {filtered.length === 0 ? (
+        <div className="text-center py-12">
+          <p className="text-text-faint font-sarabun text-sm">ไม่พบ preset ที่ตรงกับเงื่อนไข</p>
+          <button onClick={() => { setFrameFilter("all"); setStyleFilter("all"); setDiffFilter("all"); }}
+            className="mt-3 text-xs font-mono text-purple-DEFAULT hover:underline">
+            ล้าง filter ทั้งหมด
+          </button>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {filtered.map((preset) => {
+            const isOpen = expanded === preset.id;
+            const styleConf = STYLE_CONFIG[preset.type];
+            const diffConf  = DIFF_CONFIG[preset.difficulty];
+
+            return (
+              <div key={preset.id} className={`rounded-xl border overflow-hidden transition-all ${isOpen ? "border-purple-DEFAULT/40" : "border-bg-border"}`}>
+                {/* Card header */}
+                <button onClick={() => toggle(preset.id)} className="w-full text-left p-4 bg-bg-surface hover:bg-bg-elevated transition-colors">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1">
+                      <p className="font-orbitron font-semibold text-sm text-text">{preset.name}</p>
+                      <p className="text-xs text-text-muted font-sarabun mt-1 leading-relaxed">{preset.description}</p>
+                    </div>
+                    <svg className={`w-4 h-4 text-text-faint flex-shrink-0 mt-1 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
                   </div>
-                  <div className="mt-1 text-sm text-text-muted">
-                    เปิดหน้า Tuning Wizard เพื่อเริ่มคำนวณค่า PID / Filter / Rates
+
+                  <div className="flex gap-1.5 mt-3 flex-wrap items-center">
+                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded border uppercase ${styleConf?.color}`}>
+                      {styleConf?.label || preset.type}
+                    </span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-bg-border bg-bg-elevated text-text-muted">
+                      {preset.frameSize}
+                    </span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-bg-border bg-bg-elevated text-text-muted">
+                      {preset.batteryS}S
+                    </span>
+                    <span className={`text-[10px] font-mono ml-auto ${diffConf?.color}`}>
+                      {diffConf?.label}
+                    </span>
+                    <span className="text-[10px] font-mono text-text-faint">BF {preset.bfVersion}</span>
                   </div>
-                </div>
+                </button>
+
+                {/* Expanded detail */}
+                {isOpen && (
+                  <div className="border-t border-bg-border bg-bg-DEFAULT animate-fade-in">
+                    <div className="p-4 space-y-5">
+
+                      {/* PID quick view */}
+                      <div>
+                        <p className="text-[10px] font-mono text-text-faint uppercase tracking-widest mb-2">PID</p>
+                        <div className="space-y-2">
+                          {(["roll", "pitch", "yaw"] as const).map((axis) => {
+                            const pid = preset.pid[axis];
+                            const color = axis === "roll" ? "green" : axis === "pitch" ? "cyan" : "amber";
+                            return (
+                              <div key={axis} className="flex items-center gap-2">
+                                <span className="text-[10px] font-mono text-text-faint uppercase w-10">{axis}</span>
+                                <div className="flex gap-1.5 flex-wrap">
+                                  {[
+                                    { k: "P", v: pid.p },
+                                    { k: "I", v: pid.i },
+                                    { k: "D", v: pid.d },
+                                    ...("f" in pid ? [{ k: "F", v: (pid as any).f }] : []),
+                                  ].map((item) => (
+                                    <span key={item.k} className={`text-[11px] font-mono bg-bg-elevated border border-bg-border rounded px-2 py-0.5 ${color === "green" ? "text-green-DEFAULT" : color === "cyan" ? "text-cyan-DEFAULT" : "text-amber-DEFAULT"}`}>
+                                      {item.k}: {item.v}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Filter summary */}
+                      <div>
+                        <p className="text-[10px] font-mono text-text-faint uppercase tracking-widest mb-2">Filters</p>
+                        <div className="flex gap-2 flex-wrap text-[11px] font-mono">
+                          <span className="px-2 py-1 rounded bg-bg-elevated border border-bg-border text-blue-DEFAULT">Gyro: {preset.filters.gyroLpf1Hz}Hz</span>
+                          <span className="px-2 py-1 rounded bg-bg-elevated border border-bg-border text-cyan-DEFAULT">D-Term: {preset.filters.dTermLpf1Hz}Hz</span>
+                          <span className="px-2 py-1 rounded bg-bg-elevated border border-bg-border text-purple-DEFAULT">Notch: {preset.filters.dynamicNotch}</span>
+                          <span className={`px-2 py-1 rounded border ${preset.filters.rpmFilter ? "bg-green-muted border-green-DEFAULT/30 text-green-DEFAULT" : "bg-bg-elevated border-bg-border text-text-muted"}`}>
+                            RPM: {preset.filters.rpmFilter ? "ON" : "OFF"}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Notes */}
+                      {preset.notes && (
+                        <div className="p-3 rounded-xl bg-blue-muted/20 border border-blue-DEFAULT/20">
+                          <p className="text-[10px] font-mono text-blue-DEFAULT uppercase tracking-wider mb-1">Notes</p>
+                          <p className="text-xs font-sarabun text-text leading-relaxed">{preset.notes}</p>
+                        </div>
+                      )}
+
+                      {/* CLI */}
+                      <div>
+                        <p className="text-[10px] font-mono text-text-faint uppercase tracking-widest mb-2">
+                          Betaflight CLI — Copy ทั้งหมดแล้ววาง
+                        </p>
+                        <CodeBlock lines={preset.cliCommands} title={`${preset.id}.txt`} maxHeight="280px" />
+                      </div>
+
+                      {/* Tags */}
+                      <div className="flex gap-1 flex-wrap">
+                        {preset.tags.map((tag) => (
+                          <Badge key={tag} variant="outline">#{tag}</Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
-              <svg className="h-5 w-5 text-green-DEFAULT transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M13 5l7 7-7 7"/>
-              </svg>
-            </Link>
-          </div>
+            );
+          })}
         </div>
-      </section>
+      )}
 
-      <section className="mt-6 grid gap-3 sm:grid-cols-3">
-        <div className="hud-panel rounded-2xl p-4">
-          <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-text-faint">System</div>
-          <div className="mt-2 flex items-center gap-2 text-sm text-text">
-            <span className="h-2.5 w-2.5 rounded-full bg-green-DEFAULT shadow-[0_0_18px_rgba(0,232,122,0.5)] animate-pulse-green" />
-            Online & ready
-          </div>
-        </div>
-        <div className="hud-panel rounded-2xl p-4">
-          <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-text-faint">Theme</div>
-          <div className="mt-2 text-sm text-text">Aurora Color Mode</div>
-        </div>
-        <div className="hud-panel rounded-2xl p-4">
-          <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-text-faint">Mode</div>
-          <div className="mt-2 text-sm text-text">Mobile + Desktop</div>
-        </div>
-      </section>
-
-      <section className="mt-6">
-        <div className="section-title mb-3">
-          <h2 className="font-orbitron text-xs font-bold uppercase tracking-[0.35em] text-text-muted">Core Modules</h2>
-          <div className="section-title__line" />
-        </div>
-        <div className="grid gap-3">
-          {tools.map((tool) => (
-            <ToolCard key={tool.href} {...tool} />
-          ))}
-        </div>
-      </section>
+      {/* Footer note */}
+      <div className="mt-8 p-4 rounded-xl bg-bg-surface border border-bg-border text-center">
+        <p className="text-xs font-sarabun text-text-muted">
+          อยากส่ง preset ของคุณ? กำลังเปิดระบบ community submission ใน Phase 2
+        </p>
+      </div>
     </div>
   );
 }
