@@ -59,16 +59,22 @@ const tools = [
 ];
 
 const quickStats = [
-  { value: "4", label: "Presets", color: "text-purple-DEFAULT" },
-  { value: "5", label: "Problems", color: "text-amber-DEFAULT" },
+  { value: "4+", label: "Modules", color: "text-purple-DEFAULT" },
+  { value: "5+", label: "Problems", color: "text-amber-DEFAULT" },
   { value: "3", label: "Calculators", color: "text-blue-DEFAULT" },
   { value: "FREE", label: "ฟรีทั้งหมด", color: "text-green-DEFAULT" },
 ];
 
-const highlights = [
+const heroPills = [
   "Aurora color system",
-  "Glass HUD modules",
-  "Fast copy-ready outputs",
+  "Glass HUD cards",
+  "Copy-ready outputs",
+];
+
+const systemCards = [
+  { title: "System", body: "Online & ready", accent: "bg-green-DEFAULT" },
+  { title: "Theme", body: "Aurora Color Mode", accent: "bg-blue-DEFAULT" },
+  { title: "Mode", body: "Mobile + Desktop", accent: "bg-purple-DEFAULT" },
 ];
 
 export default function HomePage() {
@@ -79,85 +85,81 @@ export default function HomePage() {
         <div className="absolute -right-12 top-8 h-40 w-40 rounded-full bg-blue-DEFAULT/10 blur-3xl" />
         <div className="absolute -left-14 bottom-6 h-44 w-44 rounded-full bg-pink-DEFAULT/10 blur-3xl" />
 
-        <div className="relative">
-          <div className="mb-4 flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-green-DEFAULT/40 bg-green-muted/60 shadow-[0_0_30px_rgba(0,232,122,0.15)]">
-              <span className="font-orbitron text-sm font-black tracking-[0.2em] text-green-DEFAULT">OX</span>
+        <div className="relative grid gap-6 md:grid-cols-[1.2fr_0.8fr] md:items-center">
+          <div>
+            <div className="mb-4 flex items-center gap-3">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-green-DEFAULT/40 bg-green-muted/60 shadow-[0_0_18px_rgba(0,232,122,0.10)]">
+                <span className="font-orbitron text-sm font-black tracking-[0.2em] text-green-DEFAULT">OX</span>
+              </div>
+              <div>
+                <h1 className="font-orbitron text-2xl font-black tracking-[0.35em] text-text">
+                  OBIXCORE
+                </h1>
+                <p className="mt-1 text-[11px] font-mono tracking-[0.3em] text-green-DEFAULT">
+                  FPV TUNING PLATFORM
+                </p>
+              </div>
             </div>
-            <div>
-              <h1 className="font-orbitron text-2xl font-black tracking-[0.35em] text-text">
-                OBIXCORE
-              </h1>
-              <p className="mt-1 text-[11px] font-mono tracking-[0.3em] text-green-DEFAULT">
-                FPV TUNING PLATFORM
-              </p>
+
+            <p className="max-w-2xl text-[15px] leading-relaxed text-text-muted">
+              เครื่องมือจูนโดรน FPV ที่ใช้งานได้จริง — ตั้งค่า, วิเคราะห์, คำนวณ และ copy ค่าพร้อมใช้ได้ในที่เดียว
+            </p>
+
+            <div className="mt-5 flex flex-wrap gap-2">
+              {heroPills.map((item) => (
+                <span key={item} className="hud-chip px-3 py-1 text-[10px] font-mono tracking-[0.22em] text-text-muted">
+                  {item}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-6">
+              <Link
+                href="/wizard"
+                className="group flex items-center justify-between rounded-2xl border border-green-DEFAULT/35 bg-gradient-to-r from-green-muted/20 via-bg-surface/75 to-blue-muted/15 px-4 py-4 transition-all hover:border-green-DEFAULT hover:shadow-[0_0_18px_rgba(0,232,122,0.10)] active:scale-[0.99]"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-green-DEFAULT to-cyan-DEFAULT text-bg-DEFAULT shadow-[0_0_16px_rgba(0,232,122,0.16)]">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M13 2L4 14h7l-1 8 10-14h-7l1-6z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="font-orbitron text-sm font-bold tracking-[0.28em] text-text">
+                      START WIZARD
+                    </div>
+                    <div className="mt-1 text-sm text-text-muted">
+                      เปิดหน้า Tuning Wizard เพื่อเริ่มคำนวณค่า PID / Filter / Rates
+                    </div>
+                  </div>
+                </div>
+                <svg className="h-5 w-5 text-green-DEFAULT transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
+              </Link>
             </div>
           </div>
 
-          <p className="max-w-2xl text-[15px] leading-relaxed text-text-muted">
-            เครื่องมือจูนโดรน FPV ที่ใช้งานได้จริง — ตั้งค่า, วิเคราะห์, คำนวณ และ copy ค่าพร้อมใช้ได้ในที่เดียว
-          </p>
-
-          <div className="mt-5 flex flex-wrap gap-2">
-            {highlights.map((item) => (
-              <span key={item} className="hud-chip px-3 py-1 text-[10px] font-mono tracking-[0.22em] text-text-muted">
-                {item}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {quickStats.map((s) => (
-              <div key={s.label} className="hud-panel rounded-2xl p-3 text-center">
-                <div className={`font-orbitron text-xl font-bold ${s.color}`}>{s.value}</div>
-                <div className="mt-1 text-[11px] text-text-muted">{s.label}</div>
+          <div className="grid gap-3 sm:grid-cols-3 md:grid-cols-1">
+            {systemCards.map((card) => (
+              <div key={card.title} className="hud-panel rounded-2xl p-4">
+                <div className="flex items-center gap-2">
+                  <span className={`h-2.5 w-2.5 rounded-full ${card.accent} shadow-[0_0_12px_rgba(0,0,0,0.1)]`} />
+                  <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-text-faint">{card.title}</div>
+                </div>
+                <div className="mt-2 text-sm text-text">{card.body}</div>
               </div>
             ))}
           </div>
+        </div>
 
-          <div className="mt-6">
-            <Link
-              href="/wizard"
-              className="group flex items-center justify-between rounded-2xl border border-green-DEFAULT/35 bg-gradient-to-r from-green-muted/25 via-bg-surface/75 to-blue-muted/15 px-4 py-4 transition-all hover:border-green-DEFAULT hover:shadow-[0_0_28px_rgba(0,232,122,0.12)] active:scale-[0.99]"
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-green-DEFAULT to-cyan-DEFAULT text-bg-DEFAULT shadow-[0_0_24px_rgba(0,232,122,0.25)]">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M13 2L4 14h7l-1 8 10-14h-7l1-6z"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="font-orbitron text-sm font-bold tracking-[0.28em] text-text">
-                    START WIZARD
-                  </div>
-                  <div className="mt-1 text-sm text-text-muted">
-                    เปิดหน้า Tuning Wizard เพื่อเริ่มคำนวณค่า PID / Filter / Rates
-                  </div>
-                </div>
-              </div>
-              <svg className="h-5 w-5 text-green-DEFAULT transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M13 5l7 7-7 7"/>
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="mt-6 grid gap-3 sm:grid-cols-3">
-        <div className="hud-panel rounded-2xl p-4">
-          <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-text-faint">System</div>
-          <div className="mt-2 flex items-center gap-2 text-sm text-text">
-            <span className="h-2.5 w-2.5 rounded-full bg-green-DEFAULT shadow-[0_0_18px_rgba(0,232,122,0.5)] animate-pulse-green" />
-            Online & ready
-          </div>
-        </div>
-        <div className="hud-panel rounded-2xl p-4">
-          <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-text-faint">Theme</div>
-          <div className="mt-2 text-sm text-text">Aurora Color Mode</div>
-        </div>
-        <div className="hud-panel rounded-2xl p-4">
-          <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-text-faint">Mode</div>
-          <div className="mt-2 text-sm text-text">Mobile + Desktop</div>
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {quickStats.map((s) => (
+            <div key={s.label} className="hud-panel rounded-2xl p-3 text-center">
+              <div className={`font-orbitron text-xl font-bold ${s.color}`}>{s.value}</div>
+              <div className="mt-1 text-[11px] text-text-muted">{s.label}</div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -166,7 +168,7 @@ export default function HomePage() {
           <h2 className="font-orbitron text-xs font-bold uppercase tracking-[0.35em] text-text-muted">Core Modules</h2>
           <div className="section-title__line" />
         </div>
-        <div className="grid gap-3">
+        <div className="grid gap-3 md:grid-cols-2">
           {tools.map((tool) => (
             <ToolCard key={tool.href} {...tool} />
           ))}
