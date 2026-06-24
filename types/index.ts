@@ -57,8 +57,20 @@ export interface WizardInput {
   motorKV: number;
   batteryS: number;
   propSize: number; // e.g. 51 = 5.1 inch
-  weight: number; // grams AUW
+  weight: number; // grams AUW — include camera/payload, this is total flying weight
   style: "race" | "freestyle" | "cinematic";
+  // Advanced/optional — improve accuracy of current/flight-time estimate and
+  // enable the ESC headroom check. Safe defaults are used when omitted.
+  propBlades?: 2 | 3 | 4 | 5 | 6;
+  batteryMah?: number;
+  escCurrentRatingA?: number;
+  motorCount?: number;
+}
+
+export interface EstimateRange {
+  low: number;
+  typical: number;
+  high: number;
 }
 
 export interface WizardResult {
@@ -83,16 +95,24 @@ export interface WizardResult {
   cliCommands: string[];
   warnings: string[];
   tips: string[];
+  /** Short bullets explaining *why* these specific numbers were chosen. */
+  reasoning: string[];
   confidence: number;
+  confidenceLabel: "Low" | "Medium" | "High";
   setupClass: "micro" | "small" | "mid" | "standard" | "long-range";
   summary: string;
+  estimatedHoverCurrentA: EstimateRange;
+  estimatedFlightCurrentA: EstimateRange;
+  /** Only populated when batteryMah was provided. */
+  estimatedFlightTimeMin: EstimateRange | null;
+  escWarning: string | null;
 }
 
 export interface CalculatorResult {
   estimatedThrust: number; // grams per motor
   thrustToWeight: number;
-  estimatedFlightTime: number; // minutes
-  estimatedCurrentDraw: number; // amps
+  estimatedFlightTime: EstimateRange; // minutes
+  estimatedCurrentDraw: EstimateRange; // amps
   batteryRating: "sufficient" | "marginal" | "insufficient";
   warnings: string[];
 }
