@@ -56,10 +56,28 @@ const tools = [
       </svg>
     ),
   },
+  {
+    href: "/visualizer",
+    title: "3D Build Visualizer",
+    titleTh: "ดู Build โดรน 3D",
+    description: "Preview โดรน FPV แบบ interactive พร้อมตรวจ compatibility ของ frame/prop/motor/battery",
+    accentColor: "cyan" as const,
+    badge: "NEW",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="2"/><circle cx="4" cy="4" r="2"/><circle cx="20" cy="4" r="2"/>
+        <circle cx="4" cy="20" r="2"/><circle cx="20" cy="20" r="2"/>
+        <line x1="6" y1="4" x2="10" y2="4"/><line x1="14" y1="4" x2="18" y2="4"/>
+        <line x1="6" y1="20" x2="10" y2="20"/><line x1="14" y1="20" x2="18" y2="20"/>
+        <line x1="4" y1="6" x2="4" y2="10"/><line x1="4" y1="14" x2="4" y2="18"/>
+        <line x1="20" y1="6" x2="20" y2="10"/><line x1="20" y1="14" x2="20" y2="18"/>
+      </svg>
+    ),
+  },
 ];
 
 const quickStats = [
-  { value: "4+", label: "Modules", color: "text-purple-DEFAULT" },
+  { value: "5+", label: "Modules", color: "text-purple-DEFAULT" },
   { value: "5+", label: "Problems", color: "text-amber-DEFAULT" },
   { value: "3", label: "Calculators", color: "text-blue-DEFAULT" },
   { value: "FREE", label: "ฟรีทั้งหมด", color: "text-green-DEFAULT" },
