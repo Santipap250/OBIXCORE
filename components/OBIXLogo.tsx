@@ -4,35 +4,50 @@ import Image from "next/image";
 interface OBIXLogoProps {
   /** Show only the icon box (for favicon / compact nav spots) */
   iconOnly?: boolean;
-  /** Height of the full lockup in px — width scales automatically */
-  height?: number;
+  /** Square size for the icon version */
+  size?: number;
+  /** Max width for the full lockup */
+  maxWidth?: number;
   className?: string;
 }
 
-export default function OBIXLogo({ iconOnly = false, height = 40, className = "" }: OBIXLogoProps) {
+export default function OBIXLogo({
+  iconOnly = false,
+  size = 40,
+  maxWidth = 560,
+  className = "",
+}: OBIXLogoProps) {
   if (iconOnly) {
     return (
-      <Image
-        src="/obixcore-icon.png"
-        alt="OBIXCORE icon"
-        width={512}
-        height={512}
-        className={className}
-        style={{ width: height, height }}
-        priority
-      />
+      <div
+        className={`relative inline-block shrink-0 ${className}`}
+        style={{ width: size, height: size }}
+      >
+        <Image
+          src="/obixcore-icon.png"
+          alt="OBIXCORE icon"
+          fill
+          sizes={`${size}px`}
+          className="object-contain"
+          priority
+        />
+      </div>
     );
   }
 
   return (
-    <Image
-      src="/obixcore-logo.png"
-      alt="OBIXCORE FPV Tuning Platform"
-      width={1536}
-      height={511}
-      className={className}
-      style={{ height, width: Math.round((1536 / 511) * height) }}
-      priority
-    />
+    <div
+      className={`relative inline-block w-full shrink-0 ${className}`}
+      style={{ maxWidth, aspectRatio: "1536 / 511" }}
+    >
+      <Image
+        src="/obixcore-logo.png"
+        alt="OBIXCORE FPV Tuning Platform"
+        fill
+        sizes={`(max-width: 768px) 92vw, ${maxWidth}px`}
+        className="object-contain"
+        priority
+      />
+    </div>
   );
 }
