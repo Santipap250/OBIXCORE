@@ -65,6 +65,21 @@ const navItems = [
       </svg>
     ),
   },
+  {
+    href: "/visualizer",
+    label: "3D View",
+    labelTh: "3D View",
+    icon: (active: boolean) => (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="2"/><circle cx="4" cy="4" r="2"/><circle cx="20" cy="4" r="2"/>
+        <circle cx="4" cy="20" r="2"/><circle cx="20" cy="20" r="2"/>
+        <line x1="6" y1="4" x2="10" y2="4"/><line x1="14" y1="4" x2="18" y2="4"/>
+        <line x1="6" y1="20" x2="10" y2="20"/><line x1="14" y1="20" x2="18" y2="20"/>
+        <line x1="4" y1="6" x2="4" y2="10"/><line x1="4" y1="14" x2="4" y2="18"/>
+        <line x1="20" y1="6" x2="20" y2="10"/><line x1="20" y1="14" x2="20" y2="18"/>
+      </svg>
+    ),
+  },
 ];
 
 export default function Nav() {
@@ -91,7 +106,7 @@ export default function Nav() {
         <div className="flex items-center gap-1 rounded-full border border-bg-border/80 bg-bg-surface/70 p-1">
           {navItems.slice(1).map((item, index) => {
             const active = pathname === item.href;
-            const accent = ["green", "amber", "blue", "purple"][index] || "green";
+            const accent = ["green", "amber", "blue", "purple", "cyan"][index] || "green";
             return (
               <Link
                 key={item.href}
@@ -112,6 +127,8 @@ export default function Nav() {
                       ? "bg-amber-muted/25"
                       : accent === "blue"
                       ? "bg-blue-muted/25"
+                      : accent === "cyan"
+                      ? "bg-cyan-muted/25"
                       : "bg-purple-muted/25"
                   }`}
                 />
@@ -137,7 +154,7 @@ export default function Nav() {
         <div className="flex items-stretch justify-around gap-1">
           {navItems.map((item, index) => {
             const active = pathname === item.href;
-            const accent = ["green", "amber", "blue", "purple", "pink"][index] || "green";
+            const accent = ["green", "amber", "blue", "purple", "pink", "cyan"][index] || "green";
             return (
               <Link
                 key={item.href}
@@ -159,6 +176,8 @@ export default function Nav() {
                         ? "bg-blue-DEFAULT/15"
                         : accent === "purple"
                         ? "bg-purple-DEFAULT/15"
+                        : accent === "cyan"
+                        ? "bg-cyan-DEFAULT/15"
                         : "bg-pink-DEFAULT/15"
                     }`}
                   />
