@@ -1,13 +1,17 @@
-// lib/wizard.ts — PID, filter, and estimation helpers
+// lib/wizard.ts — PID, filter, and rate tuning engine
+//
+// This file owns the *tuning* logic (PID/filter/rate baselines + how they
+// scale with prop load, inertia, and flying style). All current-draw /
+// flight-time / efficiency physics now live in lib/estimation.ts and are
+// imported here so the Wizard and the Calculator always agree on numbers.
 import type { WizardInput, WizardResult } from "@/types";
-
-function clamp(value: number, min: number, max: number): number {
-  return Math.min(max, Math.max(min, value));
-}
-
-function round(value: number): number {
-  return Math.round(value);
-}
+import { clamp, round, confidenceLabel as toConfidenceLabel } from "./utils";
+import {
+  estimateHoverCurrentA,
+  estimateAverageFlightCurrentA,
+  estimateFlightTimeMinutes,
+  escHeadroomWarning,
+} from "./estimation";
 
 function classifyFrame(frameSize: number): WizardResult["setupClass"] {
   if (frameSize <= 110) return "micro";
@@ -17,6 +21,9 @@ function classifyFrame(frameSize: number): WizardResult["setupClass"] {
   return "long-range";
 }
 
+// Nominal reference prop/weight per setup class. These are the "typical
+// build" anchors that propLoad/inertia are measured against — not hard
+// rules, just the center of the bell curve for that frame class.
 function nominalPropByClass(setupClass: WizardResult["setupClass"]): number {
   switch (setupClass) {
     case "micro":
@@ -49,16 +56,24 @@ function nominalWeightByClass(setupClass: WizardResult["setupClass"]): number {
 
 export function calculateTuning(input: WizardInput): WizardResult {
   const { frameSize, motorKV, batteryS, propSize, weight, style } = input;
+  const propBlades = input.propBlades ?? 3;
+  const motorCount = input.motorCount ?? 4;
   const setupClass = classifyFrame(frameSize);
   const propDiameter = propSize / 10;
 
   const nominalProp = nominalPropByClass(setupClass);
   const nominalWeight = nominalWeightByClass(setupClass);
 
+  // More blades on the same diameter load the motor more (more swept area
+  // pushing against already-disturbed air) — nudge propLoad accordingly
+  // instead of silently ignoring blade count like the previous version did.
+  const bladeLoadFactor = Math.pow(propBlades / 3, 0.5);
+
   const propLoad = clamp(
     Math.pow(propDiameter / nominalProp, 2.05) *
       Math.pow(motorKV / 2306, 0.28) *
-      Math.pow(batteryS / 4, 0.32),
+      Math.pow(batteryS / 4, 0.32) *
+      bladeLoadFactor,
     0.75,
     1.42
   );
@@ -185,10 +200,101 @@ export function calculateTuning(input: WizardInput): WizardResult {
     },
   };
 
+  // ── Shared physics: current draw / flight time / ESC headroom ─────────
+  const estimatedHoverCurrentA = estimateHoverCurrentA({
+    weightG: weight,
+    motorCount,
+    propDiameterIn: propDiameter,
+    bladeCount: propBlades,
+    motorKV,
+    batteryS,
+  });
+  const estimatedFlightCurrentA = estimateAverageFlightCurrentA(estimatedHoverCurrentA, style);
+  const estimatedFlightTimeMin = input.batteryMah
+    ? estimateFlightTimeMinutes(input.batteryMah, estimatedFlightCurrentA)
+    : null;
+  const escWarning = escHeadroomWarning(input.escCurrentRatingA, estimatedFlightCurrentA, style);
+
+  // ── Warnings & tips ─────────────────────────────────────────────────
+  const warnings: string[] = [];
+  const tips: string[] = [];
+
+  if (motorKV > 2600 && batteryS >= 5) {
+    warnings.push("KV สูง + 5S/6S อาจทำให้มอเตอร์ร้อนเร็ว ตรวจอุณหภูมิหลังบินรอบแรก");
+  }
+  if (propLoad > 1.22) {
+    warnings.push("ชุด prop / KV / cell / จำนวนใบพัดนี้มีโหลดสูงกว่าค่าอ้างอิง ควรลด pitch หรือเช็กอุณหภูมิมอเตอร์");
+  }
+  if (weight > nominalWeight * 1.2) {
+    warnings.push(`น้ำหนักรวมสูงกว่ากลุ่ม ${setupClass} ปกติ ค่าที่ได้ควรใช้เป็น starting point เท่านั้น`);
+  }
+  if (setupClass === "micro" && weight > 180) {
+    warnings.push("Micro frame ที่หนักเกินไปจะตอบสนองช้าลงและสั่นง่ายกว่าเดิม");
+  }
+  if (style === "race" && weight > 400) {
+    warnings.push("Race style บนโดรนที่หนักมากจะเสียความคล่องตัวและทำให้ค่า D สูงเกินจำเป็นได้");
+  }
+  if (escWarning) {
+    warnings.push(escWarning);
+  }
+
+  tips.push("เริ่มบินด้วยค่าที่ได้ แล้วไล่เช็ก motor temp, propwash และ oscillation ทีละจุด");
+  tips.push("ถ้าโดรนสั่นหลัง throttle drop ให้ลอง iterm_relax = RP และลด D ทีละ 2-5");
+  tips.push("ถ้าโดรนลอยช้าแต่มั่นคง ให้ปรับ P ขึ้นเล็กน้อยก่อนแตะ D");
+  if (style === "freestyle") {
+    tips.push("Freestyle ที่ต้องการ stick feel หนักขึ้น มักเพิ่ม F หรือ RC rate ทีละน้อยจะชัดกว่า");
+  }
+  if (style === "cinematic") {
+    tips.push("Cinematic เน้นนิ่งและเนียนกว่าเดิม ลด D มากเกินไปอาจทำให้แกว่งตอนหยุดมุม");
+  }
+  if (input.batteryMah) {
+    tips.push("เวลาบินจริงอาจต่างจากค่าประมาณ ±15–20% ตามสภาพแบต อุณหภูมิ และความหนักมือ throttle");
+  }
+
+  // ── Confidence score (rule-based, with explainable factors) ───────────
+  const confidenceBase =
+    setupClass === "mid"
+      ? 88
+      : setupClass === "standard"
+      ? 84
+      : setupClass === "small"
+      ? 79
+      : setupClass === "micro"
+      ? 72
+      : 76;
+
+  let confidence = confidenceBase;
+  if (Math.abs(propLoad - 1) < 0.12) confidence += 5;
+  if (Math.abs(inertia - 1) < 0.15) confidence += 4;
+  if (style === "freestyle" && (setupClass === "mid" || setupClass === "standard")) confidence += 3;
+  if (style === "cinematic" && setupClass !== "long-range") confidence += 2;
+  if (propLoad > 1.22) confidence -= 12;
+  if (weight > nominalWeight * 1.2) confidence -= 8;
+  if (motorKV > 3000 || motorKV < 1100) confidence -= 6;
+  if (escWarning) confidence -= 5;
+  confidence = Math.round(clamp(confidence, 45, 96));
+
+  // ── Reasoning: short, concrete "why these numbers" bullets ────────────
+  const reasoning: string[] = [
+    `Frame ${frameSize}mm → จัดกลุ่มเป็น "${setupClass}" ใช้ค่าพื้นฐาน PID/Filter ของกลุ่มนี้เป็นจุดตั้งต้น`,
+    `Prop load ${propLoad.toFixed(2)}× ค่าอ้างอิง (prop ${propDiameter.toFixed(1)}" ${propBlades}-blade, ${motorKV}KV, ${batteryS}S) → ดัน P/D ตามโหลด ${loadBias.toFixed(2)}× และลดความหน่วง D ${dampingBias.toFixed(2)}×`,
+    `น้ำหนัก ${weight}g เทียบค่ามาตรฐานกลุ่ม ${nominalWeight}g → inertia ${inertia.toFixed(2)}× → ปรับ I/grip ${gripBias.toFixed(2)}×`,
+    `สไตล์ "${style}" → ปรับ P/D gain (${styleGain.p.toFixed(2)}/${styleGain.d.toFixed(2)}×) และ rate/expo ให้เข้ากับการบินแบบนี้`,
+  ];
+
+  const summary = {
+    micro: "เหมาะกับเฟรมเล็ก น้ำหนักเบา เน้นตอบสนองไวและลดความร้อน",
+    small: "เหมาะกับ 3 นิ้วหรือเฟรมเล็กที่ต้องการบาลานซ์ระหว่างแรงและความนิ่ง",
+    mid: "ใกล้กับ 5 นิ้วมาตรฐาน ค่าที่ได้ตั้งต้นได้ดีสำหรับ freestyle ทั่วไป",
+    standard: "เหมาะกับ 5–6 นิ้วโหลดกลาง ค่าจะเอนทางนิ่งและคุมแรงสั่น",
+    "long-range": "เหมาะกับ 7 นิ้วหรือ long-range ที่ต้องการความนิ่งและความประหยัดพลังงาน",
+  }[setupClass];
+
   const cliCommands = [
     `# OBIXCORE Tuning Wizard — ${style.toUpperCase()} ${frameSize}mm`,
     `# Generated ${new Date().toLocaleDateString("th-TH")}`,
-    `# Setup class: ${setupClass}`,
+    `# Setup class: ${setupClass} · Confidence: ${confidence}% (${toConfidenceLabel(confidence)})`,
+    `# Est. hover current: ~${estimatedHoverCurrentA.typical}A · Est. avg flight current: ~${estimatedFlightCurrentA.typical}A`,
     `#`,
     `# ── PID ─────────────────────────────────────`,
     `set p_roll = ${pid.roll.p}`,
@@ -224,91 +330,21 @@ export function calculateTuning(input: WizardInput): WizardResult {
     `save`,
   ];
 
-  const warnings: string[] = [];
-  const tips: string[] = [];
-
-  if (motorKV > 2600 && batteryS >= 5) {
-    warnings.push("KV สูง + 5S/6S อาจทำให้มอเตอร์ร้อนเร็ว ตรวจอุณหภูมิหลังบินรอบแรก");
-  }
-  if (propLoad > 1.22) {
-    warnings.push("ชุด prop / KV / cell ใหม่นี้มีโหลดสูงกว่าค่าอ้างอิง ควรลด pitch หรือเช็กอุณหภูมิมอเตอร์");
-  }
-  if (weight > nominalWeight * 1.2) {
-    warnings.push(`น้ำหนักรวมสูงกว่ากลุ่ม ${setupClass} ปกติ ค่าที่ได้ควรใช้เป็น starting point เท่านั้น`);
-  }
-  if (setupClass === "micro" && weight > 180) {
-    warnings.push("Micro frame ที่หนักเกินไปจะตอบสนองช้าลงและสั่นง่ายกว่าเดิม");
-  }
-  if (style === "race" && weight > 400) {
-    warnings.push("Race style บนโดรนที่หนักมากจะเสียความคล่องตัวและทำให้ค่า D สูงเกินจำเป็นได้");
-  }
-
-  tips.push("เริ่มบินด้วยค่าที่ได้ แล้วไล่เช็ก motor temp, propwash และ oscillation ทีละจุด");
-  tips.push("ถ้าโดรนสั่นหลัง throttle drop ให้ลอง iterm_relax = RP และลด D ทีละ 2-5");
-  tips.push("ถ้าโดรนลอยช้าแต่มั่นคง ให้ปรับ P ขึ้นเล็กน้อยก่อนแตะ D");
-  if (style === "freestyle") {
-    tips.push("Freestyle ที่ต้องการ stick feel หนักขึ้น มักเพิ่ม F หรือ RC rate ทีละน้อยจะชัดกว่า");
-  }
-  if (style === "cinematic") {
-    tips.push("Cinematic เน้นนิ่งและเนียนกว่าเดิม ลด D มากเกินไปอาจทำให้แกว่งตอนหยุดมุม");
-  }
-
-  const confidenceBase =
-    setupClass === "mid"
-      ? 88
-      : setupClass === "standard"
-      ? 84
-      : setupClass === "small"
-      ? 79
-      : setupClass === "micro"
-      ? 72
-      : 76;
-
-  let confidence = confidenceBase;
-  if (Math.abs(propLoad - 1) < 0.12) confidence += 5;
-  if (Math.abs(inertia - 1) < 0.15) confidence += 4;
-  if (style === "freestyle" && (setupClass === "mid" || setupClass === "standard")) confidence += 3;
-  if (style === "cinematic" && setupClass !== "long-range") confidence += 2;
-  if (propLoad > 1.22) confidence -= 12;
-  if (weight > nominalWeight * 1.2) confidence -= 8;
-  if (motorKV > 3000 || motorKV < 1100) confidence -= 6;
-  confidence = Math.round(clamp(confidence, 45, 96));
-
-  const summary = {
-    micro: "เหมาะกับเฟรมเล็ก น้ำหนักเบา เน้นตอบสนองไวและลดความร้อน",
-    small: "เหมาะกับ 3 นิ้วหรือเฟรมเล็กที่ต้องการบาลานซ์ระหว่างแรงและความนิ่ง",
-    mid: "ใกล้กับ 5 นิ้วมาตรฐาน ค่าที่ได้ตั้งต้นได้ดีสำหรับ freestyle ทั่วไป",
-    standard: "เหมาะกับ 5–6 นิ้วโหลดกลาง ค่าจะเอนทางนิ่งและคุมแรงสั่น",
-    "long-range": "เหมาะกับ 7 นิ้วหรือ long-range ที่ต้องการความนิ่งและความประหยัดพลังงาน",
-  }[setupClass];
-
-  return { pid, filters, rates, cliCommands, warnings, tips, confidence, setupClass, summary };
-}
-
-export function calculateFlightTime(
-  batteryMah: number,
-  batteryS: number,
-  estimatedCurrentA: number
-): number {
-  const usableCapacityAh = (batteryMah / 1000) * 0.78;
-  const current = Math.max(estimatedCurrentA, 0.1);
-  const voltageBonus = clamp(1 - Math.max(0, batteryS - 4) * 0.02, 0.88, 1.0);
-  return (usableCapacityAh / current) * 60 * voltageBonus;
-}
-
-export function estimateCurrentDraw(
-  motorKV: number,
-  batteryS: number,
-  motorCount: number,
-  propSize: number
-): number {
-  const propDiameter = propSize / 10;
-  const diameterNorm = clamp(propDiameter / 5.1, 0.45, 1.65);
-  const kvNorm = clamp(motorKV / 2306, 0.55, 1.75);
-  const voltageNorm = clamp((batteryS * 3.7) / 14.8, 0.55, 1.7);
-
-  const motorStress = Math.pow(diameterNorm, 2.1) * Math.pow(kvNorm, 0.42) * Math.pow(voltageNorm, 0.92);
-  const perMotor = 4.4 * motorStress * (0.92 + Math.min(0.18, (diameterNorm - 1) * 0.08));
-
-  return clamp(perMotor * motorCount, 3.5, 180);
+  return {
+    pid,
+    filters,
+    rates,
+    cliCommands,
+    warnings,
+    tips,
+    reasoning,
+    confidence,
+    confidenceLabel: toConfidenceLabel(confidence),
+    setupClass,
+    summary,
+    estimatedHoverCurrentA,
+    estimatedFlightCurrentA,
+    estimatedFlightTimeMin,
+    escWarning,
+  };
 }
