@@ -1,5 +1,6 @@
 import ToolCard from "@/components/ToolCard";
 import Link from "next/link";
+import OBIXLogo from "@/components/OBIXLogo";
 
 const tools = [
   {
@@ -105,18 +106,8 @@ export default function HomePage() {
 
         <div className="relative grid gap-6 md:grid-cols-[1.2fr_0.8fr] md:items-center">
           <div>
-            <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-green-DEFAULT/40 bg-green-muted/60 shadow-[0_0_18px_rgba(0,232,122,0.10)]">
-                <span className="font-orbitron text-sm font-black tracking-[0.2em] text-green-DEFAULT">OX</span>
-              </div>
-              <div>
-                <h1 className="font-orbitron text-2xl font-black tracking-[0.35em] text-text">
-                  OBIXCORE
-                </h1>
-                <p className="mt-1 text-[11px] font-mono tracking-[0.3em] text-green-DEFAULT">
-                  FPV TUNING PLATFORM
-                </p>
-              </div>
+            <div className="mb-4">
+              <OBIXLogo height={48} />
             </div>
 
             <p className="max-w-2xl text-[15px] leading-relaxed text-text-muted">

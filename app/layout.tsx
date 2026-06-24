@@ -40,6 +40,8 @@ export default function RootLayout({
     <html lang="th" className={`dark ${orbitron.variable} ${jetbrainsMono.variable} ${sarabun.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/png" href="/obixcore-logo.png" sizes="any" />
       </head>
       <body className="relative isolate min-h-screen overflow-x-hidden bg-bg font-sarabun text-text antialiased">
         <div className="pointer-events-none fixed inset-0 -z-30 bg-[radial-gradient(circle_at_top_left,_rgba(0,232,122,0.18),_transparent_28%),radial-gradient(circle_at_82%_16%,_rgba(0,170,255,0.14),_transparent_22%),radial-gradient(circle_at_16%_78%,_rgba(176,96,255,0.16),_transparent_24%),radial-gradient(circle_at_78%_82%,_rgba(255,187,0,0.10),_transparent_20%),linear-gradient(180deg,#07090d_0%,#0a0c10_44%,#07090d_100%)]" />
