@@ -10,55 +10,55 @@ const config: Config = {
     extend: {
       colors: {
         bg: {
-          DEFAULT: "#0a0c10",
-          surface: "#0f1318",
-          elevated: "#141a22",
-          border: "#1e2a38",
+          DEFAULT: "#050814",
+          surface: "#0d1320",
+          elevated: "#121a2c",
+          border: "#273759",
         },
         green: {
-          DEFAULT: "#00e87a",
-          dim: "#00a855",
-          muted: "#003d22",
+          DEFAULT: "#46f0b8",
+          dim: "#12b886",
+          muted: "#0b4338",
         },
         amber: {
-          DEFAULT: "#ffbb00",
+          DEFAULT: "#ffd166",
           dim: "#cc9500",
           muted: "#3d2d00",
         },
         blue: {
-          DEFAULT: "#00aaff",
-          dim: "#0077cc",
-          muted: "#002a40",
+          DEFAULT: "#63b3ff",
+          dim: "#3d8ee8",
+          muted: "#10345a",
         },
         cyan: {
-          DEFAULT: "#00d8ff",
-          dim: "#009dbf",
-          muted: "#002d38",
+          DEFAULT: "#7de6ff",
+          dim: "#29b6d8",
+          muted: "#073947",
         },
         purple: {
-          DEFAULT: "#b060ff",
-          dim: "#7a3fbf",
-          muted: "#2a1040",
+          DEFAULT: "#b491ff",
+          dim: "#8a63ff",
+          muted: "#261548",
         },
         red: {
-          DEFAULT: "#ff4060",
-          dim: "#cc2040",
-          muted: "#400010",
+          DEFAULT: "#ff6b8a",
+          dim: "#f04667",
+          muted: "#461322",
         },
         orange: {
-          DEFAULT: "#ff8a3d",
-          dim: "#cc6e2f",
-          muted: "#3d1d00",
+          DEFAULT: "#ff9f6b",
+          dim: "#ea7a45",
+          muted: "#4a250f",
         },
         pink: {
           DEFAULT: "#ff5fb7",
-          dim: "#cc4790",
-          muted: "#3b1030",
+          dim: "#d74bb7",
+          muted: "#44133a",
         },
         text: {
-          DEFAULT: "#e0e8f0",
-          muted: "#6b7a90",
-          faint: "#3a4555",
+          DEFAULT: "#edf4ff",
+          muted: "#94a5bc",
+          faint: "#64748c",
         },
       },
       fontFamily: {
@@ -78,8 +78,8 @@ const config: Config = {
       },
       keyframes: {
         pulseGreen: {
-          "0%, 100%": { boxShadow: "0 0 0 0 rgba(0,232,122,0)" },
-          "50%": { boxShadow: "0 0 0 6px rgba(0,232,122,0.15)" },
+          "0%, 100%": { boxShadow: "0 0 0 0 rgba(70,240,184,0)" },
+          "50%": { boxShadow: "0 0 0 6px rgba(70,240,184,0.15)" },
         },
         scan: {
           "0%": { backgroundPosition: "0 -100%" },
@@ -112,7 +112,7 @@ const config: Config = {
       },
       backgroundImage: {
         "grid-pattern":
-          "linear-gradient(rgba(0,232,122,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,232,122,0.03) 1px, transparent 1px)",
+          "linear-gradient(rgba(70,240,184,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(70,240,184,0.03) 1px, transparent 1px)",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
       backgroundSize: {
