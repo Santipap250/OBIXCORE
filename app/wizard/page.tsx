@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { calculateTuning } from "@/lib/wizard";
 import type { WizardInput, WizardResult } from "@/types";
+import { CONFIDENCE_META } from "@/lib/utils";
 import ValueDisplay from "@/components/ValueDisplay";
 import CodeBlock from "@/components/CodeBlock";
 
@@ -12,6 +13,8 @@ const DEFAULT_INPUT: WizardInput = {
   propSize: 51,
   weight: 320,
   style: "freestyle",
+  propBlades: 3,
+  motorCount: 4,
 };
 
 const STYLE_OPTIONS = [
@@ -19,6 +22,8 @@ const STYLE_OPTIONS = [
   { value: "race",      label: "Race",      labelTh: "แข่ง/เร็ว",    color: "red" },
   { value: "cinematic", label: "Cinematic", labelTh: "ถ่ายวิดีโอ",   color: "blue" },
 ] as const;
+
+const BLADE_OPTIONS = [2, 3, 4] as const;
 
 const SETUP_LABELS: Record<WizardResult["setupClass"], string> = {
   micro: "Micro / Toothpick",
@@ -43,6 +48,7 @@ function InputField({
       <div className="flex items-center gap-2">
         <input
           type="number"
+          inputMode="decimal"
           value={value}
           min={min}
           max={max}
@@ -68,6 +74,7 @@ function InputField({
 
 export default function WizardPage() {
   const [input, setInput] = useState<WizardInput>(DEFAULT_INPUT);
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const [result, setResult] = useState<WizardResult | null>(null);
   const [step, setStep] = useState<"form" | "result">("form");
 
@@ -92,7 +99,7 @@ export default function WizardPage() {
           <h1 className="font-orbitron font-bold text-lg text-text tracking-wide">Tuning Wizard</h1>
         </div>
         <p className="text-sm text-text-muted font-sarabun ml-3.5">
-          กรอกสเปกโดรน → ได้ค่า PID / Filter / Rates พร้อม CLI command
+          กรอกสเปกโดรน → ได้ค่า PID / Filter / Rates พร้อม CLI command + ความมั่นใจของคำแนะนำ
         </p>
       </div>
 
@@ -159,11 +166,64 @@ export default function WizardPage() {
           </div>
           <InputField
             label="Weight (AUW)"
-            sublabel="น้ำหนักพร้อมแบต (กรัม)"
+            sublabel="น้ำหนักรวมทั้งหมด (รวมกล้อง/Payload) พร้อมแบต"
             value={input.weight}
             min={80} max={900} step={10} unit="g"
             onChange={(v) => set("weight", v)}
           />
+
+          {/* Prop blades */}
+          <div>
+            <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">จำนวนใบพัด</p>
+            <div className="grid grid-cols-3 gap-2">
+              {BLADE_OPTIONS.map((b) => (
+                <button
+                  key={b}
+                  onClick={() => set("propBlades", b)}
+                  className={`py-2.5 rounded-xl border text-sm font-mono transition-all ${
+                    input.propBlades === b
+                      ? "border-green-DEFAULT bg-green-muted text-green-DEFAULT font-semibold"
+                      : "border-bg-border bg-bg-surface text-text-muted hover:bg-bg-elevated"
+                  }`}
+                >
+                  {b}-blade
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Advanced toggle */}
+          <button
+            onClick={() => setShowAdvanced((v) => !v)}
+            className="flex items-center gap-2 text-xs font-mono text-text-muted hover:text-green-DEFAULT transition-colors"
+          >
+            <svg className={`w-3.5 h-3.5 transition-transform ${showAdvanced ? "rotate-180" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+            ตัวเลือกเพิ่มเติม (Battery mAh / ESC / Flight Time)
+          </button>
+
+          {showAdvanced && (
+            <div className="grid grid-cols-2 gap-4 p-3 rounded-xl bg-bg-elevated border border-bg-border animate-fade-in">
+              <InputField
+                label="Battery Cap."
+                sublabel="ความจุแบต (ไม่บังคับ)"
+                value={input.batteryMah ?? 0}
+                min={0} max={6000} step={50} unit="mAh"
+                onChange={(v) => set("batteryMah", v || (undefined as unknown as number))}
+              />
+              <InputField
+                label="ESC Rating"
+                sublabel="กระแสสูงสุด ESC ต่อตัว (ไม่บังคับ)"
+                value={input.escCurrentRatingA ?? 0}
+                min={0} max={150} step={5} unit="A"
+                onChange={(v) => set("escCurrentRatingA", v || (undefined as unknown as number))}
+              />
+              <p className="col-span-2 text-[10px] text-text-faint font-sarabun">
+                ใส่ Battery Capacity เพื่อประมาณเวลาบิน และใส่ ESC Rating เพื่อเช็ก headroom กระแสสูงสุด — เว้นว่างได้ถ้าไม่ทราบ
+              </p>
+            </div>
+          )}
 
           {/* Summary strip */}
           <div className="flex flex-wrap gap-2 p-3 rounded-xl bg-bg-elevated border border-bg-border">
@@ -211,7 +271,7 @@ export default function WizardPage() {
           {/* Config badge */}
           <div className="p-3 rounded-xl bg-bg-elevated border border-bg-border flex flex-wrap gap-3 items-center">
             <span className="text-[10px] font-mono text-text-faint uppercase tracking-wider">สเปก:</span>
-            <span className="text-xs font-mono text-green-DEFAULT">{input.frameSize}mm · {input.motorKV}KV · {input.batteryS}S · {(input.propSize/10).toFixed(1)}" · {input.weight}g</span>
+            <span className="text-xs font-mono text-green-DEFAULT">{input.frameSize}mm · {input.motorKV}KV · {input.batteryS}S · {(input.propSize/10).toFixed(1)}" · {input.propBlades ?? 3}-blade · {input.weight}g</span>
             <span className={`text-[10px] font-mono px-2 py-0.5 rounded uppercase ${
               input.style === "race" ? "bg-red-muted text-red-DEFAULT"
               : input.style === "cinematic" ? "bg-blue-muted text-blue-DEFAULT"
@@ -220,15 +280,64 @@ export default function WizardPage() {
             <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-bg-border text-text-muted">
               {SETUP_LABELS[result.setupClass]}
             </span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-green-DEFAULT/30 bg-green-muted/30 text-green-DEFAULT">
-              Confidence {result.confidence}%
+            <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${CONFIDENCE_META[result.confidenceLabel].classes}`}>
+              Confidence: {result.confidenceLabel} ({result.confidence}%)
             </span>
           </div>
 
           <div className="p-3 rounded-xl border border-blue-DEFAULT/20 bg-blue-muted/15">
             <p className="text-[10px] font-mono text-blue-DEFAULT uppercase tracking-widest mb-1">Why this tuning</p>
-            <p className="text-xs font-sarabun text-text leading-relaxed">{result.summary}</p>
+            <p className="text-xs font-sarabun text-text leading-relaxed mb-3">{result.summary}</p>
+            <ul className="space-y-1.5">
+              {result.reasoning.map((r, i) => (
+                <li key={i} className="flex gap-2 text-[11px] font-sarabun text-text-muted leading-relaxed">
+                  <span className="text-blue-DEFAULT flex-shrink-0">→</span>
+                  {r}
+                </li>
+              ))}
+            </ul>
           </div>
+
+          {/* Estimated current / flight time */}
+          <section>
+            <div className="flex items-center gap-3 mb-3">
+              <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">Estimated Power</h2>
+              <div className="flex-1 h-px bg-bg-border" />
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <ValueDisplay
+                label="Hover Current"
+                value={result.estimatedHoverCurrentA.typical.toFixed(1)}
+                unit="A"
+                color="blue"
+                size="sm"
+                range={{ low: result.estimatedHoverCurrentA.low, high: result.estimatedHoverCurrentA.high, decimals: 1 }}
+              />
+              <ValueDisplay
+                label="Avg Flight Current"
+                value={result.estimatedFlightCurrentA.typical.toFixed(1)}
+                unit="A"
+                color="amber"
+                size="sm"
+                range={{ low: result.estimatedFlightCurrentA.low, high: result.estimatedFlightCurrentA.high, decimals: 1 }}
+              />
+            </div>
+            {result.estimatedFlightTimeMin && (
+              <div className="mt-2">
+                <ValueDisplay
+                  label="Est. Flight Time"
+                  value={result.estimatedFlightTimeMin.typical.toFixed(1)}
+                  unit="min"
+                  color="green"
+                  size="sm"
+                  range={{ low: result.estimatedFlightTimeMin.low, high: result.estimatedFlightTimeMin.high, decimals: 1 }}
+                />
+              </div>
+            )}
+            <p className="text-[10px] text-text-faint font-sarabun mt-2">
+              * ประมาณการจากแรงขับที่ต้องใช้ลอยตัวจริง (น้ำหนัก/prop/แรงดัน) — ไม่ใช้ค่าตายตัว ใส่ Battery Capacity ในตัวเลือกเพิ่มเติมเพื่อดูเวลาบิน
+            </p>
+          </section>
 
           {/* Warnings */}
           {result.warnings.length > 0 && (
