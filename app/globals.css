@@ -127,6 +127,15 @@ body {
   opacity: 0.18;
 }
 
+/* Lean variant for components instantiated many times per screen
+   (e.g. ValueDisplay stat chips). Keeps the glass border/gradient look
+   but drops the infinite shimmer sweep so a results page with a dozen+
+   stat chips isn't running a dozen+ simultaneous compositor animations. */
+.hud-card--static::after {
+  content: none;
+  animation: none;
+}
+
 .hud-chip {
   border-radius: 9999px;
   border: 1px solid rgba(30, 42, 56, 0.95);
