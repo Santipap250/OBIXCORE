@@ -4,6 +4,8 @@ interface ValueDisplayProps {
   unit?: string;
   color?: "green" | "amber" | "blue" | "cyan" | "purple" | "orange" | "pink" | "red";
   size?: "sm" | "md" | "lg";
+  /** Optional low–high band shown under the main value, e.g. for estimates. */
+  range?: { low: number; high: number; decimals?: number };
 }
 
 const colorMap = {
@@ -23,13 +25,18 @@ export default function ValueDisplay({
   unit,
   color = "green",
   size = "md",
+  range,
 }: ValueDisplayProps) {
   const c = colorMap[color];
   const textSize = size === "lg" ? "text-3xl" : size === "sm" ? "text-lg" : "text-2xl";
   const labelSize = size === "sm" ? "text-[9px]" : "text-[10px]";
 
   return (
-    <div className={`hud-card flex min-w-[72px] flex-col items-center justify-center rounded-2xl border px-3 py-3 ${c.bg} ${c.border}`}>
+    // hud-card--static: same glass look as hud-card, but without the
+    // infinite shimmer sweep pseudo-element. ValueDisplay renders many
+    // times per screen (PID/filter/rate grids), so skipping the per-card
+    // animation noticeably reduces composited layers on that screen.
+    <div className={`hud-card hud-card--static flex min-w-[72px] flex-col items-center justify-center rounded-2xl border px-3 py-3 ${c.bg} ${c.border}`}>
       <span className={`${labelSize} mb-1 font-mono uppercase tracking-[0.25em] text-text-muted`}>
         {label}
       </span>
@@ -41,6 +48,11 @@ export default function ValueDisplay({
           <span className={`text-xs font-mono ${c.text} opacity-70`}>{unit}</span>
         )}
       </div>
+      {range && (
+        <span className="mt-1 text-[9px] font-mono text-text-faint">
+          {range.low.toFixed(range.decimals ?? 1)}–{range.high.toFixed(range.decimals ?? 1)}{unit ? ` ${unit}` : ""}
+        </span>
+      )}
     </div>
   );
 }
