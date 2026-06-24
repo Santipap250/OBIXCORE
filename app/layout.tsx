@@ -29,15 +29,6 @@ export const metadata: Metadata = {
   description: "เครื่องมือจูนโดรน FPV ครบครัน Tuning Wizard, Problem Solver, Calculator และ Preset Library",
   keywords: ["FPV", "drone", "betaflight", "tuning", "PID", "preset", "โดรน"],
   themeColor: "#07090d",
-  openGraph: {
-    title: "OBIXCORE — FPV Tuning Platform",
-    description: "เครื่องมือจูนโดรน FPV ครบครัน Tuning Wizard, Problem Solver, Calculator และ Preset Library",
-    images: ["/obixcore-logo.png"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    images: ["/obixcore-logo.png"],
-  },
 };
 
 export default function RootLayout({
@@ -50,7 +41,8 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" type="image/png" href="/obixcore-logo.png" sizes="any" />
+        <link rel="icon" type="image/png" href="/obixcore-icon.png" sizes="any" />
+        <link rel="apple-touch-icon" href="/obixcore-icon.png" />
       </head>
       <body className="relative isolate min-h-screen overflow-x-hidden bg-bg font-sarabun text-text antialiased">
         <div className="pointer-events-none fixed inset-0 -z-30 bg-[radial-gradient(circle_at_top_left,_rgba(0,232,122,0.18),_transparent_28%),radial-gradient(circle_at_82%_16%,_rgba(0,170,255,0.14),_transparent_22%),radial-gradient(circle_at_16%_78%,_rgba(176,96,255,0.16),_transparent_24%),radial-gradient(circle_at_78%_82%,_rgba(255,187,0,0.10),_transparent_20%),linear-gradient(180deg,#07090d_0%,#0a0c10_44%,#07090d_100%)]" />
