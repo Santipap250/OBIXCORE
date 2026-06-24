@@ -26,7 +26,7 @@ const DroneView = dynamic(() => import("@/components/DroneView"), {
   loading: () => (
     <div className="flex h-[280px] items-center justify-center rounded-2xl bg-bg-elevated">
       <div className="flex flex-col items-center gap-3">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-green-DEFAULT/20 border-t-green-DEFAULT" />
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-cyan-DEFAULT/20 border-t-cyan-DEFAULT" />
         <span className="text-xs font-mono text-text-faint">กำลังโหลด 3D Viewer…</span>
       </div>
     </div>
@@ -92,14 +92,14 @@ function NumberInput({
         max={max}
         step={step}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full bg-bg-elevated border border-bg-border rounded-lg px-3 py-2 text-sm font-mono text-text focus:outline-none focus:border-green-DEFAULT/60 transition-colors"
+        className="w-full bg-bg-elevated border border-bg-border rounded-lg px-3 py-2 text-sm font-mono text-text focus:outline-none focus:border-cyan-DEFAULT/60 transition-colors"
       />
     </div>
   );
 }
 
 function StatBox({
-  label, value, unit, color = "#00e87a", sub,
+  label, value, unit, color = "#46f0b8", sub,
 }: {
   label: string; value: string; unit?: string; color?: string; sub?: string;
 }) {
@@ -187,7 +187,7 @@ export default function VisualizerPage() {
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-purple-DEFAULT/40 bg-purple-muted/40">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b060ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b491ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="2" /><circle cx="4" cy="4" r="2" /><circle cx="20" cy="4" r="2" />
                   <circle cx="4" cy="20" r="2" /><circle cx="20" cy="20" r="2" />
                   <line x1="6" y1="4" x2="10" y2="4" /><line x1="14" y1="4" x2="18" y2="4" />
@@ -332,28 +332,28 @@ export default function VisualizerPage() {
                 label="Hover A"
                 value={physics.hover.typical.toFixed(1)}
                 unit="A"
-                color="#00e87a"
+                color="#46f0b8"
                 sub={`${physics.hover.low.toFixed(1)}–${physics.hover.high.toFixed(1)}A`}
               />
               <StatBox
                 label="Avg Flight A"
                 value={physics.flight.typical.toFixed(1)}
                 unit="A"
-                color="#00aaff"
+                color="#63b3ff"
                 sub={`${physics.flight.low.toFixed(1)}–${physics.flight.high.toFixed(1)}A`}
               />
               <StatBox
                 label="TWR"
                 value={physics.twr.toFixed(1)}
                 unit="×"
-                color={physics.twrMeta.color === "green" ? "#00e87a" : physics.twrMeta.color === "amber" ? "#ffbb00" : "#ff4060"}
+                color={physics.twrMeta.color === "green" ? "#46f0b8" : physics.twrMeta.color === "amber" ? "#ffd166" : "#ff6b8a"}
                 sub={physics.twrMeta.label}
               />
               <StatBox
                 label="Flight Time"
                 value={physics.flightTime ? physics.flightTime.typical.toFixed(1) : "—"}
                 unit={physics.flightTime ? "min" : ""}
-                color="#b060ff"
+                color="#b491ff"
                 sub={
                   physics.flightTime
                     ? `${physics.flightTime.low.toFixed(1)}–${physics.flightTime.high.toFixed(1)} min`
@@ -383,8 +383,8 @@ export default function VisualizerPage() {
                       onClick={() => updateSpec({ frameSize: fs })}
                       className={`rounded-xl border py-2 text-[10px] font-mono uppercase tracking-wider transition-all ${
                         spec.frameSize === fs
-                          ? "border-green-DEFAULT/60 bg-green-muted/25 text-green-DEFAULT"
-                          : "border-bg-border bg-bg-elevated text-text-muted hover:border-green-DEFAULT/30"
+                          ? "border-cyan-DEFAULT/60 bg-green-muted/25 text-cyan-DEFAULT"
+                          : "border-bg-border bg-bg-elevated text-text-muted hover:border-cyan-DEFAULT/30"
                       }`}
                     >
                       {fs.replace("inch", "\"")}
@@ -521,7 +521,7 @@ export default function VisualizerPage() {
             <div className="mt-5 border-t border-bg-border pt-4">
               <button
                 onClick={() => { setSpec(DEFAULT_SPEC); setActivePreset("freestyle-5in"); }}
-                className="w-full rounded-xl border border-bg-border bg-bg-elevated py-2.5 text-[11px] font-mono uppercase tracking-widest text-text-muted transition-all hover:border-green-DEFAULT/30 hover:text-green-DEFAULT active:scale-[0.98]"
+                className="w-full rounded-xl border border-bg-border bg-bg-elevated py-2.5 text-[11px] font-mono uppercase tracking-widest text-text-muted transition-all hover:border-cyan-DEFAULT/30 hover:text-cyan-DEFAULT active:scale-[0.98]"
               >
                 Reset to Default
               </button>
@@ -535,7 +535,7 @@ export default function VisualizerPage() {
             </p>
             <div className="space-y-2 text-[11px] font-sarabun text-text-muted leading-relaxed">
               {compatibility.checks.filter(c => c.level !== "perfect").length === 0 ? (
-                <p className="text-green-DEFAULT/80">✓ Build นี้ดูสมบูรณ์ ทุก component เข้ากันได้ดี</p>
+                <p className="text-cyan-DEFAULT/80">✓ Build นี้ดูสมบูรณ์ ทุก component เข้ากันได้ดี</p>
               ) : (
                 compatibility.checks
                   .filter(c => c.level !== "perfect")
