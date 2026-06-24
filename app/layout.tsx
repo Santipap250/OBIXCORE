@@ -29,6 +29,15 @@ export const metadata: Metadata = {
   description: "เครื่องมือจูนโดรน FPV ครบครัน Tuning Wizard, Problem Solver, Calculator และ Preset Library",
   keywords: ["FPV", "drone", "betaflight", "tuning", "PID", "preset", "โดรน"],
   themeColor: "#07090d",
+  openGraph: {
+    title: "OBIXCORE — FPV Tuning Platform",
+    description: "เครื่องมือจูนโดรน FPV ครบครัน Tuning Wizard, Problem Solver, Calculator และ Preset Library",
+    images: ["/obixcore-logo.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/obixcore-logo.png"],
+  },
 };
 
 export default function RootLayout({
