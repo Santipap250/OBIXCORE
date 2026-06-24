@@ -29,7 +29,7 @@ export default function ValueDisplay({
 }: ValueDisplayProps) {
   const c = colorMap[color];
   const textSize = size === "lg" ? "text-3xl" : size === "sm" ? "text-lg" : "text-2xl";
-  const labelSize = size === "sm" ? "text-[9px]" : "text-[10px]";
+  const labelSize = size === "sm" ? "text-[12px]" : "text-[12px]";
 
   return (
     // hud-card--static: same glass look as hud-card, but without the
@@ -45,11 +45,11 @@ export default function ValueDisplay({
           {value}
         </span>
         {unit && (
-          <span className={`text-xs font-mono ${c.text} opacity-70`}>{unit}</span>
+          <span className={`text-sm font-mono ${c.text} opacity-70`}>{unit}</span>
         )}
       </div>
       {range && (
-        <span className="mt-1 text-[9px] font-mono text-text-faint">
+        <span className="mt-1 text-[12px] font-mono text-text-faint">
           {range.low.toFixed(range.decimals ?? 1)}–{range.high.toFixed(range.decimals ?? 1)}{unit ? ` ${unit}` : ""}
         </span>
       )}

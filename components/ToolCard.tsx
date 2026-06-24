@@ -55,7 +55,7 @@ export default function ToolCard({
               {title}
             </h3>
             {badge && (
-              <span className={`hud-chip px-2 py-0.5 text-[9px] font-mono uppercase tracking-[0.22em] ${a.badge}`}>
+              <span className={`hud-chip px-2 py-0.5 text-[12px] font-mono uppercase tracking-[0.22em] ${a.badge}`}>
                 {badge}
               </span>
             )}
@@ -78,7 +78,7 @@ export default function ToolCard({
 
       <div className="mt-4 flex items-center gap-2">
         <div className="hud-accent-line flex-1" />
-        <span className="text-[10px] font-mono uppercase tracking-[0.28em] text-text-faint">
+        <span className="text-[12px] font-mono uppercase tracking-[0.28em] text-text-faint">
           OPEN MODULE
         </span>
         <div className="hud-accent-line flex-1" />

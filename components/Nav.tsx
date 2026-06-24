@@ -134,7 +134,7 @@ export default function Nav() {
           })}
         </div>
 
-        <div className="hud-chip flex items-center gap-2 px-3 py-2 text-[11px] font-mono tracking-[0.22em] text-text-faint">
+        <div className="hud-chip flex items-center gap-2 px-3 py-2 text-[12px] font-mono tracking-[0.22em] text-text-faint">
           <span className="h-2 w-2 rounded-full bg-green-DEFAULT shadow-[0_0_16px_rgba(0,232,122,0.55)] animate-pulse-green" />
           v0.1.0
         </div>
@@ -149,7 +149,7 @@ export default function Nav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-2 py-2 text-[10px] transition-all ${
+                className={`relative flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-2 py-2 text-[12px] transition-all ${
                   active ? "text-text" : "text-text-muted"
                 }`}
               >
