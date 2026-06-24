@@ -4,6 +4,7 @@ import problemsData from "@/data/problems.json";
 import type { Problem } from "@/types";
 import CopyButton from "@/components/CopyButton";
 import Badge from "@/components/Badge";
+import { SEVERITY_META } from "@/lib/utils";
 
 const problems = problemsData as Problem[];
 
@@ -14,12 +15,6 @@ const CATEGORIES = [
   { value: "power", label: "ระบบไฟ", icon: "⚡" },
   { value: "mechanical", label: "เครื่องกล", icon: "🔧" },
 ] as const;
-
-const SEVERITY_CONFIG = {
-  high:   { label: "ด่วน",    color: "text-red-DEFAULT   bg-red-muted   border-red-DEFAULT/40"   },
-  medium: { label: "ปานกลาง", color: "text-amber-DEFAULT bg-amber-muted border-amber-DEFAULT/40" },
-  low:    { label: "ต่ำ",      color: "text-green-DEFAULT bg-green-muted border-green-DEFAULT/40" },
-};
 
 export default function ProblemsPage() {
   const [category, setCategory] = useState<string>("all");
@@ -81,7 +76,7 @@ export default function ProblemsPage() {
           <p className="text-center text-text-faint font-sarabun py-8 text-sm">ไม่พบปัญหาในหมวดนี้</p>
         )}
         {filtered.map((p) => {
-          const sev = SEVERITY_CONFIG[p.severity];
+          const sev = SEVERITY_META[p.severity];
           const isSelected = selected?.id === p.id;
           return (
             <button
@@ -98,7 +93,7 @@ export default function ProblemsPage() {
                   <p className="text-sm font-sarabun text-text font-medium leading-snug">{p.symptom}</p>
                   <p className="text-xs text-text-muted font-sarabun mt-1 leading-relaxed line-clamp-2">{p.description}</p>
                 </div>
-                <span className={`flex-shrink-0 text-[10px] font-mono px-2 py-1 rounded border mt-0.5 ${sev.color}`}>
+                <span className={`flex-shrink-0 text-[10px] font-mono px-2 py-1 rounded border mt-0.5 ${sev.classes}`}>
                   {sev.label}
                 </span>
               </div>
