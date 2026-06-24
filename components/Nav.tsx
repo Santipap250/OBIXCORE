@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import OBIXLogo from "@/components/OBIXLogo";
 
 const navItems = [
   {
@@ -88,19 +89,8 @@ export default function Nav() {
   return (
     <>
       <nav className="hidden md:flex fixed top-4 left-1/2 z-50 w-[min(1120px,calc(100%-1.5rem))] -translate-x-1/2 items-center justify-between rounded-2xl hud-card px-4 py-3">
-        <Link href="/" className="group flex items-center gap-3">
-          <div className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-green-DEFAULT/60 bg-green-muted/40 transition-all group-hover:border-green-DEFAULT group-hover:shadow-[0_0_24px_rgba(0,232,122,0.22)]">
-            <div className="absolute inset-0 rounded-xl bg-green-DEFAULT/10 blur-md opacity-0 transition-opacity group-hover:opacity-100" />
-            <span className="relative text-xs font-orbitron font-black text-green-DEFAULT">OX</span>
-          </div>
-          <div>
-            <span className="block font-orbitron text-base font-bold tracking-[0.35em] text-text transition-colors group-hover:text-green-DEFAULT">
-              OBIXCORE
-            </span>
-            <span className="block text-[10px] font-mono tracking-[0.28em] text-text-faint">
-              FPV TUNING PLATFORM
-            </span>
-          </div>
+        <Link href="/" className="group flex items-center gap-0">
+          <OBIXLogo height={38} className="transition-opacity group-hover:opacity-90" />
         </Link>
 
         <div className="flex items-center gap-1 rounded-full border border-bg-border/80 bg-bg-surface/70 p-1">
