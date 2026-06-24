@@ -5,19 +5,13 @@ import type { Preset } from "@/types";
 import Badge from "@/components/Badge";
 import CodeBlock from "@/components/CodeBlock";
 import ValueDisplay from "@/components/ValueDisplay";
+import { STYLE_META } from "@/lib/utils";
 
 const presets = presetsData as Preset[];
 
 const FRAME_FILTERS = ["all", "2inch", "3inch", "5inch", "7inch"] as const;
 const STYLE_FILTERS = ["all", "freestyle", "race", "cinematic", "beginner"] as const;
 const DIFF_FILTERS  = ["all", "beginner", "intermediate", "advanced"] as const;
-
-const STYLE_CONFIG: Record<string, { label: string; color: string }> = {
-  race:      { label: "Race",      color: "text-red-DEFAULT    border-red-DEFAULT/40    bg-red-muted"    },
-  freestyle: { label: "Freestyle", color: "text-purple-DEFAULT border-purple-DEFAULT/40 bg-purple-muted" },
-  cinematic: { label: "Cinematic", color: "text-blue-DEFAULT   border-blue-DEFAULT/40   bg-blue-muted"   },
-  beginner:  { label: "Beginner",  color: "text-green-DEFAULT  border-green-DEFAULT/40  bg-green-muted"  },
-};
 
 const DIFF_CONFIG: Record<string, { label: string; color: string }> = {
   beginner:     { label: "มือใหม่",   color: "text-green-DEFAULT"  },
@@ -78,10 +72,10 @@ export default function PresetsPage() {
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
                   styleFilter === f
                     ? f === "all" ? "border-purple-DEFAULT bg-purple-muted text-purple-DEFAULT"
-                      : STYLE_CONFIG[f]?.color || "border-purple-DEFAULT bg-purple-muted text-purple-DEFAULT"
+                      : STYLE_META[f]?.classes || "border-purple-DEFAULT bg-purple-muted text-purple-DEFAULT"
                     : "border-bg-border text-text-muted hover:bg-bg-elevated"
                 }`}>
-                {f === "all" ? "ทั้งหมด" : STYLE_CONFIG[f]?.label || f}
+                {f === "all" ? "ทั้งหมด" : STYLE_META[f]?.label || f}
               </button>
             ))}
           </div>
@@ -120,7 +114,7 @@ export default function PresetsPage() {
         <div className="space-y-3">
           {filtered.map((preset) => {
             const isOpen = expanded === preset.id;
-            const styleConf = STYLE_CONFIG[preset.type];
+            const styleConf = STYLE_META[preset.type];
             const diffConf  = DIFF_CONFIG[preset.difficulty];
 
             return (
@@ -139,7 +133,7 @@ export default function PresetsPage() {
                   </div>
 
                   <div className="flex gap-1.5 mt-3 flex-wrap items-center">
-                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded border uppercase ${styleConf?.color}`}>
+                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded border uppercase ${styleConf?.classes}`}>
                       {styleConf?.label || preset.type}
                     </span>
                     <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-bg-border bg-bg-elevated text-text-muted">
