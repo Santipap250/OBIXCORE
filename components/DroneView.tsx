@@ -16,13 +16,13 @@ function getVisualParams(spec: DroneSpec) {
 
   // Colors by style
   const styleAccent = {
-    race: "#ff4060",
-    freestyle: "#b060ff",
-    cinematic: "#00aaff",
+    race: "#ff6b8a",
+    freestyle: "#b491ff",
+    cinematic: "#63b3ff",
   }[spec.style];
 
   const batteryColor =
-    spec.batteryS >= 5 ? "#ff8a3d" : spec.batteryS === 4 ? "#00e87a" : "#00aaff";
+    spec.batteryS >= 5 ? "#ff9f6b" : spec.batteryS === 4 ? "#46f0b8" : "#63b3ff";
 
   return { propScale, frameScale, styleAccent, batteryColor };
 }
@@ -151,13 +151,13 @@ export default function DroneView({ spec, overallLevel, reducedMotion = false }:
         </radialGradient>
         {/* Frame gradient */}
         <linearGradient id="dv-framegrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#2a3545" />
-          <stop offset="100%" stopColor="#141a22" />
+          <stop offset="0%" stopColor="#314261" />
+          <stop offset="100%" stopColor="#111a2e" />
         </linearGradient>
         <linearGradient id="dv-armgrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#1e2a38" />
-          <stop offset="50%" stopColor="#2a3a50" />
-          <stop offset="100%" stopColor="#1e2a38" />
+          <stop offset="0%" stopColor="#24314b" />
+          <stop offset="50%" stopColor="#304264" />
+          <stop offset="100%" stopColor="#24314b" />
         </linearGradient>
       </defs>
 
@@ -212,7 +212,7 @@ export default function DroneView({ spec, overallLevel, reducedMotion = false }:
               <rect
                 x={fx - fSize / 2} y={fy - fSize / 2}
                 width={fSize} height={fSize}
-                rx={3} fill="#141a22" stroke={glowColor} strokeWidth={1.2}
+                rx={3} fill="#111a2e" stroke={glowColor} strokeWidth={1.2}
                 strokeOpacity={0.8}
               />
               {/* IC chips */}
@@ -225,7 +225,7 @@ export default function DroneView({ spec, overallLevel, reducedMotion = false }:
               ))}
               <text x={fx} y={fy + fSize / 2 + 7}
                 textAnchor="middle" fontSize="5.5"
-                fill="#6b7a90" fontFamily="monospace"
+                fill="#8293ab" fontFamily="monospace"
               >
                 FC
               </text>
@@ -240,16 +240,16 @@ export default function DroneView({ spec, overallLevel, reducedMotion = false }:
             <g filter="url(#dv-glow)">
               {/* Camera tilt bracket */}
               <rect x={camX - 9} y={camY - 7} width={18} height={14}
-                rx={2} fill="#0f1318" stroke="#00aaff" strokeWidth={1}
+                rx={2} fill="#0b1120" stroke="#63b3ff" strokeWidth={1}
                 strokeOpacity={0.7}
               />
               {/* Lens */}
               <circle cx={camX} cy={camY} r={5}
-                fill="#001a2a" stroke="#00aaff" strokeWidth={1.2}
+                fill="#10345a" stroke="#63b3ff" strokeWidth={1.2}
                 strokeOpacity={0.9}
               />
               <circle cx={camX} cy={camY} r={2.5}
-                fill="#00aaff" fillOpacity={0.25}
+                fill="#63b3ff" fillOpacity={0.25}
               />
               {/* Glare */}
               <circle cx={camX - 1.5} cy={camY - 1.5} r={1}
@@ -268,7 +268,7 @@ export default function DroneView({ spec, overallLevel, reducedMotion = false }:
           const [topX, topY] = project(m.x, -motorH, m.z);
 
           // Motor spin direction color
-          const spinColor = i % 2 === 0 ? styleAccent : "#00d8ff";
+          const spinColor = i % 2 === 0 ? styleAccent : "#7de6ff";
 
           return (
             <g key={`motor-${i}`}>
@@ -304,7 +304,7 @@ export default function DroneView({ spec, overallLevel, reducedMotion = false }:
 
               {/* Motor body */}
               <circle cx={mx} cy={my} r={6 * frameScale * 0.9}
-                fill="#1e2a38" stroke={spinColor} strokeWidth={1.5}
+                fill="#24314b" stroke={spinColor} strokeWidth={1.5}
               />
               <circle cx={mx} cy={my} r={3 * frameScale * 0.9}
                 fill={spinColor} fillOpacity={0.5}
@@ -312,7 +312,7 @@ export default function DroneView({ spec, overallLevel, reducedMotion = false }:
 
               {/* Motor stem */}
               <line x1={topX} y1={topY} x2={mx} y2={my}
-                stroke="#2a3a50" strokeWidth={3 * frameScale}
+                stroke="#304264" strokeWidth={3 * frameScale}
               />
             </g>
           );
@@ -357,16 +357,16 @@ export default function DroneView({ spec, overallLevel, reducedMotion = false }:
       </g>
 
       {/* Labels overlay */}
-      <text x={8} y={viewSize - 22} fontSize="8" fill="#3a4555" fontFamily="monospace">
+      <text x={8} y={viewSize - 22} fontSize="8" fill="#55627b" fontFamily="monospace">
         {spec.frameMm}mm · {spec.propIn}" · {spec.motorKV}KV · {spec.batteryS}S
       </text>
-      <text x={8} y={viewSize - 11} fontSize="8" fill="#3a4555" fontFamily="monospace">
+      <text x={8} y={viewSize - 11} fontSize="8" fill="#55627b" fontFamily="monospace">
         {spec.weightG}g · {spec.style}
       </text>
 
       {/* Drag hint */}
       <text x={viewSize - 8} y={viewSize - 11} fontSize="8"
-        fill="#3a4555" fontFamily="monospace" textAnchor="end"
+        fill="#55627b" fontFamily="monospace" textAnchor="end"
       >
         drag to rotate
       </text>
