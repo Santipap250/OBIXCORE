@@ -1,54 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="OBIXCORE favicon">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <defs>
-    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#00ff88"/>
-      <stop offset="50%" stop-color="#00e87a"/>
-      <stop offset="100%" stop-color="#00cccc"/>
+    <linearGradient id="b" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8dff5a"/>
+      <stop offset="55%" stop-color="#00e87a"/>
+      <stop offset="100%" stop-color="#00d8ff"/>
     </linearGradient>
-    <linearGradient id="oGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="o" x1="12" y1="14" x2="34" y2="40" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="60%" stop-color="#ccffd8"/>
+      <stop offset="70%" stop-color="#dfe8ff"/>
       <stop offset="100%" stop-color="#00e87a"/>
     </linearGradient>
-    <linearGradient id="xGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="x" x1="30" y1="14" x2="50" y2="42" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#00e87a"/>
-      <stop offset="100%" stop-color="#00cccc"/>
+      <stop offset="100%" stop-color="#00d8ff"/>
     </linearGradient>
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="2.5" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <filter id="outerGlow">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
   </defs>
-  <!-- Dark bg -->
-  <rect width="64" height="64" rx="14" fill="#07090d"/>
-  <!-- Outer glow ring -->
-  <rect x="2" y="2" width="60" height="60" rx="13" fill="none" stroke="url(#borderGrad)" stroke-width="2" opacity="0.9" filter="url(#outerGlow)"/>
-  <!-- Inner border -->
-  <rect x="3" y="3" width="58" height="58" rx="12" fill="none" stroke="url(#borderGrad)" stroke-width="1.5" opacity="0.6"/>
-
-  <!-- O letter — faceted style -->
-  <g filter="url(#glow)">
-    <path d="M10 22 L14 18 L24 18 L28 22 L28 30 L24 34 L14 34 L10 30 Z" fill="none" stroke="url(#oGrad)" stroke-width="3.5" stroke-linejoin="round"/>
-    <!-- O inner cut -->
-    <path d="M14 24 L16 22 L22 22 L24 24 L24 28 L22 30 L16 30 L14 28 Z" fill="#07090d"/>
-  </g>
-
-  <!-- X letter — faceted style -->
-  <g filter="url(#glow)">
-    <line x1="36" y1="18" x2="54" y2="34" stroke="url(#xGrad)" stroke-width="4" stroke-linecap="round"/>
-    <line x1="54" y1="18" x2="36" y2="34" stroke="url(#xGrad)" stroke-width="4" stroke-linecap="round"/>
-    <!-- X cross highlight -->
-    <line x1="37" y1="19" x2="53" y2="33" stroke="white" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
-    <line x1="53" y1="19" x2="37" y2="33" stroke="white" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
-  </g>
-
-  <!-- Separator line -->
-  <line x1="10" y1="40" x2="54" y2="40" stroke="#1e2a38" stroke-width="0.8"/>
-
-  <!-- "FPV" micro text -->
-  <text x="32" y="52" text-anchor="middle" fill="#00e87a" font-size="8" font-family="monospace" letter-spacing="3" opacity="0.8">FPV</text>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="14" fill="#07090d" stroke="url(#b)" stroke-width="2.5"/>
+  <rect x="7" y="13" width="50" height="38" rx="10" fill="none" stroke="url(#b)" stroke-width="1.2" opacity=".45"/>
+  <path d="M14 24l4-5h11l4 5v12l-4 5H18l-4-5z" fill="none" stroke="url(#o)" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M36 18l12 12M48 18L36 30" stroke="url(#x)" stroke-width="5" stroke-linecap="round"/>
 </svg>
