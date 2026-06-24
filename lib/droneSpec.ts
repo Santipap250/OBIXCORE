@@ -180,7 +180,7 @@ export const VISUAL_PRESETS: VisualPreset[] = [
     id: "race-5in",
     name: "Race 5\"",
     style: "race",
-    accentColor: "#ff4060",
+    accentColor: "#ff6b8a",
     description: "ตั้งค่าสำหรับการแข่งขัน เน้น TWR สูงและ response ไว",
     spec: {
       frameSize: "5inch", frameMm: 220, propIn: 5.0, propBlades: 3,
@@ -191,7 +191,7 @@ export const VISUAL_PRESETS: VisualPreset[] = [
     id: "freestyle-5in",
     name: "Freestyle 5\"",
     style: "freestyle",
-    accentColor: "#b060ff",
+    accentColor: "#b491ff",
     description: "เฟรมกลาง เน้นความสนุก flip/roll และ trick ทุกประเภท",
     spec: {
       frameSize: "5inch", frameMm: 230, propIn: 5.1, propBlades: 3,
@@ -202,7 +202,7 @@ export const VISUAL_PRESETS: VisualPreset[] = [
     id: "cinewhoop-3in",
     name: "Cinewhoop 3\"",
     style: "cinematic",
-    accentColor: "#00aaff",
+    accentColor: "#63b3ff",
     description: "เฟรมป้องกัน prop สำหรับถ่ายวิดีโอในพื้นที่แคบและใกล้คน",
     spec: {
       frameSize: "3inch", frameMm: 145, propIn: 3.0, propBlades: 3,
@@ -213,7 +213,7 @@ export const VISUAL_PRESETS: VisualPreset[] = [
     id: "longrange-7in",
     name: "Long-Range 7\"",
     style: "cinematic",
-    accentColor: "#00e87a",
+    accentColor: "#46f0b8",
     description: "เฟรมใหญ่สำหรับบินระยะไกล เน้น efficiency และเวลาบินนาน",
     spec: {
       frameSize: "7inch", frameMm: 295, propIn: 7.0, propBlades: 2,
@@ -237,11 +237,11 @@ export function frameMmToSize(mm: number): FrameSize {
 // ── Compatibility color helpers ────────────────────────────
 export function compatColor(level: CompatibilityLevel): string {
   return {
-    perfect: "#00e87a",
-    compatible: "#00aaff",
-    tight: "#ffbb00",
-    risky: "#ff8a3d",
-    incompatible: "#ff4060",
+    perfect: "#46f0b8",
+    compatible: "#63b3ff",
+    tight: "#ffd166",
+    risky: "#ff9f6b",
+    incompatible: "#ff6b8a",
   }[level];
 }
 
