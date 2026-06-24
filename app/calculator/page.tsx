@@ -1,6 +1,14 @@
 "use client";
-import { useState } from "react";
-import { estimateCurrentDraw, calculateFlightTime } from "@/lib/wizard";
+import { useMemo, useState } from "react";
+import {
+  estimateHoverCurrentA,
+  estimateAverageFlightCurrentA,
+  estimateFlightTimeMinutes,
+  estimateLoadedRpm,
+  twrRating,
+  type FlightStyle,
+} from "@/lib/estimation";
+import { safeNumber } from "@/lib/utils";
 import ValueDisplay from "@/components/ValueDisplay";
 
 type CalcMode = "flighttime" | "twr" | "props";
@@ -10,6 +18,14 @@ const MODES: { value: CalcMode; label: string; labelTh: string; color: string }[
   { value: "twr",        label: "Thrust/Weight", labelTh: "อัตราแรงขับ",  color: "green" },
   { value: "props",      label: "Prop Matcher", labelTh: "จับคู่ Prop",   color: "cyan" },
 ];
+
+const STYLE_OPTIONS: { value: FlightStyle; label: string; labelTh: string }[] = [
+  { value: "freestyle", label: "Freestyle", labelTh: "บินอิสระ" },
+  { value: "race", label: "Race", labelTh: "แข่ง" },
+  { value: "cinematic", label: "Cinematic", labelTh: "ถ่ายวิดีโอ" },
+];
+
+const BLADE_OPTIONS = [2, 3, 4] as const;
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -33,6 +49,7 @@ function NumberInput({ label, sublabel, value, min, max, step = 1, unit, onChang
       <div className="flex items-center gap-2">
         <input
           type="number"
+          inputMode="decimal"
           value={value}
           min={min}
           max={max}
@@ -46,20 +63,82 @@ function NumberInput({ label, sublabel, value, min, max, step = 1, unit, onChang
   );
 }
 
+function StyleToggle({ value, onChange }: { value: FlightStyle; onChange: (v: FlightStyle) => void }) {
+  return (
+    <div>
+      <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-1.5">สไตล์การบิน</p>
+      <div className="grid grid-cols-3 gap-1.5">
+        {STYLE_OPTIONS.map((s) => (
+          <button
+            key={s.value}
+            onClick={() => onChange(s.value)}
+            className={`py-2 rounded-lg text-[11px] font-mono border transition-all ${
+              value === s.value
+                ? "border-blue-DEFAULT/60 bg-blue-muted text-blue-DEFAULT font-semibold"
+                : "border-bg-border text-text-muted hover:bg-bg-elevated"
+            }`}
+          >
+            {s.labelTh}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function BladeToggle({ value, onChange }: { value: number; onChange: (v: number) => void }) {
+  return (
+    <div>
+      <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-1.5">จำนวนใบพัด</p>
+      <div className="grid grid-cols-3 gap-1.5">
+        {BLADE_OPTIONS.map((b) => (
+          <button
+            key={b}
+            onClick={() => onChange(b)}
+            className={`py-2 rounded-lg text-[11px] font-mono border transition-all ${
+              value === b
+                ? "border-blue-DEFAULT/60 bg-blue-muted text-blue-DEFAULT font-semibold"
+                : "border-bg-border text-text-muted hover:bg-bg-elevated"
+            }`}
+          >
+            {b}-blade
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── Flight Time Calculator ───────────────────────────────
+// Current/flight-time math now comes from lib/estimation.ts — the exact
+// same physics the Tuning Wizard uses — so the two tools never disagree.
 function FlightTimeCalc() {
   const [batteryMah, setBatteryMah] = useState(1500);
   const [batteryS, setBatteryS] = useState(4);
   const [motorKV, setMotorKV] = useState(2306);
   const [motorCount, setMotorCount] = useState(4);
   const [propSize, setPropSize] = useState(51);
+  const [propBlades, setPropBlades] = useState(3);
+  const [weight, setWeight] = useState(420);
+  const [style, setStyle] = useState<FlightStyle>("freestyle");
 
-  const currentA = estimateCurrentDraw(motorKV, batteryS, motorCount, propSize);
-  const flightMin = calculateFlightTime(batteryMah, batteryS, currentA);
-  const wh = (batteryMah / 1000) * (batteryS * 3.7);
+  const estimate = useMemo(() => {
+    const hoverA = estimateHoverCurrentA({
+      weightG: weight,
+      motorCount,
+      propDiameterIn: propSize / 10,
+      bladeCount: propBlades,
+      motorKV,
+      batteryS,
+    });
+    const avgA = estimateAverageFlightCurrentA(hoverA, style);
+    const flightMin = estimateFlightTimeMinutes(batteryMah, avgA);
+    const wh = (batteryMah / 1000) * (batteryS * 3.7);
+    return { hoverA, avgA, flightMin, wh };
+  }, [batteryMah, batteryS, motorKV, motorCount, propSize, propBlades, weight, style]);
 
   const ratingColor: "green" | "amber" | "red" =
-    flightMin >= 5 ? "green" : flightMin >= 3 ? "amber" : "red";
+    estimate.flightMin.typical >= 5 ? "green" : estimate.flightMin.typical >= 3 ? "amber" : "red";
 
   return (
     <div className="space-y-4">
@@ -68,33 +147,52 @@ function FlightTimeCalc() {
         <NumberInput label="Cells" sublabel="จำนวน Cell" value={batteryS} min={2} max={6} step={1} unit="S" onChange={setBatteryS} />
         <NumberInput label="Motor KV" sublabel="KV rating" value={motorKV} min={1000} max={4000} step={50} unit="KV" onChange={setMotorKV} />
         <NumberInput label="Motors" sublabel="จำนวนมอเตอร์" value={motorCount} min={1} max={8} step={1} unit="pcs" onChange={setMotorCount} />
+        <NumberInput label="Prop Size" sublabel="ขนาด (x10)" value={propSize} min={20} max={75} step={1} unit={'×0.1"'} onChange={setPropSize} />
+        <NumberInput label="Weight (AUW)" sublabel="รวม payload" value={weight} min={20} max={2500} step={10} unit="g" onChange={setWeight} />
       </div>
-      <NumberInput label="Prop Size" sublabel="ขนาด prop (x10)" value={propSize} min={20} max={75} step={1} unit={'×0.1"'} onChange={setPropSize} />
+
+      <div className="grid grid-cols-2 gap-4">
+        <StyleToggle value={style} onChange={setStyle} />
+        <BladeToggle value={propBlades} onChange={setPropBlades} />
+      </div>
 
       <SectionLabel>ผลลัพธ์โดยประมาณ</SectionLabel>
 
       <div className="grid grid-cols-3 gap-2">
-        <ValueDisplay label="Flight" value={flightMin.toFixed(1)} unit="min" color={ratingColor} size="md" />
-        <ValueDisplay label="Current" value={currentA.toFixed(1)} unit="A" color="blue" size="md" />
-        <ValueDisplay label="Wh" value={wh.toFixed(1)} unit="Wh" color="cyan" size="md" />
+        <ValueDisplay
+          label="Flight"
+          value={estimate.flightMin.typical.toFixed(1)}
+          unit="min"
+          color={ratingColor}
+          size="md"
+          range={{ low: estimate.flightMin.low, high: estimate.flightMin.high, decimals: 1 }}
+        />
+        <ValueDisplay
+          label="Avg Current"
+          value={estimate.avgA.typical.toFixed(1)}
+          unit="A"
+          color="blue"
+          size="md"
+          range={{ low: estimate.avgA.low, high: estimate.avgA.high, decimals: 1 }}
+        />
+        <ValueDisplay label="Wh" value={estimate.wh.toFixed(1)} unit="Wh" color="cyan" size="md" />
       </div>
 
       <div className="p-3 rounded-xl bg-bg-elevated border border-bg-border">
         <div className="flex justify-between text-xs font-mono mb-2">
-          <span className="text-text-faint">เวลาบินโดยประมาณ (~78% capacity)</span>
+          <span className="text-text-faint">เวลาบินโดยประมาณ (ตัวเลขกลางของช่วง)</span>
           <span className={`font-semibold ${ratingColor === "green" ? "text-green-DEFAULT" : ratingColor === "amber" ? "text-amber-DEFAULT" : "text-red-DEFAULT"}`}>
-            {flightMin >= 5 ? "✓ ดี" : flightMin >= 3 ? "~ พอใช้" : "✗ สั้น"}
+            {estimate.flightMin.typical >= 5 ? "✓ ดี" : estimate.flightMin.typical >= 3 ? "~ พอใช้" : "✗ สั้น"}
           </span>
         </div>
-        {/* Progress bar */}
         <div className="h-2 bg-bg-border rounded-full overflow-hidden">
           <div
             className={`h-full rounded-full transition-all ${ratingColor === "green" ? "bg-green-DEFAULT" : ratingColor === "amber" ? "bg-amber-DEFAULT" : "bg-red-DEFAULT"}`}
-            style={{ width: `${Math.min(100, (flightMin / 10) * 100)}%` }}
+            style={{ width: `${Math.min(100, (estimate.flightMin.typical / 10) * 100)}%` }}
           />
         </div>
         <p className="text-[10px] text-text-faint font-sarabun mt-2">
-          * ประมาณการจาก prop / KV / cell ที่กรอก — เวลาบินจริงขึ้นอยู่กับน้ำหนัก, prop pitch และสไตล์การบิน
+          * ประมาณการจากแรงขับที่ต้องใช้ลอยตัว (น้ำหนัก/prop/แรงดัน) คูณตัวคูณ throttle ตามสไตล์การบิน — กระแสและเวลาบินจริงต่างกันได้ตามมอเตอร์/ESC/อุณหภูมิ ใช้ช่วงตัวเลขด้านล่างค่าหลักเป็นกรอบคร่าวๆ
         </p>
       </div>
     </div>
@@ -102,17 +200,19 @@ function FlightTimeCalc() {
 }
 
 // ─── Thrust-to-Weight Calculator ────────────────────────
+// Input-driven (you supply measured/datasheet thrust), so this one was
+// already accurate by construction — only hardened against AUW = 0 and
+// switched to the shared twrRating() label used by the Wizard too.
 function TWRCalc() {
   const [thrustPerMotor, setThrustPerMotor] = useState(850);
   const [motorCount, setMotorCount] = useState(4);
   const [auw, setAuw] = useState(320);
 
+  const safeAuw = safeNumber(auw, 1, 1);
   const totalThrust = thrustPerMotor * motorCount;
-  const twr = totalThrust / auw;
-  const twrColor: "green" | "amber" | "red" =
-    twr >= 8 ? "green" : twr >= 4 ? "amber" : "red";
-  const twrLabel =
-    twr >= 10 ? "⚡ Race-ready" : twr >= 7 ? "✓ Freestyle" : twr >= 4 ? "~ OK" : "✗ น้ำหนักมากเกิน";
+  const twr = totalThrust / safeAuw;
+  const rating = twrRating(twr);
+  const twrColor: "green" | "amber" | "red" = rating.color;
 
   return (
     <div className="space-y-4">
@@ -132,14 +232,13 @@ function TWRCalc() {
 
       <div className="p-4 rounded-xl border border-bg-border bg-bg-elevated text-center">
         <p className={`text-lg font-orbitron font-bold ${twrColor === "green" ? "text-green-DEFAULT" : twrColor === "amber" ? "text-amber-DEFAULT" : "text-red-DEFAULT"}`}>
-          {twrLabel}
+          {rating.label}
         </p>
         <p className="text-xs text-text-muted font-sarabun mt-1">
           Thrust-to-Weight Ratio = {twr.toFixed(2)}:1
         </p>
       </div>
 
-      {/* Reference table */}
       <div className="p-3 rounded-xl bg-bg-surface border border-bg-border">
         <p className="text-[10px] font-mono text-text-faint uppercase tracking-wider mb-2">อ้างอิง TWR</p>
         {[
@@ -159,81 +258,111 @@ function TWRCalc() {
 }
 
 // ─── Prop Matcher ─────────────────────────────────────────
+// Now weight-aware: every suggestion gets an estimated hover current from
+// the same shared physics engine, instead of an opaque "propPowerBias"
+// heuristic that ignored AUW entirely.
+type PropRec = { size: number; blades: number; pitchNote: string; notes: string };
+
 function PropMatcherCalc() {
   const [frameSize, setFrameSize] = useState(220);
   const [motorKV, setMotorKV] = useState(2306);
   const [batteryS, setBatteryS] = useState(4);
+  const [weight, setWeight] = useState(420);
 
-  const voltage = batteryS * 3.7;
-  const rpm = motorKV * voltage;
-  const propPowerBias = (motorKV / 2306) * (batteryS / 4);
+  const { unloadedRpm, loadedRpm } = useMemo(() => estimateLoadedRpm(motorKV, batteryS), [motorKV, batteryS]);
+  const voltage = safeNumber(batteryS, 4) * 3.7;
+  const propPowerBias = (safeNumber(motorKV, 2306) / 2306) * (safeNumber(batteryS, 4) / 4);
 
-  type PropRec = { size: string; pitch: string; notes: string };
-
-  let suggestions: PropRec[] = [];
-
-  if (frameSize <= 100) {
-    suggestions = [
-      { size: "2.5\"", pitch: "2-blade", notes: "เบา ประหยัดพลังงาน" },
-      { size: "3\"",   pitch: "3-blade", notes: propPowerBias > 1 ? "พอมีแรง แต่ควรเช็กอุณหภูมิ" : "บาลานซ์ดีสำหรับเฟรมเล็ก" },
-    ];
-  } else if (frameSize <= 160) {
-    suggestions = [
-      { size: "3\"",   pitch: propPowerBias > 1.05 ? "3-blade" : "2-blade", notes: "มาตรฐาน 3 inch" },
-      { size: "3.5\"", pitch: "2-blade", notes: propPowerBias > 1 ? "เร่งดีขึ้น แต่กินไฟมากขึ้น" : "flight time ดีขึ้น" },
-    ];
-  } else if (frameSize <= 240) {
-    if (batteryS <= 4) {
-      suggestions = [
-        { size: "5.1\"", pitch: propPowerBias > 1.1 ? "3-blade low pitch" : "3-blade", notes: "freestyle ยอดนิยม" },
-        { size: "5.1\"", pitch: "2-blade", notes: "flight time ดีกว่า" },
-        { size: "4.8\"", pitch: "3-blade", notes: "เบาและคุมกระแสดี" },
-      ];
-    } else {
-      suggestions = [
-        { size: "5.1\"", pitch: propPowerBias > 1.15 ? "2-blade / low pitch" : "3-blade", notes: "6S มาตรฐาน" },
-        { size: "4.5\"", pitch: "3-blade", notes: "ลด current draw" },
+  const suggestions: PropRec[] = useMemo(() => {
+    if (frameSize <= 100) {
+      return [
+        { size: 2.5, blades: 2, pitchNote: "เบา", notes: "ประหยัดพลังงาน" },
+        { size: 3.0, blades: 3, pitchNote: propPowerBias > 1 ? "มีแรงดี" : "บาลานซ์ดี", notes: propPowerBias > 1 ? "พอมีแรง แต่ควรเช็กอุณหภูมิ" : "บาลานซ์ดีสำหรับเฟรมเล็ก" },
       ];
     }
-  } else {
-    suggestions = [
-      { size: "7\"",  pitch: "2-blade", notes: "ประหยัดและนิ่งกว่า" },
-      { size: "6.5\"", pitch: "3-blade", notes: propPowerBias > 1.1 ? "แรงขึ้น แต่กินไฟมากขึ้น" : "efficiency สูงกว่า" },
+    if (frameSize <= 160) {
+      return [
+        { size: 3.0, blades: propPowerBias > 1.05 ? 3 : 2, pitchNote: "มาตรฐาน", notes: "มาตรฐาน 3 inch" },
+        { size: 3.5, blades: 2, pitchNote: "เร่งดี", notes: propPowerBias > 1 ? "เร่งดีขึ้น แต่กินไฟมากขึ้น" : "flight time ดีขึ้น" },
+      ];
+    }
+    if (frameSize <= 240) {
+      if (batteryS <= 4) {
+        return [
+          { size: 5.1, blades: propPowerBias > 1.1 ? 3 : 3, pitchNote: propPowerBias > 1.1 ? "low pitch" : "pitch กลาง", notes: "freestyle ยอดนิยม" },
+          { size: 5.1, blades: 2, pitchNote: "2-blade", notes: "flight time ดีกว่า" },
+          { size: 4.8, blades: 3, pitchNote: "เบา", notes: "เบาและคุมกระแสดี" },
+        ];
+      }
+      return [
+        { size: 5.1, blades: propPowerBias > 1.15 ? 2 : 3, pitchNote: propPowerBias > 1.15 ? "low pitch" : "pitch กลาง", notes: "6S มาตรฐาน" },
+        { size: 4.5, blades: 3, pitchNote: "เบา", notes: "ลด current draw" },
+      ];
+    }
+    return [
+      { size: 7.0, blades: 2, pitchNote: "ประหยัด", notes: "ประหยัดและนิ่งกว่า" },
+      { size: 6.5, blades: 3, pitchNote: "แรง", notes: propPowerBias > 1.1 ? "แรงขึ้น แต่กินไฟมากขึ้น" : "efficiency สูงกว่า" },
     ];
-  }
+  }, [frameSize, batteryS, propPowerBias]);
+
+  const enriched = useMemo(
+    () =>
+      suggestions.map((s) => {
+        const hoverA = estimateHoverCurrentA({
+          weightG: weight,
+          motorCount: 4,
+          propDiameterIn: s.size,
+          bladeCount: s.blades,
+          motorKV,
+          batteryS,
+        });
+        return { ...s, hoverA };
+      }),
+    [suggestions, weight, motorKV, batteryS]
+  );
 
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
         <NumberInput label="Frame Size" sublabel="มม." value={frameSize} min={65} max={360} step={5} unit="mm" onChange={setFrameSize} />
         <NumberInput label="Motor KV" sublabel="KV rating" value={motorKV} min={1000} max={4000} step={50} unit="KV" onChange={setMotorKV} />
+        <NumberInput label="Battery" sublabel="จำนวน Cell" value={batteryS} min={2} max={6} step={1} unit="S" onChange={setBatteryS} />
+        <NumberInput label="Weight (AUW)" sublabel="รวม payload" value={weight} min={20} max={2500} step={10} unit="g" onChange={setWeight} />
       </div>
-      <NumberInput label="Battery" sublabel="จำนวน Cell" value={batteryS} min={2} max={6} step={1} unit="S" onChange={setBatteryS} />
 
       <SectionLabel>Props แนะนำ</SectionLabel>
 
       <div className="grid grid-cols-2 gap-2 mb-3">
-        <ValueDisplay label="Est. RPM" value={Math.round(rpm / 1000) + "k"} color="green" />
+        <ValueDisplay label="Loaded RPM" value={Math.round(loadedRpm / 1000) + "k"} color="green" />
         <ValueDisplay label="Voltage" value={voltage.toFixed(1)} unit="V" color="amber" />
       </div>
+      <p className="text-[10px] text-text-faint font-sarabun -mt-2">
+        * Loaded RPM ประมาณจาก KV×V หลังลดด้วยโหลดจริง (no-load RPM ≈ {Math.round(unloadedRpm / 1000)}k — RPM จริงขณะบินจะต่ำกว่านี้เสมอ)
+      </p>
 
       <div className="space-y-2">
-        {suggestions.map((s, i) => (
+        {enriched.map((s, i) => (
           <div key={i} className={`flex items-center gap-3 p-3.5 rounded-xl border ${i === 0 ? "border-green-DEFAULT/30 bg-green-muted/10" : "border-bg-border bg-bg-surface"}`}>
             <div className="flex-shrink-0 w-8 h-8 rounded-lg border border-bg-border bg-bg-elevated flex items-center justify-center">
               <span className="text-xs font-mono text-text-muted">{i + 1}</span>
             </div>
-            <div>
-              <p className="text-sm font-orbitron font-semibold text-text">{s.size} {s.pitch}</p>
-              <p className="text-[11px] font-sarabun text-text-muted mt-0.5">{s.notes}</p>
+            <div className="flex-1">
+              <p className="text-sm font-orbitron font-semibold text-text">
+                {s.size.toFixed(1)}" {s.blades}-blade
+              </p>
+              <p className="text-[11px] font-sarabun text-text-muted mt-0.5">{s.notes} · {s.pitchNote}</p>
             </div>
-            {i === 0 && <span className="ml-auto text-[10px] font-mono text-green-DEFAULT bg-green-muted px-2 py-0.5 rounded border border-green-DEFAULT/30">แนะนำ</span>}
+            <div className="text-right flex-shrink-0">
+              <p className="text-[10px] font-mono text-text-faint uppercase">Est. hover</p>
+              <p className="text-xs font-mono text-blue-DEFAULT">~{s.hoverA.typical.toFixed(1)}A</p>
+            </div>
+            {i === 0 && <span className="text-[10px] font-mono text-green-DEFAULT bg-green-muted px-2 py-0.5 rounded border border-green-DEFAULT/30">แนะนำ</span>}
           </div>
         ))}
       </div>
 
       <p className="text-[11px] text-text-faint font-sarabun text-center">
-        * คำแนะนำโดยประมาณ ขึ้นอยู่กับสไตล์การบินและ motor ที่ใช้จริง
+        * คำแนะนำโดยประมาณ ขึ้นอยู่กับสไตล์การบินและ motor ที่ใช้จริง — กระแสประมาณจากน้ำหนัก (AUW) ที่กรอกไว้ด้านบน
       </p>
     </div>
   );
