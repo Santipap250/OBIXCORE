@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import type { DroneSpec, CompatibilityLevel } from "@/lib/droneSpec";
 import { compatColor } from "@/lib/droneSpec";
 
