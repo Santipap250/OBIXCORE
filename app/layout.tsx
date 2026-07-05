@@ -26,7 +26,15 @@ const sarabun = Sarabun({
 
 const SITE_DESCRIPTION = "เครื่องมือจูนโดรน FPV ครบครัน Tuning Wizard, Problem Solver, Calculator และ Preset Library";
 
+// Resolves relative OG/Twitter image paths (e.g. "/og-image.svg") into
+// absolute URLs. Set NEXT_PUBLIC_SITE_URL in your Render environment to
+// your real domain (e.g. https://obixcore.onrender.com or a custom domain)
+// so shared links show the right preview image instead of falling back to
+// localhost.
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "OBIXCORE — FPV Tuning Platform",
   description: SITE_DESCRIPTION,
   keywords: ["FPV", "drone", "betaflight", "tuning", "PID", "preset", "โดรน"],
