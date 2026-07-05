@@ -1,11 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Static export — required for Cloudflare Pages / GitHub Pages deploy.
-  // Without this, `next build` produces a server build in `.next/` instead
-  // of the static `out/` folder the README's deploy steps expect, so the
-  // documented "Output directory: out" setting would fail with nothing to
-  // serve.
-  output: "export",
+  // NOTE: deliberately NOT using `output: "export"` here.
+  // This project is deployed on Render via `next start` (see package.json's
+  // "start" script), which runs a real Next.js Node server — and `next
+  // start` refuses to run at all against a static-export build ("next
+  // start" does not work with "output: export" configuration).
+  // Static export only applies if you switch to static hosting (Cloudflare
+  // Pages / GitHub Pages) and never call `next start` in that deploy.
   images: {
     unoptimized: true,
   },
