@@ -289,7 +289,7 @@ function PropMatcherCalc() {
     if (frameSize <= 240) {
       if (batteryS <= 4) {
         return [
-          { size: 5.1, blades: propPowerBias > 1.1 ? 3 : 3, pitchNote: propPowerBias > 1.1 ? "low pitch" : "pitch กลาง", notes: "freestyle ยอดนิยม" },
+          { size: 5.1, blades: 3, pitchNote: propPowerBias > 1.1 ? "low pitch" : "pitch กลาง", notes: "freestyle ยอดนิยม" },
           { size: 5.1, blades: 2, pitchNote: "2-blade", notes: "flight time ดีกว่า" },
           { size: 4.8, blades: 3, pitchNote: "เบา", notes: "เบาและคุมกระแสดี" },
         ];
