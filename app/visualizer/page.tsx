@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo, useReducer } from "react";
+import { useState, useMemo } from "react";
 import dynamic from "next/dynamic";
 import type { DroneSpec, FrameSize, CompatibilityLevel } from "@/lib/droneSpec";
 import {
@@ -14,9 +14,8 @@ import {
   estimateHoverCurrentA,
   estimateAverageFlightCurrentA,
   estimateFlightTimeMinutes,
+  estimatePeakCurrentA,
   twrRating,
-  idealHoverPowerPerMotorW,
-  propDiscAreaM2,
   estimateLoadedRpm,
 } from "@/lib/estimation";
 
@@ -123,7 +122,6 @@ export default function VisualizerPage() {
   const [spec, setSpec] = useState<DroneSpec>(DEFAULT_SPEC);
   const [activePreset, setActivePreset] = useState<string | null>("freestyle-5in");
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [showChecks, setShowChecks] = useState(false);
 
   const compatibility = useMemo(() => computeCompatibility(spec), [spec]);
 
@@ -142,14 +140,20 @@ export default function VisualizerPage() {
       ? estimateFlightTimeMinutes(spec.batteryMah, flight)
       : null;
 
-    // TWR estimate: assume ~2.5x TWR at full throttle for typical motors
-    // Simple: thrust = weight × TWR, estimate TWR from prop size, KV, S
-    const propArea = propDiscAreaM2(spec.propIn);
+    // TWR estimate for the visualizer badge. `hover`/`flight` above are
+    // already whole-aircraft figures (estimateHoverCurrentA sums all
+    // motors internally) — an earlier version of this calc multiplied
+    // hover.high by 4 again assuming it was per-motor, which quietly
+    // inflated the implied electrical power 4x. Fixed by reusing
+    // estimatePeakCurrentA (the same full-throttle/punch estimate the
+    // Wizard uses for its ESC headroom check) so this stays a real
+    // whole-aircraft power figure, then converting to thrust with a
+    // community-reported g/W efficiency (≈4.5–8 g/W for typical FPV
+    // motor+prop combos; 5.5 is the center of that band).
     const voltage = spec.batteryS * 3.7;
     const loadedRpm = estimateLoadedRpm(spec.motorKV, spec.batteryS).loadedRpm;
-    // momentum theory: T = sqrt(2ρA·P) → approximate using rpm
-    // community rule: g/W ≈ 4.5–8 for typical FPV props; use 5.5 as center
-    const peakPowerW = hover.high * voltage * 4; // 4 motors at high current
+    const peakCurrentA = estimatePeakCurrentA(flight, spec.style);
+    const peakPowerW = peakCurrentA * voltage;
     const thrustG = peakPowerW * 5.5;
     const twr = thrustG / spec.weightG;
     const twrMeta = twrRating(twr);
