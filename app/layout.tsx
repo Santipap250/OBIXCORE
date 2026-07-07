@@ -35,13 +35,41 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "OBIXCORE — FPV Tuning Platform",
+  title: {
+    default: "OBIXCORE — FPV Tuning Platform",
+    template: "%s",
+  },
   description: SITE_DESCRIPTION,
-  keywords: ["FPV", "drone", "betaflight", "tuning", "PID", "preset", "โดรน"],
+  applicationName: "OBIXCORE",
+  keywords: [
+    "FPV",
+    "drone",
+    "betaflight",
+    "tuning",
+    "PID",
+    "preset",
+    "โดรน",
+    "จูนโดรน",
+    "FPV drone tuning",
+    "Betaflight PID calculator",
+  ],
+  category: "technology",
+  alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
+  },
   openGraph: {
+    siteName: "OBIXCORE",
     title: "OBIXCORE — FPV Tuning Platform",
     description: SITE_DESCRIPTION,
     type: "website",
+    locale: "th_TH",
     images: [{ url: "/og-image.svg", width: 1200, height: 630, alt: "OBIXCORE FPV Tuning Platform" }],
   },
   twitter: {
@@ -49,6 +77,23 @@ export const metadata: Metadata = {
     title: "OBIXCORE — FPV Tuning Platform",
     description: SITE_DESCRIPTION,
     images: ["/og-image.svg"],
+  },
+};
+
+// Structured data (schema.org) so search engines can understand OBIXCORE is a
+// free web-based tool, not just a generic page. Rendered once, site-wide.
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "OBIXCORE",
+  applicationCategory: "UtilitiesApplication",
+  operatingSystem: "Web",
+  description: SITE_DESCRIPTION,
+  url: SITE_URL,
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
   },
 };
 
@@ -72,6 +117,11 @@ export default function RootLayout({
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" type="image/png" href="/obixcore-icon.png" sizes="any" />
         <link rel="apple-touch-icon" href="/obixcore-icon.png" />
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       </head>
       <body className="relative isolate min-h-screen overflow-x-hidden bg-bg font-sarabun text-text antialiased">
         <div className="pointer-events-none fixed inset-0 -z-30 bg-[radial-gradient(circle_at_top_left,_rgba(70,240,184,0.18),_transparent_28%),radial-gradient(circle_at_82%_16%,_rgba(99,179,255,0.14),_transparent_22%),radial-gradient(circle_at_16%_78%,_rgba(180,145,255,0.16),_transparent_24%),radial-gradient(circle_at_78%_82%,_rgba(255,209,102,0.10),_transparent_20%),linear-gradient(180deg,#050814_0%,#060912_44%,#050814_100%)]" />
