@@ -82,7 +82,7 @@ export default function ProblemsPage() {
             <button
               key={p.id}
               onClick={() => selectProblem(p)}
-              className={`w-full text-left p-4 rounded-xl border transition-all active:scale-99 ${
+              className={`w-full text-left p-4 rounded-xl border transition-all active:scale-[0.99] ${
                 isSelected
                   ? "border-amber-DEFAULT/60 bg-amber-muted/20"
                   : "border-bg-border bg-bg-surface hover:border-bg-border hover:bg-bg-elevated"
