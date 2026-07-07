@@ -20,9 +20,9 @@ export interface SupportLinkConfig {
 }
 
 export const SUPPORT_LINKS: SupportLinkConfig = {
-  buyMeACoffeeUrl: null, // เช่น "https://www.buymeacoffee.com/yourname"
+  buyMeACoffeeUrl: "https://www.facebook.com/santipap songkarak", // เช่น "https://www.buymeacoffee.com/yourname"
   promptPayId: "004999117205996", // เช่น "099-xxx-xxxx"
-  promptPayQrImage: "/support-qr.png",// เช่น "/support-qr.png" — วางไฟล์ไว้ที่ public/ ก่อนใส่ path นี้
+  promptPayQrImage: "/support-qr.png", // เช่น "/support-qr.png" — วางไฟล์ไว้ที่ public/ ก่อนใส่ path นี้
   contactEmail: "santipap350z@gmail.com", // เปลี่ยนเป็นอีเมลจริง
   discordUrl: null,
   githubUrl: null,
