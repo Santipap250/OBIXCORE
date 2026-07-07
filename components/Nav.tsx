@@ -134,11 +134,35 @@ export default function Nav() {
           })}
         </div>
 
+        <Link
+          href="/support"
+          className="group relative hidden md:inline-flex items-center gap-1.5 rounded-full border border-pink-DEFAULT/30 bg-pink-muted/25 px-3 py-2 text-[12px] font-mono tracking-wide text-pink-DEFAULT transition-all hover:border-pink-DEFAULT/60 hover:bg-pink-muted/40"
+          aria-label="สนับสนุน OBIXCORE"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+          <span className="hidden lg:inline">Support</span>
+        </Link>
+
         <div className="hud-chip flex items-center gap-2 px-3 py-2 text-[12px] font-mono tracking-[0.22em] text-text-faint">
           <span className="h-2 w-2 rounded-full bg-green-DEFAULT shadow-[0_0_16px_rgba(0,232,122,0.55)] animate-pulse-green" />
           v0.1.0
         </div>
       </nav>
+
+      {/* Floating Support button — mobile only (matches the bottom-tab
+          breakpoint). At md+ the desktop nav above already has a Support
+          pill, so this is hidden there to avoid overlapping it. */}
+      <Link
+        href="/support"
+        className="md:hidden fixed top-4 right-4 z-50 flex h-11 w-11 items-center justify-center rounded-full hud-chip border-pink-DEFAULT/30 text-pink-DEFAULT shadow-[0_0_16px_rgba(255,95,183,0.18)] active:scale-95 transition-all"
+        aria-label="สนับสนุน OBIXCORE"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        </svg>
+      </Link>
 
       <nav className="md:hidden fixed bottom-3 left-3 right-3 z-50 hud-card px-2 py-2">
         <div className="flex items-stretch justify-around gap-1">
