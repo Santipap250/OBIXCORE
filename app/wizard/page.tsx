@@ -244,7 +244,7 @@ export default function WizardPage() {
           {/* CTA */}
           <button
             onClick={handleCalculate}
-            className="w-full py-4 rounded-xl bg-green-DEFAULT text-bg-DEFAULT font-orbitron font-bold text-sm tracking-widest hover:bg-green-dim active:scale-99 transition-all glow-green"
+            className="w-full py-4 rounded-xl bg-green-DEFAULT text-bg-DEFAULT font-orbitron font-bold text-sm tracking-widest hover:bg-green-dim active:scale-[0.99] transition-all glow-green"
           >
             ⚡ คำนวณค่าจูน
           </button>
