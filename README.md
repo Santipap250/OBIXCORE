@@ -23,47 +23,29 @@ npm run dev
 
 ---
 
-## 🌐 Deploy ฟรี (Cloudflare Pages)
+## 🌐 Deploy (Render)
 
-### วิธีที่ 1: GitHub + Cloudflare Pages (แนะนำ)
+โปรเจกต์นี้ deploy เป็น **server-rendered app บน Render** (ไม่ใช่ static export) — `next.config.mjs` ไม่มี `output: "export"` และ `package.json` ตั้ง `start` script เป็น `next start -H 0.0.0.0 -p ${PORT:-3000}` ไว้รองรับ Render โดยเฉพาะแล้ว
 
 ```bash
-# 1. สร้าง GitHub repo ใหม่
-# 2. Push code ขึ้น GitHub
+# 1. Push code ขึ้น GitHub
 git init
 git add .
 git commit -m "initial commit"
 git remote add origin https://github.com/YOUR_USER/obixcore.git
 git push -u origin main
 
-# 3. ไปที่ https://pages.cloudflare.com/
-# 4. Connect GitHub repo
-# 5. Build settings:
-#    Framework: Next.js
-#    Build command: npm run build
-#    Output directory: out
-# 6. Deploy → ได้ URL ฟรี เช่น obixcore.pages.dev
+# 2. ไปที่ https://dashboard.render.com/ → New → Web Service
+# 3. Connect GitHub repo
+# 4. ตั้งค่า:
+#    Environment: Node
+#    Build Command: npm install && npm run build
+#    Start Command: npm start
+#    Node Version: 20.18.1 (Render จะอ่านจาก .node-version ให้อัตโนมัติ)
+# 5. Create Web Service → Render build + deploy ให้อัตโนมัติทุกครั้งที่ push
 ```
 
-### วิธีที่ 2: GitHub Pages
-
-```bash
-# ติดตั้ง gh-pages
-npm install --save-dev gh-pages
-
-# เพิ่มใน package.json scripts:
-# "deploy": "next build && touch out/.nojekyll && gh-pages -d out -t true"
-
-npm run deploy
-```
-
-### วิธีที่ 3: Vercel (ง่ายที่สุด)
-
-```bash
-npm install -g vercel
-vercel
-# ตอบ y ทุกคำถาม → ได้ URL ทันที
-```
+**หมายเหตุ:** ห้ามเผลอใส่ `output: "export"` กลับเข้าไปใน `next.config.mjs` — เคยเป็นบั๊กที่ทำให้ deploy พังมาแล้วครั้งหนึ่ง เพราะ static export ไม่รองรับ server-side features ที่โปรเจกต์นี้ใช้
 
 ---
 
@@ -112,7 +94,7 @@ vercel
 }
 ```
 
-commit + push → Cloudflare Pages build และ deploy อัตโนมัติ ~1 นาที
+commit + push → Render build และ deploy อัตโนมัติ (ปกติไม่กี่นาที ขึ้นกับ plan)
 
 ---
 
