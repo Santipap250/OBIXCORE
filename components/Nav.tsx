@@ -145,10 +145,14 @@ export default function Nav() {
           <span className="hidden lg:inline">Support</span>
         </Link>
 
-        <div className="hud-chip flex items-center gap-2 px-3 py-2 text-[12px] font-mono tracking-[0.22em] text-text-faint">
+        <Link
+          href="/changelog"
+          className="hud-chip flex items-center gap-2 px-3 py-2 text-[12px] font-mono tracking-[0.22em] text-text-faint transition-colors hover:text-text"
+          aria-label="ดู changelog เวอร์ชัน v0.1.0"
+        >
           <span className="h-2 w-2 rounded-full bg-green-DEFAULT shadow-[0_0_16px_rgba(0,232,122,0.55)] animate-pulse-green" />
           v0.1.0
-        </div>
+        </Link>
       </nav>
 
       {/* Floating Support button — mobile only (matches the bottom-tab
