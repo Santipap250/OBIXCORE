@@ -28,7 +28,7 @@ export const SUPPORT_LINKS: SupportLinkConfig = {
   promptPayId: null, // ไม่จำเป็นต้องใส่ถ้ามีรูป QR อยู่แล้ว (ใช้แสดงเป็น fallback ข้อความ)
   promptPayQrImage: "/support-qr.jpg",
   promptPayName: "นาย สันติภาพ สงฆรักษ์",
-  contactEmail: "hello@obixcore.app", // เปลี่ยนเป็นอีเมลจริงถ้ามี
+  contactEmail: "santipap350z@gmail.com", // เปลี่ยนเป็นอีเมลจริงถ้ามี
   discordUrl: null,
   githubUrl: null,
   facebookUrl: "https://www.facebook.com/santipab.songkarak",
