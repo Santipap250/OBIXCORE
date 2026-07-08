@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import CopyButton from "@/components/CopyButton";
 import { SUPPORT_LINKS, SUPPORT_TIERS } from "@/lib/support";
 
@@ -244,10 +245,36 @@ export default function SupportPage() {
             <p className="mt-1.5 text-[13px] leading-relaxed text-text-muted">
               โอนตรงผ่าน PromptPay สำหรับผู้สนับสนุนในไทย
             </p>
-            {hasPromptPay && SUPPORT_LINKS.promptPayId ? (
-              <div className="mt-4 flex items-center gap-2">
-                <code className="hud-chip rounded-lg px-3 py-1.5 font-mono text-sm text-text">{SUPPORT_LINKS.promptPayId}</code>
-                <CopyButton text={SUPPORT_LINKS.promptPayId} label="Copy" size="sm" />
+            {hasPromptPay ? (
+              <div className="mt-4 flex flex-col items-center gap-2 text-center">
+                {SUPPORT_LINKS.promptPayQrImage && (
+                  <a
+                    href={SUPPORT_LINKS.promptPayQrImage}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="overflow-hidden rounded-xl border border-bg-border transition-all hover:border-purple-DEFAULT/40"
+                    aria-label="เปิดรูป QR PromptPay ขนาดเต็มในแท็บใหม่"
+                  >
+                    <Image
+                      src={SUPPORT_LINKS.promptPayQrImage}
+                      alt={`PromptPay QR สำหรับโอนสนับสนุน OBIXCORE${
+                        SUPPORT_LINKS.promptPayName ? ` — ${SUPPORT_LINKS.promptPayName}` : ""
+                      }`}
+                      width={200}
+                      height={221}
+                      className="h-auto w-[200px]"
+                    />
+                  </a>
+                )}
+                {SUPPORT_LINKS.promptPayName && (
+                  <p className="text-[11px] font-mono text-text-faint">{SUPPORT_LINKS.promptPayName}</p>
+                )}
+                {SUPPORT_LINKS.promptPayId && (
+                  <div className="flex items-center gap-2">
+                    <code className="hud-chip rounded-lg px-3 py-1.5 font-mono text-sm text-text">{SUPPORT_LINKS.promptPayId}</code>
+                    <CopyButton text={SUPPORT_LINKS.promptPayId} label="Copy" size="sm" />
+                  </div>
+                )}
               </div>
             ) : (
               <div className="mt-4 text-[12px] text-text-faint">เร็ว ๆ นี้ — ระหว่างนี้ติดต่อผ่านอีเมลด้านล่างได้เลย</div>
@@ -259,12 +286,24 @@ export default function SupportPage() {
             <p className="mt-1.5 text-[13px] leading-relaxed text-text-muted">
               เป็นแบรนด์/ร้านค้า FPV อยากร่วมสนับสนุนหรือพูดคุยฟีเจอร์ ทักมาได้เลย
             </p>
-            <a
-              href={`mailto:${SUPPORT_LINKS.contactEmail}`}
-              className="mt-4 inline-flex items-center gap-2 rounded-xl border border-cyan-DEFAULT/40 px-4 py-2 text-sm text-cyan-DEFAULT transition-all hover:bg-cyan-muted/30 active:scale-[0.99]"
-            >
-              {SUPPORT_LINKS.contactEmail}
-            </a>
+            <div className="mt-4 flex flex-col gap-2">
+              <a
+                href={`mailto:${SUPPORT_LINKS.contactEmail}`}
+                className="inline-flex items-center gap-2 rounded-xl border border-cyan-DEFAULT/40 px-4 py-2 text-sm text-cyan-DEFAULT transition-all hover:bg-cyan-muted/30 active:scale-[0.99]"
+              >
+                {SUPPORT_LINKS.contactEmail}
+              </a>
+              {SUPPORT_LINKS.facebookUrl && (
+                <Link
+                  href={SUPPORT_LINKS.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl border border-blue-DEFAULT/40 px-4 py-2 text-sm text-blue-DEFAULT transition-all hover:bg-blue-muted/30 active:scale-[0.99]"
+                >
+                  Facebook
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </section>
