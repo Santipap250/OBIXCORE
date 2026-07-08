@@ -1,5 +1,45 @@
 # OBIXCORE — Changelog
 
+## [Unreleased] — Launch Hardening + Final Polish
+
+### Fixed
+- **Regression (recurring):** the per-route metadata split and accessibility
+  (`aria-pressed`/`aria-expanded`/`aria-live`) work on Wizard, Calculator,
+  Problems, Presets, and Visualizer had reverted again in this upload —
+  restored from the last known-good state. **If you're maintaining this in
+  your own repo/IDE, please make sure the delivered files actually get
+  committed/merged before further edits — this is the third time these five
+  files have reverted, and it's safer to treat the delivered zip as the
+  source of truth going forward.**
+- Removed an orphaned duplicate asset: `public/support-qr.png` was a
+  pixel-identical, larger re-save of `public/support-qr.jpg` that nothing
+  referenced — dead weight in the repo, deleted.
+
+### Added
+- **`/changelog` page** — public, user-facing release notes rendered as a
+  timeline (`lib/changelog.ts` holds the data — add a new entry at the top
+  of the array for each release, no page code changes needed). Separate
+  from this developer-facing `CHANGELOG.md`.
+- Nav's version chip (`v0.1.0`) is now a link to `/changelog` instead of a
+  static, dead-end badge — gives release notes a real entry point without
+  adding a new nav item.
+- `/changelog` added to `app/sitemap.ts`.
+
+### Verified, no change needed
+- `lib/support.ts` — real contact email now in place; PromptPay QR/name/
+  Facebook link from the previous round are all intact and correctly wired.
+- `package.json` version (`0.1.0`) and the Nav version chip text are
+  consistent — no mismatch to fix.
+- No bracket/import errors; no page mixes `"use client"` with `export const
+  metadata` (the most common way this class of app breaks at build time).
+- All internal links (Nav, Home tool cards, Support, the new Changelog
+  link) resolve to real routes.
+- Animation/blur budget unchanged; the new Changelog page intentionally
+  uses zero decorative blur/animation (it's a text-heavy timeline, doesn't
+  need it).
+- Calculation logic (`lib/estimation.ts`, `lib/wizard.ts`, `lib/droneSpec.ts`)
+  untouched.
+
 ## [Unreleased] — Final Release Hardening
 
 ### Fixed

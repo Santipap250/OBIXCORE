@@ -7,9 +7,8 @@
 - [ ] ตั้ง environment variable `NEXT_PUBLIC_SITE_URL` บน Render ให้เป็น
       โดเมนจริง (ใช้ทั้งใน `app/layout.tsx` สำหรับ `metadataBase`/OG image
       และใน `app/sitemap.ts`, `app/robots.ts`)
-- [ ] เติมค่าจริงใน `lib/support.ts`: `buyMeACoffeeUrl`, `promptPayId`,
-      `contactEmail` (ตอนนี้ยังเป็น placeholder — หน้า Support จะแสดง
-      "เร็ว ๆ นี้" แทนถ้าไม่ใส่)
+- [ ] เติมค่าจริงใน `lib/support.ts`: `buyMeACoffeeUrl` ยังเป็น placeholder
+      (PromptPay QR, ชื่อผู้รับ, อีเมลติดต่อ, Facebook ใส่ค่าจริงแล้ว)
 - [ ] เช็คว่า `/public/og-image.svg` เป็นภาพที่อยากใช้จริงตอนแชร์ลิงก์บน
       social (ตอนนี้ทุกหน้าอ้างอิงไฟล์เดียวกัน)
 
