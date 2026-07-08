@@ -2,11 +2,13 @@
  * ค่าคงที่สำหรับหน้า /support ทั้งหมดอยู่ในไฟล์เดียว
  * แก้ลิงก์/ข้อมูลจริงตรงนี้ที่เดียว ไม่ต้องไปหาแก้ใน page.tsx
  *
- * TODO ก่อน deploy จริง — ต้องใส่ค่าจริงแทน placeholder ด้านล่าง:
- * - buyMeACoffeeUrl: ลิงก์ Buy Me a Coffee / Ko-fi ของคุณ
- * - promptPayId: เบอร์/เลขบัตร PromptPay (ใช้แสดงเป็นข้อความ ไม่ใช่ QR จริง
- *   จนกว่าจะใส่ไฟล์ QR ที่ /public/support-qr.png)
- * - contactEmail: อีเมลสำหรับติดต่อ/collab
+ * สถานะปัจจุบัน:
+ * - PromptPay: ใส่ QR จริงแล้ว (public/support-qr.jpg) + ชื่อผู้รับแล้ว
+ * - Facebook: ใส่ลิงก์จริงแล้ว
+ *
+ * ยังต้องใส่ก่อน deploy จริง (ถ้าต้องการ):
+ * - buyMeACoffeeUrl: ลิงก์ Buy Me a Coffee / Ko-fi ถ้ามี
+ * - contactEmail: อีเมลจริงสำหรับติดต่อ/collab (ตอนนี้เป็น placeholder)
  * - discordUrl / githubUrl: ใส่ถ้ามี ไม่มีก็ปล่อย null ได้ การ์ดจะไม่แสดง
  */
 
@@ -14,18 +16,22 @@ export interface SupportLinkConfig {
   buyMeACoffeeUrl: string | null;
   promptPayId: string | null;
   promptPayQrImage: string | null;
+  promptPayName: string | null;
   contactEmail: string;
   discordUrl: string | null;
   githubUrl: string | null;
+  facebookUrl: string | null;
 }
 
 export const SUPPORT_LINKS: SupportLinkConfig = {
   buyMeACoffeeUrl: null, // เช่น "https://www.buymeacoffee.com/yourname"
-  promptPayId: null, // เช่น "099-xxx-xxxx"
-  promptPayQrImage: null, // เช่น "/support-qr.png" — วางไฟล์ไว้ที่ public/ ก่อนใส่ path นี้
-  contactEmail: "hello@obixcore.app", // เปลี่ยนเป็นอีเมลจริง
+  promptPayId: null, // ไม่จำเป็นต้องใส่ถ้ามีรูป QR อยู่แล้ว (ใช้แสดงเป็น fallback ข้อความ)
+  promptPayQrImage: "/support-qr.jpg",
+  promptPayName: "นาย สันติภาพ สงฆรักษ์",
+  contactEmail: "hello@obixcore.app", // เปลี่ยนเป็นอีเมลจริงถ้ามี
   discordUrl: null,
   githubUrl: null,
+  facebookUrl: "https://www.facebook.com/santipab.songkarak",
 };
 
 export interface SupportTier {
