@@ -58,7 +58,7 @@ const config: Config = {
         text: {
           DEFAULT: "#edf4ff",
           muted: "#94a5bc",
-          faint: "#64748c",
+          faint: "#74859c",
         },
       },
       fontFamily: {
