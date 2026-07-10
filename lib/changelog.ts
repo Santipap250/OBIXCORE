@@ -16,6 +16,18 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "v0.2.0",
+    date: "2026-07-08",
+    title: "เพิ่ม Blackbox / Step-Response Reader",
+    summary:
+      "เครื่องมือใหม่สำหรับวิเคราะห์การบินโดยไม่ต้องมี Blackbox log จริง — ตอบคำถามว่าโดรนคุณรู้สึกยังไง แล้วรับคำแนะนำ PID/filter ทันที",
+    changes: [
+      { kind: "new", text: "Blackbox / Step-Response Reader — ตอบคำถามเกี่ยวกับ overshoot, การสั่น, propwash, filter feel และอุณหภูมิมอเตอร์ แล้วรับการวิเคราะห์ทันที" },
+      { kind: "new", text: "คำแนะนำ PID delta และ filter delta แยกตามอาการ พร้อมคำสั่ง Betaflight CLI ที่ใช้ค่าสัมพัทธ์ (ไม่เดาค่าตั้งต้นของคุณ)" },
+      { kind: "new", text: "แจ้งเตือนแยกกรณีที่เป็นปัญหาฮาร์ดแวร์ (เช่น มอเตอร์ร้อนจัด) ที่ควรตรวจก่อนไปแก้ PID" },
+    ],
+  },
+  {
     version: "v0.1.0",
     date: "2026-07-08",
     title: "เปิดตัว OBIXCORE",
