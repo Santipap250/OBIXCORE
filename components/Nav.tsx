@@ -81,6 +81,16 @@ const navItems = [
       </svg>
     ),
   },
+  {
+    href: "/blackbox",
+    label: "Blackbox",
+    labelTh: "Blackbox",
+    icon: (active: boolean) => (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 12h4l2-7 4 14 3-9 2 5h5" />
+      </svg>
+    ),
+  },
 ];
 
 export default function Nav() {
@@ -96,7 +106,7 @@ export default function Nav() {
         <div className="flex items-center gap-1 rounded-full border border-bg-border/80 bg-bg-surface/70 p-1">
           {navItems.slice(1).map((item, index) => {
             const active = pathname === item.href;
-            const accent = ["green", "amber", "blue", "purple", "cyan"][index] || "green";
+            const accent = ["green", "amber", "blue", "purple", "cyan", "orange"][index] || "green";
             return (
               <Link
                 key={item.href}
@@ -119,6 +129,8 @@ export default function Nav() {
                       ? "bg-blue-muted/25"
                       : accent === "cyan"
                       ? "bg-cyan-muted/25"
+                      : accent === "orange"
+                      ? "bg-orange-muted/25"
                       : "bg-purple-muted/25"
                   }`}
                 />
@@ -148,10 +160,10 @@ export default function Nav() {
         <Link
           href="/changelog"
           className="hud-chip flex items-center gap-2 px-3 py-2 text-[12px] font-mono tracking-[0.22em] text-text-faint transition-colors hover:text-text"
-          aria-label="ดู changelog เวอร์ชัน v0.1.0"
+          aria-label="ดู changelog เวอร์ชัน v0.2.0"
         >
           <span className="h-2 w-2 rounded-full bg-green-DEFAULT shadow-[0_0_16px_rgba(0,232,122,0.55)] animate-pulse-green" />
-          v0.1.0
+          v0.2.0
         </Link>
       </nav>
 
@@ -169,15 +181,15 @@ export default function Nav() {
       </Link>
 
       <nav className="md:hidden fixed bottom-3 left-3 right-3 z-50 hud-card px-2 py-2">
-        <div className="flex items-stretch justify-around gap-1">
+        <div className="flex items-stretch gap-1 overflow-x-auto">
           {navItems.map((item, index) => {
             const active = pathname === item.href;
-            const accent = ["green", "amber", "blue", "purple", "pink", "cyan"][index] || "green";
+            const accent = ["green", "amber", "blue", "purple", "pink", "cyan", "orange"][index] || "green";
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-2 py-2 text-[12px] transition-all ${
+                className={`relative flex w-[64px] flex-shrink-0 flex-col items-center justify-center gap-1 rounded-2xl px-2 py-2 text-[12px] transition-all ${
                   active ? "text-text" : "text-text-muted"
                 }`}
               >
@@ -196,6 +208,8 @@ export default function Nav() {
                         ? "bg-purple-DEFAULT/15"
                         : accent === "cyan"
                         ? "bg-cyan-DEFAULT/15"
+                        : accent === "orange"
+                        ? "bg-orange-DEFAULT/15"
                         : "bg-pink-DEFAULT/15"
                     }`}
                   />
