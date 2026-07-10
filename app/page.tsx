@@ -1,6 +1,40 @@
 import ToolCard from "@/components/ToolCard";
 import Link from "next/link";
 import OBIXLogo from "@/components/OBIXLogo";
+import type { Metadata } from "next";
+
+const HOME_TITLE = "OBIXCORE — FPV Drone Tuning Platform | Betaflight PID, Preset, Calculator";
+const HOME_DESCRIPTION =
+  "เครื่องมือจูนโดรน FPV ครบวงจร: Tuning Wizard คำนวณค่า PID Betaflight อัตโนมัติ, Problem Solver แก้ปัญหาการบิน, Calculator คำนวณ thrust/flight time, Preset Library และ 3D Build Visualizer — ใช้งานฟรีทั้งหมด";
+
+export const metadata: Metadata = {
+  title: HOME_TITLE,
+  description: HOME_DESCRIPTION,
+  keywords: [
+    "FPV drone tuning",
+    "Betaflight PID calculator",
+    "drone tuning wizard",
+    "FPV preset library",
+    "drone build visualizer",
+    "โดรน FPV",
+    "จูนโดรน",
+    "ตั้งค่า PID Betaflight",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    url: "/",
+    type: "website",
+    images: [{ url: "/og-image.svg", width: 1200, height: 630, alt: "OBIXCORE FPV Tuning Platform" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    images: ["/og-image.svg"],
+  },
+};
 
 const tools = [
   {
@@ -63,7 +97,6 @@ const tools = [
     titleTh: "ดู Build โดรน 3D",
     description: "Preview โดรน FPV แบบ interactive พร้อมตรวจ compatibility ของ frame/prop/motor/battery",
     accentColor: "cyan" as const,
-    badge: "NEW",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="2"/><circle cx="4" cy="4" r="2"/><circle cx="20" cy="4" r="2"/>
@@ -75,10 +108,23 @@ const tools = [
       </svg>
     ),
   },
+  {
+    href: "/blackbox",
+    title: "Blackbox / Step-Response",
+    titleTh: "วิเคราะห์การบินแบบไม่ต้องมี Log",
+    description: "ตอบคำถามว่าโดรนคุณรู้สึกยังไงตอนบิน แล้วรับคำแนะนำ PID/filter delta พร้อมคำสั่ง CLI",
+    accentColor: "pink" as const,
+    badge: "NEW",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 12h4l2-7 4 14 3-9 2 5h5" />
+      </svg>
+    ),
+  },
 ];
 
 const quickStats = [
-  { value: "5+", label: "Modules", color: "text-purple-DEFAULT" },
+  { value: "6+", label: "Modules", color: "text-purple-DEFAULT" },
   { value: "5+", label: "Problems", color: "text-amber-DEFAULT" },
   { value: "3", label: "Calculators", color: "text-blue-DEFAULT" },
   { value: "FREE", label: "ฟรีทั้งหมด", color: "text-green-DEFAULT" },
@@ -180,6 +226,23 @@ export default function HomePage() {
             <ToolCard key={tool.href} {...tool} />
           ))}
         </div>
+      </section>
+
+      <section className="mt-4">
+        <Link
+          href="/support"
+          className="group flex items-center justify-between gap-3 rounded-2xl border border-bg-border bg-bg-surface/60 px-4 py-3 text-left transition-all hover:border-pink-DEFAULT/40 hover:bg-pink-muted/10 active:scale-[0.99]"
+        >
+          <div className="flex items-center gap-2.5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-pink-DEFAULT">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg>
+            <span className="text-[13px] text-text-muted">OBIXCORE เป็นเครื่องมือฟรีที่ดูแลโดยนักบินคนเดียว — สนับสนุนโปรเจกต์นี้ได้ที่นี่</span>
+          </div>
+          <svg className="h-4 w-4 flex-shrink-0 text-text-faint transition-all group-hover:translate-x-1 group-hover:text-pink-DEFAULT" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </Link>
       </section>
     </div>
   );
