@@ -1,5 +1,42 @@
 # OBIXCORE — Changelog
 
+## [Unreleased] — Drone Profiles module
+
+### Added
+- **New tool: `/profiles`** — save/manage multiple drone specs client-side
+  via `localStorage` (`lib/droneProfile.ts`). List, create, edit, delete;
+  quick-start from the existing `VISUAL_PRESETS` templates (no duplicated
+  data — reused directly from `lib/droneSpec.ts`).
+- **"Load into Wizard" / "Load into Visualizer"** — each profile links to
+  `/wizard?profile=<id>` / `/visualizer?profile=<id>`. Both client
+  components now read that query param on mount, look the profile up in
+  `localStorage`, and prefill their form state via
+  `profileToWizardInput()` / `profileToDroneSpec()`. A small banner
+  confirms which profile was loaded.
+- Added to `navItems` (8th tab now), the Home page tool grid (`NEW` badge
+  moved here from Blackbox), `app/sitemap.ts`, and a new `v0.3.0` entry in
+  `lib/changelog.ts`. Version bumped to `0.3.0` in `package.json` and the
+  Nav chip, kept in sync as always.
+- **Calculator was intentionally left out of the profile-load integration.**
+  Unlike Wizard/Visualizer it doesn't have one unified input state — it's
+  three separate sub-calculators each with their own local state — so a
+  clean single-query-param prefill isn't possible without a larger refactor
+  of that file. Flagging this as a known gap rather than doing a rushed,
+  risky change to a page that's regressed multiple times already.
+
+### Changed
+- `app/wizard/page.tsx` and `app/visualizer/page.tsx` now wrap their client
+  component in `<Suspense>` — required by Next.js whenever a client
+  component calls `useSearchParams()`, otherwise the build fails with
+  "useSearchParams() should be wrapped in a suspense boundary".
+
+### Verified, no change needed
+- Bracket/import checks pass project-wide; no `"use client"` + `metadata`
+  conflicts; every internal link (including the two new `?profile=`
+  query-param links) resolves to a real route.
+- `lib/estimation.ts`, `lib/wizard.ts`, `lib/droneSpec.ts`,
+  `lib/blackbox.ts` untouched.
+
 ## [Unreleased] — Blackbox / Step-Response Reader module
 
 ### Added
