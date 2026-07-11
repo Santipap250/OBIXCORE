@@ -1,5 +1,6 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import type { DroneSpec, FrameSize, CompatibilityLevel } from "@/lib/droneSpec";
 import {
@@ -10,6 +11,7 @@ import {
   compatLabel,
   frameMmToSize,
 } from "@/lib/droneSpec";
+import { getProfile, profileToDroneSpec } from "@/lib/droneProfile";
 import {
   estimateHoverCurrentA,
   estimateAverageFlightCurrentA,
@@ -119,9 +121,22 @@ function StatBox({
 
 // ── Main page ──────────────────────────────────────────────
 export default function VisualizerClient() {
+  const searchParams = useSearchParams();
   const [spec, setSpec] = useState<DroneSpec>(DEFAULT_SPEC);
   const [activePreset, setActivePreset] = useState<string | null>("freestyle-5in");
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [loadedProfileName, setLoadedProfileName] = useState<string | null>(null);
+
+  useEffect(() => {
+    const profileId = searchParams.get("profile");
+    if (!profileId) return;
+    const profile = getProfile(profileId);
+    if (!profile) return;
+    setSpec(profileToDroneSpec(profile));
+    setActivePreset(null);
+    setLoadedProfileName(profile.name);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const compatibility = useMemo(() => computeCompatibility(spec), [spec]);
 
@@ -223,6 +238,15 @@ export default function VisualizerClient() {
           </div>
         </div>
       </div>
+
+      {loadedProfileName && (
+        <div className="mb-4 flex items-center gap-2 rounded-xl border border-blue-DEFAULT/25 bg-blue-muted/40 px-3 py-2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0 text-blue-DEFAULT">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <span className="font-sarabun text-xs text-blue-DEFAULT">โหลดสเปกจากโปรไฟล์ &quot;{loadedProfileName}&quot; แล้ว</span>
+        </div>
+      )}
 
       {/* ── Preset row ── */}
       <div className="mb-4">

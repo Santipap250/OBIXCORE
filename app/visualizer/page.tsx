@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import VisualizerClient from "./VisualizerClient";
 
 const TITLE = "3D Build Visualizer — ตรวจสอบความเข้ากันได้ของ Build โดรน FPV | OBIXCORE";
@@ -33,5 +34,9 @@ export const metadata: Metadata = {
 };
 
 export default function VisualizerPage() {
-  return <VisualizerClient />;
+  return (
+    <Suspense fallback={null}>
+      <VisualizerClient />
+    </Suspense>
+  );
 }
