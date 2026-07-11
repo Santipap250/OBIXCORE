@@ -16,6 +16,18 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "v0.3.0",
+    date: "2026-07-11",
+    title: "เพิ่ม Drone Profiles",
+    summary:
+      "บันทึกสเปกโดรนของคุณได้หลายลำ แล้วโหลดเข้า Wizard หรือ Visualizer ได้ทันทีโดยไม่ต้องกรอกใหม่ทุกครั้ง",
+    changes: [
+      { kind: "new", text: "หน้า Drone Profiles — สร้าง แก้ไข ลบ สเปกโดรนแต่ละลำ เก็บไว้ในเครื่องของคุณ" },
+      { kind: "new", text: "เริ่มสร้างโปรไฟล์แรกได้ง่ายจากเทมเพลต Race/Freestyle/Cinewhoop/Long-Range ที่มีให้เลย" },
+      { kind: "new", text: "ปุ่ม \"ใช้ใน Wizard\" และ \"ใช้ใน Visualizer\" จากหน้า Profiles โหลดสเปกเข้าเครื่องมือนั้นทันที" },
+    ],
+  },
+  {
     version: "v0.2.0",
     date: "2026-07-08",
     title: "เพิ่ม Blackbox / Step-Response Reader",
