@@ -91,6 +91,18 @@ const navItems = [
       </svg>
     ),
   },
+  {
+    href: "/profiles",
+    label: "Profiles",
+    labelTh: "Profiles",
+    icon: (active: boolean) => (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="4" rx="1" />
+        <rect x="3" y="10" width="18" height="4" rx="1" />
+        <rect x="3" y="16" width="10" height="4" rx="1" />
+      </svg>
+    ),
+  },
 ];
 
 export default function Nav() {
@@ -106,7 +118,7 @@ export default function Nav() {
         <div className="flex items-center gap-1 rounded-full border border-bg-border/80 bg-bg-surface/70 p-1">
           {navItems.slice(1).map((item, index) => {
             const active = pathname === item.href;
-            const accent = ["green", "amber", "blue", "purple", "cyan", "orange"][index] || "green";
+            const accent = ["green", "amber", "blue", "purple", "cyan", "orange", "blue"][index] || "green";
             return (
               <Link
                 key={item.href}
@@ -160,10 +172,10 @@ export default function Nav() {
         <Link
           href="/changelog"
           className="hud-chip flex items-center gap-2 px-3 py-2 text-[12px] font-mono tracking-[0.22em] text-text-faint transition-colors hover:text-text"
-          aria-label="ดู changelog เวอร์ชัน v0.2.0"
+          aria-label="ดู changelog เวอร์ชัน v0.3.0"
         >
           <span className="h-2 w-2 rounded-full bg-green-DEFAULT shadow-[0_0_16px_rgba(0,232,122,0.55)] animate-pulse-green" />
-          v0.2.0
+          v0.3.0
         </Link>
       </nav>
 
@@ -184,7 +196,7 @@ export default function Nav() {
         <div className="flex items-stretch gap-1 overflow-x-auto">
           {navItems.map((item, index) => {
             const active = pathname === item.href;
-            const accent = ["green", "amber", "blue", "purple", "pink", "cyan", "orange"][index] || "green";
+            const accent = ["green", "amber", "blue", "purple", "pink", "cyan", "orange", "blue"][index] || "green";
             return (
               <Link
                 key={item.href}
