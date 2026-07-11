@@ -1,10 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { calculateTuning } from "@/lib/wizard";
 import type { WizardInput, WizardResult } from "@/types";
 import { CONFIDENCE_META } from "@/lib/utils";
 import ValueDisplay from "@/components/ValueDisplay";
 import CodeBlock from "@/components/CodeBlock";
+import { getProfile, profileToWizardInput } from "@/lib/droneProfile";
 
 const DEFAULT_INPUT: WizardInput = {
   frameSize: 220,
@@ -73,10 +75,22 @@ function InputField({
 }
 
 export default function WizardClient() {
+  const searchParams = useSearchParams();
   const [input, setInput] = useState<WizardInput>(DEFAULT_INPUT);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [result, setResult] = useState<WizardResult | null>(null);
   const [step, setStep] = useState<"form" | "result">("form");
+  const [loadedProfileName, setLoadedProfileName] = useState<string | null>(null);
+
+  useEffect(() => {
+    const profileId = searchParams.get("profile");
+    if (!profileId) return;
+    const profile = getProfile(profileId);
+    if (!profile) return;
+    setInput(profileToWizardInput(profile));
+    setLoadedProfileName(profile.name);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const set = (key: keyof WizardInput, value: number | string) =>
     setInput((prev) => ({ ...prev, [key]: value }));
@@ -105,6 +119,14 @@ export default function WizardClient() {
 
       {step === "form" && (
         <div className="space-y-5 animate-fade-in">
+          {loadedProfileName && (
+            <div className="flex items-center gap-2 rounded-xl border border-blue-DEFAULT/25 bg-blue-muted/40 px-3 py-2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0 text-blue-DEFAULT">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span className="font-sarabun text-xs text-blue-DEFAULT">โหลดสเปกจากโปรไฟล์ &quot;{loadedProfileName}&quot; แล้ว</span>
+            </div>
+          )}
           {/* Style selector */}
           <div>
             <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">สไตล์การบิน</p>

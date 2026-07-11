@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import WizardClient from "./WizardClient";
 
 const TITLE = "Tuning Wizard — ตั้งค่า PID Betaflight อัตโนมัติ | OBIXCORE";
@@ -33,5 +34,9 @@ export const metadata: Metadata = {
 };
 
 export default function WizardPage() {
-  return <WizardClient />;
+  return (
+    <Suspense fallback={null}>
+      <WizardClient />
+    </Suspense>
+  );
 }
