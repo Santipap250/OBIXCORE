@@ -114,17 +114,31 @@ const tools = [
     titleTh: "วิเคราะห์การบินแบบไม่ต้องมี Log",
     description: "ตอบคำถามว่าโดรนคุณรู้สึกยังไงตอนบิน แล้วรับคำแนะนำ PID/filter delta พร้อมคำสั่ง CLI",
     accentColor: "pink" as const,
-    badge: "NEW",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 12h4l2-7 4 14 3-9 2 5h5" />
       </svg>
     ),
   },
+  {
+    href: "/profiles",
+    title: "Drone Profiles",
+    titleTh: "บันทึกสเปกโดรนหลายลำ",
+    description: "บันทึกสเปกโดรนแต่ละลำไว้ แล้วโหลดเข้า Wizard หรือ Visualizer ได้ทันทีโดยไม่ต้องกรอกใหม่",
+    accentColor: "blue" as const,
+    badge: "NEW",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="4" rx="1" />
+        <rect x="3" y="10" width="18" height="4" rx="1" />
+        <rect x="3" y="16" width="10" height="4" rx="1" />
+      </svg>
+    ),
+  },
 ];
 
 const quickStats = [
-  { value: "6+", label: "Modules", color: "text-purple-DEFAULT" },
+  { value: "7+", label: "Modules", color: "text-purple-DEFAULT" },
   { value: "5+", label: "Problems", color: "text-amber-DEFAULT" },
   { value: "3", label: "Calculators", color: "text-blue-DEFAULT" },
   { value: "FREE", label: "ฟรีทั้งหมด", color: "text-green-DEFAULT" },
