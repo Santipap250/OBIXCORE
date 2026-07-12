@@ -40,8 +40,6 @@ function readAll(): DroneProfile[] {
     const parsed = JSON.parse(raw);
     return Array.isArray(parsed) ? parsed : [];
   } catch {
-    // Corrupted/unavailable storage shouldn't crash the page — just act as
-    // if there are no saved profiles yet.
     return [];
   }
 }
@@ -52,7 +50,6 @@ function writeAll(profiles: DroneProfile[]): boolean {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(profiles));
     return true;
   } catch {
-    // Most likely quota exceeded or storage disabled (private browsing).
     return false;
   }
 }
