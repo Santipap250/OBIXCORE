@@ -88,6 +88,8 @@ export default function ProfilesClient() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState<"updated" | "name">("updated");
 
   useEffect(() => {
     setProfiles(listProfiles());
@@ -129,6 +131,16 @@ export default function ProfilesClient() {
     setProfiles(listProfiles());
     setDeleteConfirmId(null);
   };
+
+  const handleDuplicate = (p: DroneProfile) => {
+    const { id, createdAt, updatedAt, ...rest } = p;
+    saveProfile({ ...rest, name: `${p.name} (สำเนา)` });
+    setProfiles(listProfiles());
+  };
+
+  const visibleProfiles = profiles
+    .filter((p) => p.name.toLowerCase().includes(search.trim().toLowerCase()))
+    .sort((a, b) => (sortBy === "name" ? a.name.localeCompare(b.name, "th") : b.updatedAt - a.updatedAt));
 
   const applyFrame = (fs: FrameSize) => {
     const mm = frameSizeToMm(fs);
@@ -208,7 +220,41 @@ export default function ProfilesClient() {
             </div>
           ) : (
             <div className="space-y-3">
-              {profiles.map((p) => (
+              <div className="flex items-center gap-2">
+                <div className="relative flex-1">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint">
+                    <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
+                  </svg>
+                  <input
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="ค้นหาชื่อโดรน…"
+                    className="w-full rounded-lg border border-bg-border bg-bg-elevated py-2 pl-9 pr-3 text-xs text-text transition-colors focus:border-blue-DEFAULT/60 focus:bg-bg-surface focus:outline-none"
+                  />
+                </div>
+                <button
+                  onClick={() => setSortBy((s) => (s === "updated" ? "name" : "updated"))}
+                  className="flex-shrink-0 rounded-lg border border-bg-border bg-bg-elevated px-3 py-2 text-[11px] font-mono text-text-muted transition-all hover:text-text"
+                  title="สลับการเรียงลำดับ"
+                >
+                  {sortBy === "updated" ? "↓ ล่าสุด" : "A-Z ชื่อ"}
+                </button>
+              </div>
+
+              <p className="font-mono text-[11px] uppercase tracking-wider text-text-faint">
+                {visibleProfiles.length === profiles.length
+                  ? `ทั้งหมด ${profiles.length} ลำ`
+                  : `พบ ${visibleProfiles.length} จาก ${profiles.length} ลำ`}
+              </p>
+
+              {visibleProfiles.length === 0 && (
+                <div className="rounded-xl border border-bg-border bg-bg-elevated p-4 text-center">
+                  <p className="font-sarabun text-xs text-text-faint">ไม่พบโดรนที่ชื่อตรงกับ &quot;{search}&quot;</p>
+                </div>
+              )}
+
+              {visibleProfiles.map((p) => (
                 <div key={p.id} className="hud-panel rounded-2xl p-4">
                   <div className="flex items-start justify-between gap-3">
                     <div>
@@ -239,6 +285,13 @@ export default function ProfilesClient() {
                       className="rounded-lg border border-bg-border bg-bg-elevated px-3 py-1.5 text-[11px] font-mono text-text-muted transition-all hover:text-text"
                     >
                       แก้ไข
+                    </button>
+                    <button
+                      onClick={() => handleDuplicate(p)}
+                      className="rounded-lg border border-bg-border bg-bg-elevated px-3 py-1.5 text-[11px] font-mono text-text-muted transition-all hover:text-text"
+                      title="ทำสำเนาโปรไฟล์นี้"
+                    >
+                      ทำสำเนา
                     </button>
                     {deleteConfirmId === p.id ? (
                       <button
@@ -285,6 +338,12 @@ export default function ProfilesClient() {
               placeholder="เช่น เครื่องแข่งตัวหลัก, ตัวซ้อม 3 นิ้ว"
               className="w-full rounded-lg border border-bg-border bg-bg-elevated px-3 py-2.5 text-sm text-text transition-colors focus:border-blue-DEFAULT/60 focus:bg-bg-surface focus:outline-none"
             />
+            {form.name.trim() &&
+              profiles.some((p) => p.id !== editingId && p.name.trim().toLowerCase() === form.name.trim().toLowerCase()) && (
+                <p className="mt-1.5 font-sarabun text-[11px] text-amber-DEFAULT">
+                  มีโดรนชื่อนี้อยู่แล้ว — บันทึกซ้ำได้ แต่ลองตั้งชื่อให้ต่างกันจะแยกง่ายกว่า
+                </p>
+              )}
           </div>
 
           <div>
