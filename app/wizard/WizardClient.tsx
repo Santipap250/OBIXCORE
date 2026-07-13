@@ -25,15 +25,18 @@ const STYLE_OPTIONS = [
   { value: "cinematic", label: "Cinematic", labelTh: "ถ่ายวิดีโอ",   color: "blue" },
 ] as const;
 
-const BLADE_OPTIONS = [2, 3, 4] as const;
+const BLADE_OPTIONS = [2, 3, 4, 5, 6] as const;
 
 const SETUP_LABELS: Record<WizardResult["setupClass"], string> = {
-  micro: "Micro / Toothpick",
-  small: "3 inch class",
-  mid: "5 inch class",
-  standard: "6 inch class",
-  "long-range": "7 inch+ / LR",
+  micro: "Micro / Tiny Whoop",
+  cinewhoop: "Cinewhoop / Toothpick",
+  freestyle: "Freestyle 5\"",
+  racing: "Racing 5\"",
+  longrange: "Long Range 7\"–9\"",
+  heavylift: "Heavy Lifter 10\"+",
 };
+
+const MOTOR_COUNT_OPTIONS = [2, 3, 4, 6, 8] as const;
 
 function InputField({
   label, sublabel, value, min, max, step = 1, unit, onChange,
@@ -162,36 +165,36 @@ export default function WizardClient() {
               label="Frame Size"
               sublabel="ขนาด frame (มม.)"
               value={input.frameSize}
-              min={65} max={360} step={5} unit="mm"
+              min={50} max={900} step={5} unit="mm"
               onChange={(v) => set("frameSize", v)}
             />
             <InputField
               label="Motor KV"
               sublabel="KV rating ของมอเตอร์"
               value={input.motorKV}
-              min={1000} max={4000} step={50} unit="KV"
+              min={300} max={30000} step={50} unit="KV"
               onChange={(v) => set("motorKV", v)}
             />
             <InputField
               label="Battery"
-              sublabel="จำนวน cell"
+              sublabel="จำนวน cell (1S–12S)"
               value={input.batteryS}
-              min={2} max={6} step={1} unit="S"
+              min={1} max={12} step={1} unit="S"
               onChange={(v) => set("batteryS", v)}
             />
             <InputField
               label="Prop Size"
-              sublabel="ขนาด prop (x10)"
+              sublabel={'ขนาด prop (x10) — 12=1.2" ... 140=14"'}
               value={input.propSize}
-              min={20} max={75} step={1} unit={'×0.1"'}
+              min={12} max={180} step={1} unit={'×0.1"'}
               onChange={(v) => set("propSize", v)}
             />
           </div>
           <InputField
             label="Weight (AUW)"
-            sublabel="น้ำหนักรวมทั้งหมด (รวมกล้อง/Payload) พร้อมแบต"
+            sublabel="น้ำหนักลำ+แบต+กล้อง (ไม่รวม payload ที่แขวนเพิ่ม)"
             value={input.weight}
-            min={80} max={900} step={10} unit="g"
+            min={20} max={20000} step={10} unit="g"
             onChange={(v) => set("weight", v)}
           />
 
@@ -216,6 +219,27 @@ export default function WizardClient() {
             </div>
           </div>
 
+          {/* Motor count */}
+          <div>
+            <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">จำนวนมอเตอร์</p>
+            <div className="grid grid-cols-5 gap-2">
+              {MOTOR_COUNT_OPTIONS.map((m) => (
+                <button
+                  key={m}
+                  onClick={() => set("motorCount", m)}
+                  aria-pressed={(input.motorCount ?? 4) === m}
+                  className={`py-2.5 rounded-xl border text-sm font-mono transition-all ${
+                    (input.motorCount ?? 4) === m
+                      ? "border-green-DEFAULT bg-green-muted text-green-DEFAULT font-semibold"
+                      : "border-bg-border bg-bg-surface text-text-muted hover:bg-bg-elevated"
+                  }`}
+                >
+                  {m}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Advanced toggle */}
           <button
             onClick={() => setShowAdvanced((v) => !v)}
@@ -225,7 +249,7 @@ export default function WizardClient() {
             <svg className={`w-3.5 h-3.5 transition-transform ${showAdvanced ? "rotate-180" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="6 9 12 15 18 9"/>
             </svg>
-            ตัวเลือกเพิ่มเติม (Battery mAh / ESC / Flight Time)
+            ตัวเลือกเพิ่มเติม (Battery mAh / ESC / Payload)
           </button>
 
           {showAdvanced && (
@@ -234,18 +258,25 @@ export default function WizardClient() {
                 label="Battery Cap."
                 sublabel="ความจุแบต (ไม่บังคับ)"
                 value={input.batteryMah ?? 0}
-                min={0} max={6000} step={50} unit="mAh"
+                min={0} max={30000} step={50} unit="mAh"
                 onChange={(v) => set("batteryMah", v || (undefined as unknown as number))}
               />
               <InputField
                 label="ESC Rating"
                 sublabel="กระแสสูงสุด ESC ต่อตัว (ไม่บังคับ)"
                 value={input.escCurrentRatingA ?? 0}
-                min={0} max={150} step={5} unit="A"
+                min={0} max={300} step={5} unit="A"
                 onChange={(v) => set("escCurrentRatingA", v || (undefined as unknown as number))}
               />
+              <InputField
+                label="Payload"
+                sublabel="น้ำหนัก payload ที่แขวนเพิ่ม (ไม่บังคับ, สำหรับ Heavy Lifter)"
+                value={input.payloadG ?? 0}
+                min={0} max={15000} step={50} unit="g"
+                onChange={(v) => set("payloadG", v || (undefined as unknown as number))}
+              />
               <p className="col-span-2 text-[10px] text-text-faint font-sarabun">
-                ใส่ Battery Capacity เพื่อประมาณเวลาบิน และใส่ ESC Rating เพื่อเช็ก headroom กระแสสูงสุด — เว้นว่างได้ถ้าไม่ทราบ
+                ใส่ Battery Capacity เพื่อประมาณเวลาบิน, ESC Rating เพื่อเช็ก headroom, และ Payload สำหรับโดรนที่แบกของ — เว้นว่างได้ถ้าไม่ทราบ ระบบจะใช้ค่าประมาณแทน
               </p>
             </div>
           )}
@@ -258,6 +289,7 @@ export default function WizardClient() {
               { label: "Battery", value: `${input.batteryS}S` },
               { label: "Prop", value: `${(input.propSize / 10).toFixed(1)}\"` },
               { label: "AUW", value: `${input.weight}g` },
+              ...(input.payloadG ? [{ label: "Payload", value: `${input.payloadG}g` }] : []),
             ].map((s) => (
               <div key={s.label} className="flex items-center gap-1.5">
                 <span className="text-[10px] font-mono text-text-faint uppercase">{s.label}</span>
@@ -296,7 +328,10 @@ export default function WizardClient() {
           {/* Config badge */}
           <div className="p-3 rounded-xl bg-bg-elevated border border-bg-border flex flex-wrap gap-3 items-center">
             <span className="text-[10px] font-mono text-text-faint uppercase tracking-wider">สเปก:</span>
-            <span className="text-xs font-mono text-green-DEFAULT">{input.frameSize}mm · {input.motorKV}KV · {input.batteryS}S · {(input.propSize/10).toFixed(1)}" · {input.propBlades ?? 3}-blade · {input.weight}g</span>
+            <span className="text-xs font-mono text-green-DEFAULT">
+              {input.frameSize}mm · {input.motorKV}KV · {input.batteryS}S · {(input.propSize/10).toFixed(1)}" · {input.propBlades ?? 3}-blade ·{" "}
+              {result.totalWeightG}g{input.payloadG ? ` (${input.weight}g + ${input.payloadG}g payload)` : ""}
+            </span>
             <span className={`text-[10px] font-mono px-2 py-0.5 rounded uppercase ${
               input.style === "race" ? "bg-red-muted text-red-DEFAULT"
               : input.style === "cinematic" ? "bg-blue-muted text-blue-DEFAULT"
@@ -321,6 +356,16 @@ export default function WizardClient() {
                 </li>
               ))}
             </ul>
+            {result.estimatedFields.length > 0 && (
+              <div className="mt-3 pt-3 border-t border-blue-DEFAULT/15">
+                <p className="text-[10px] font-mono text-text-faint uppercase tracking-widest mb-1">ค่าที่ใช้เป็นค่าประมาณ (Estimate)</p>
+                <ul className="space-y-1">
+                  {result.estimatedFields.map((f, i) => (
+                    <li key={i} className="text-[11px] font-sarabun text-text-faint leading-relaxed">• {f}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
 
           {/* Estimated current / flight time */}
