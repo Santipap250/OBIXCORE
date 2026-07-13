@@ -1,39 +1,69 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import presetsData from "@/data/presets.json";
-import type { Preset } from "@/types";
+import type { Preset, SetupClass } from "@/types";
 import Badge from "@/components/Badge";
 import CodeBlock from "@/components/CodeBlock";
-import ValueDisplay from "@/components/ValueDisplay";
-import { STYLE_META } from "@/lib/utils";
+import CopyButton from "@/components/CopyButton";
+import { STYLE_META, DIFFICULTY_META } from "@/lib/utils";
 
-const presets = presetsData as Preset[];
+const presets = presetsData as unknown as Preset[];
 
-const FRAME_FILTERS = ["all", "2inch", "3inch", "5inch", "7inch"] as const;
-const STYLE_FILTERS = ["all", "freestyle", "race", "cinematic", "beginner"] as const;
-const DIFF_FILTERS  = ["all", "beginner", "intermediate", "advanced"] as const;
-
-const DIFF_CONFIG: Record<string, { label: string; color: string }> = {
-  beginner:     { label: "มือใหม่",   color: "text-green-DEFAULT"  },
-  intermediate: { label: "กลาง",     color: "text-amber-DEFAULT"  },
-  advanced:     { label: "ขั้นสูง", color: "text-red-DEFAULT"    },
+const CLASS_LABEL_TH: Record<SetupClass, string> = {
+  micro: "Micro / Tiny Whoop",
+  cinewhoop: "Cinewhoop / Toothpick",
+  freestyle: "Freestyle 5\"",
+  racing: "Racing 5\"",
+  longrange: "Long Range 7\"–9\"",
+  heavylift: "Heavy Lifter 10\"+",
 };
 
+const CLASS_FILTERS: readonly ("all" | SetupClass)[] = [
+  "all", "micro", "cinewhoop", "freestyle", "racing", "longrange", "heavylift",
+];
+const STYLE_FILTERS = ["all", "freestyle", "race", "cinematic"] as const;
+const DIFF_FILTERS = ["all", "beginner", "intermediate", "advanced"] as const;
+
 export default function PresetsClient() {
-  const [frameFilter, setFrameFilter] = useState<string>("all");
+  const searchParams = useSearchParams();
+  const highlightId = searchParams.get("highlight");
+
+  const [classFilter, setClassFilter] = useState<string>("all");
   const [styleFilter, setStyleFilter] = useState<string>("all");
-  const [diffFilter,  setDiffFilter]  = useState<string>("all");
+  const [diffFilter, setDiffFilter] = useState<string>("all");
   const [expanded, setExpanded] = useState<string | null>(null);
+  const highlightedRef = useRef<HTMLDivElement | null>(null);
 
-  const filtered = useMemo(() => presets.filter((p) => {
-    if (frameFilter !== "all" && p.frameSize !== frameFilter) return false;
-    if (styleFilter !== "all" && p.type     !== styleFilter) return false;
-    if (diffFilter  !== "all" && p.difficulty !== diffFilter) return false;
-    return true;
-  }), [diffFilter, frameFilter, styleFilter]);
+  // Deep-link support: the Wizard's "recommended preset" card links here as
+  // /presets?highlight=<id> — open that preset and scroll to it.
+  useEffect(() => {
+    if (!highlightId) return;
+    const target = presets.find((p) => p.id === highlightId);
+    if (!target) return;
+    setClassFilter("all");
+    setStyleFilter("all");
+    setDiffFilter("all");
+    setExpanded(highlightId);
+    const t = setTimeout(() => {
+      highlightedRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [highlightId]);
 
-  const toggle = (id: string) =>
-    setExpanded((prev) => (prev === id ? null : id));
+  const filtered = useMemo(
+    () =>
+      presets.filter((p) => {
+        if (classFilter !== "all" && p.setupClass !== classFilter) return false;
+        if (styleFilter !== "all" && p.style !== styleFilter) return false;
+        if (diffFilter !== "all" && p.difficulty !== diffFilter) return false;
+        return true;
+      }),
+    [classFilter, styleFilter, diffFilter]
+  );
+
+  const toggle = (id: string) => setExpanded((prev) => (prev === id ? null : id));
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
@@ -44,29 +74,29 @@ export default function PresetsClient() {
           <h1 className="font-orbitron font-bold text-lg text-text tracking-wide">Preset Library</h1>
         </div>
         <p className="text-sm text-text-muted font-sarabun ml-3.5">
-          ค่า PID + Rates + Filters ที่ผ่านการทดสอบ — กด copy แล้ววางใน Betaflight CLI
+          ค่า PID + Rates + Filters ครบทุกคลาสโดรน — คำนวณจากสูตรเดียวกับ Tuning Wizard กด copy แล้ววางใน Betaflight CLI
         </p>
       </div>
 
       {/* Filters */}
       <div className="space-y-3 mb-5 p-4 rounded-xl bg-bg-surface border border-bg-border">
         <div>
-          <p className="text-[10px] font-mono text-text-faint uppercase tracking-widest mb-2">Frame Size</p>
+          <p className="text-[10px] font-mono text-text-faint uppercase tracking-widest mb-2">คลาสโดรน</p>
           <div className="flex gap-1.5 flex-wrap">
-            {FRAME_FILTERS.map((f) => (
-              <button key={f} onClick={() => setFrameFilter(f)}
-                aria-pressed={frameFilter === f}
+            {CLASS_FILTERS.map((f) => (
+              <button key={f} onClick={() => setClassFilter(f)}
+                aria-pressed={classFilter === f}
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
-                  frameFilter === f ? "border-purple-DEFAULT bg-purple-muted text-purple-DEFAULT" : "border-bg-border text-text-muted hover:bg-bg-elevated"
+                  classFilter === f ? "border-purple-DEFAULT bg-purple-muted text-purple-DEFAULT" : "border-bg-border text-text-muted hover:bg-bg-elevated"
                 }`}>
-                {f === "all" ? "ทั้งหมด" : f}
+                {f === "all" ? "ทั้งหมด" : CLASS_LABEL_TH[f]}
               </button>
             ))}
           </div>
         </div>
 
         <div>
-          <p className="text-[10px] font-mono text-text-faint uppercase tracking-widest mb-2">Style</p>
+          <p className="text-[10px] font-mono text-text-faint uppercase tracking-widest mb-2">สไตล์การบิน</p>
           <div className="flex gap-1.5 flex-wrap">
             {STYLE_FILTERS.map((f) => (
               <button key={f} onClick={() => setStyleFilter(f)}
@@ -92,7 +122,7 @@ export default function PresetsClient() {
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
                   diffFilter === f ? "border-purple-DEFAULT bg-purple-muted text-purple-DEFAULT" : "border-bg-border text-text-muted hover:bg-bg-elevated"
                 }`}>
-                {f === "all" ? "ทั้งหมด" : DIFF_CONFIG[f]?.label || f}
+                {f === "all" ? "ทั้งหมด" : DIFFICULTY_META[f]?.label || f}
               </button>
             ))}
           </div>
@@ -108,7 +138,7 @@ export default function PresetsClient() {
       {filtered.length === 0 ? (
         <div className="text-center py-12" role="status" aria-live="polite">
           <p className="text-text-faint font-sarabun text-sm">ไม่พบ preset ที่ตรงกับเงื่อนไข</p>
-          <button onClick={() => { setFrameFilter("all"); setStyleFilter("all"); setDiffFilter("all"); }}
+          <button onClick={() => { setClassFilter("all"); setStyleFilter("all"); setDiffFilter("all"); }}
             className="mt-3 text-xs font-mono text-purple-DEFAULT hover:underline">
             ล้าง filter ทั้งหมด
           </button>
@@ -117,45 +147,86 @@ export default function PresetsClient() {
         <div className="space-y-3">
           {filtered.map((preset) => {
             const isOpen = expanded === preset.id;
-            const styleConf = STYLE_META[preset.type];
-            const diffConf  = DIFF_CONFIG[preset.difficulty];
+            const isHighlighted = highlightId === preset.id;
+            const styleConf = STYLE_META[preset.style];
+            const diffConf = DIFFICULTY_META[preset.difficulty];
+            const cliText = preset.cliCommands.join("\n");
 
             return (
-              <div key={preset.id} className={`rounded-xl border overflow-hidden transition-all ${isOpen ? "border-purple-DEFAULT/40" : "border-bg-border"}`}>
-                {/* Card header */}
-                <button onClick={() => toggle(preset.id)} aria-expanded={isOpen} className="w-full text-left p-4 bg-bg-surface hover:bg-bg-elevated transition-colors">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1">
-                      <p className="font-orbitron font-semibold text-sm text-text">{preset.name}</p>
-                      <p className="text-xs text-text-muted font-sarabun mt-1 leading-relaxed">{preset.description}</p>
+              <div
+                key={preset.id}
+                ref={isHighlighted ? highlightedRef : undefined}
+                className={`rounded-xl border overflow-hidden transition-all ${
+                  isHighlighted ? "border-green-DEFAULT ring-1 ring-green-DEFAULT/50" : isOpen ? "border-purple-DEFAULT/40" : "border-bg-border"
+                }`}
+              >
+                {/* Card header — 1-glance summary + quick actions */}
+                <div className="w-full text-left p-4 bg-bg-surface hover:bg-bg-elevated transition-colors">
+                  {isHighlighted && (
+                    <p className="text-[10px] font-mono text-green-DEFAULT uppercase tracking-widest mb-2 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-DEFAULT" /> แนะนำจาก Tuning Wizard ของคุณ
+                    </p>
+                  )}
+                  <button onClick={() => toggle(preset.id)} aria-expanded={isOpen} className="w-full text-left">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1">
+                        <p className="font-orbitron font-semibold text-sm text-text">{preset.name}</p>
+                        <p className="text-xs text-text-muted font-sarabun mt-1 leading-relaxed">{preset.description}</p>
+                      </div>
+                      <svg className={`w-4 h-4 text-text-faint flex-shrink-0 mt-1 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="6 9 12 15 18 9"/>
+                      </svg>
                     </div>
-                    <svg className={`w-4 h-4 text-text-faint flex-shrink-0 mt-1 transition-transform ${isOpen ? "rotate-180" : ""}`}
-                      viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="6 9 12 15 18 9"/>
-                    </svg>
-                  </div>
+                  </button>
 
                   <div className="flex gap-1.5 mt-3 flex-wrap items-center">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-purple-DEFAULT/40 bg-purple-muted text-purple-DEFAULT uppercase">
+                      {CLASS_LABEL_TH[preset.setupClass]}
+                    </span>
                     <span className={`text-[10px] font-mono px-2 py-0.5 rounded border uppercase ${styleConf?.classes}`}>
-                      {styleConf?.label || preset.type}
+                      {styleConf?.label || preset.style}
                     </span>
                     <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-bg-border bg-bg-elevated text-text-muted">
-                      {preset.frameSize}
+                      {preset.propSizeIn}&quot; · {preset.batteryS}S
                     </span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-bg-border bg-bg-elevated text-text-muted">
-                      {preset.batteryS}S
-                    </span>
-                    <span className={`text-[10px] font-mono ml-auto ${diffConf?.color}`}>
+                    <span className={`text-[10px] font-mono ml-auto ${diffConf?.classes?.split(" ")[0] || "text-text-muted"}`}>
                       {diffConf?.label}
                     </span>
-                    <span className="text-[10px] font-mono text-text-faint">BF {preset.bfVersion}</span>
                   </div>
-                </button>
+
+                  <p className="text-[11px] font-sarabun text-text-faint mt-2 leading-relaxed">
+                    <span className="text-text-muted">เหมาะกับ:</span> {preset.useCase}
+                  </p>
+
+                  <div className="flex items-center justify-between mt-3">
+                    <span className="text-[10px] font-mono text-text-faint">
+                      Confidence <span className="text-cyan-DEFAULT">{preset.confidence}%</span> · BF {preset.bfVersion}
+                    </span>
+                    <CopyButton text={cliText} label="Copy CLI" size="sm" />
+                  </div>
+                </div>
 
                 {/* Expanded detail */}
                 {isOpen && (
                   <div className="border-t border-bg-border bg-bg-DEFAULT animate-fade-in">
                     <div className="p-4 space-y-5">
+
+                      {/* Reference spec */}
+                      <div className="flex flex-wrap gap-2 p-3 rounded-xl bg-bg-elevated border border-bg-border">
+                        {[
+                          { label: "Frame", value: preset.frameSizeLabel },
+                          { label: "Prop", value: `${preset.propSizeIn}\"` },
+                          { label: "Battery", value: `${preset.batteryS}S` },
+                          { label: "AUW", value: `${preset.weightG}g` },
+                          { label: "Motor KV", value: `${preset.referenceSpec.motorKV}KV` },
+                        ].map((s) => (
+                          <div key={s.label} className="flex items-center gap-1.5">
+                            <span className="text-[10px] font-mono text-text-faint uppercase">{s.label}</span>
+                            <span className="text-xs font-mono text-purple-DEFAULT font-semibold">{s.value}</span>
+                          </div>
+                        ))}
+                      </div>
 
                       {/* PID quick view */}
                       <div>
@@ -176,6 +247,33 @@ export default function PresetsClient() {
                                   ].map((item) => (
                                     <span key={item.k} className={`text-[11px] font-mono bg-bg-elevated border border-bg-border rounded px-2 py-0.5 ${color === "green" ? "text-green-DEFAULT" : color === "cyan" ? "text-cyan-DEFAULT" : "text-amber-DEFAULT"}`}>
                                       {item.k}: {item.v}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Rates quick view */}
+                      <div>
+                        <p className="text-[10px] font-mono text-text-faint uppercase tracking-widest mb-2">Rates (Actual)</p>
+                        <div className="space-y-2">
+                          {(["roll", "pitch", "yaw"] as const).map((axis) => {
+                            const r = preset.rates[axis];
+                            return (
+                              <div key={axis} className="flex items-center gap-2">
+                                <span className="text-[10px] font-mono text-text-faint uppercase w-10">{axis}</span>
+                                <div className="flex-1 flex gap-1 flex-wrap">
+                                  {[
+                                    { k: "RC Rate", v: r.rc_rate },
+                                    { k: "Rate", v: r.rate },
+                                    { k: "Expo", v: r.expo },
+                                  ].map((item) => (
+                                    <span key={item.k} className="text-[11px] font-mono bg-bg-elevated border border-bg-border rounded px-2 py-0.5 text-text">
+                                      <span className="text-text-faint">{item.k}: </span>
+                                      <span className="text-amber-DEFAULT">{item.v}</span>
                                     </span>
                                   ))}
                                 </div>

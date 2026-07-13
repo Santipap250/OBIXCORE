@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import PresetsClient from "./PresetsClient";
 
 const TITLE = "Preset Library — คลัง PID และ Rates Betaflight พร้อมใช้ | OBIXCORE";
@@ -33,5 +34,9 @@ export const metadata: Metadata = {
 };
 
 export default function PresetsPage() {
-  return <PresetsClient />;
+  return (
+    <Suspense fallback={null}>
+      <PresetsClient />
+    </Suspense>
+  );
 }
