@@ -51,6 +51,20 @@ const tools = [
     ),
   },
   {
+    href: "/diagnose",
+    title: "ConfigDoctor",
+    titleTh: "วิเคราะห์ปัญหา Build โดรน",
+    description: "Health/Safety/Efficiency/Performance/Reliability Score พร้อม warning และคำแนะนำเรียงลำดับความสำคัญ",
+    accentColor: "red" as const,
+    badge: "NEW",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
+        <path d="M3.5 8.5h4l1.5-3 2 6 1.5-3h4"/>
+      </svg>
+    ),
+  },
+  {
     href: "/problems",
     title: "Problem Solver",
     titleTh: "แก้ปัญหาโดรน",
@@ -138,7 +152,7 @@ const tools = [
 ];
 
 const quickStats = [
-  { value: "7+", label: "Modules", color: "text-purple-DEFAULT" },
+  { value: "8+", label: "Modules", color: "text-purple-DEFAULT" },
   { value: "5+", label: "Problems", color: "text-amber-DEFAULT" },
   { value: "3", label: "Calculators", color: "text-blue-DEFAULT" },
   { value: "FREE", label: "ฟรีทั้งหมด", color: "text-green-DEFAULT" },
