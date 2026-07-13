@@ -27,6 +27,17 @@ const navItems = [
     ),
   },
   {
+    href: "/diagnose",
+    label: "Diagnose",
+    labelTh: "วิเคราะห์",
+    icon: (active: boolean) => (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
+        <path d="M3.5 8.5h4l1.5-3 2 6 1.5-3h4"/>
+      </svg>
+    ),
+  },
+  {
     href: "/problems",
     label: "Problems",
     labelTh: "แก้ปัญหา",
@@ -118,7 +129,7 @@ export default function Nav() {
         <div className="flex items-center gap-1 rounded-full border border-bg-border/80 bg-bg-surface/70 p-1">
           {navItems.slice(1).map((item, index) => {
             const active = pathname === item.href;
-            const accent = ["green", "amber", "blue", "purple", "cyan", "orange", "blue"][index] || "green";
+            const accent = ["green", "red", "amber", "blue", "purple", "cyan", "orange", "blue"][index] || "green";
             return (
               <Link
                 key={item.href}
@@ -135,6 +146,8 @@ export default function Nav() {
                   } ${
                     accent === "green"
                       ? "bg-green-muted/25"
+                      : accent === "red"
+                      ? "bg-red-muted/25"
                       : accent === "amber"
                       ? "bg-amber-muted/25"
                       : accent === "blue"
@@ -172,10 +185,10 @@ export default function Nav() {
         <Link
           href="/changelog"
           className="hud-chip flex items-center gap-2 px-3 py-2 text-[12px] font-mono tracking-[0.22em] text-text-faint transition-colors hover:text-text"
-          aria-label="ดู changelog เวอร์ชัน v0.3.0"
+          aria-label="ดู changelog เวอร์ชัน v0.4.0"
         >
           <span className="h-2 w-2 rounded-full bg-green-DEFAULT shadow-[0_0_16px_rgba(0,232,122,0.55)] animate-pulse-green" />
-          v0.3.0
+          v0.4.0
         </Link>
       </nav>
 
@@ -196,7 +209,7 @@ export default function Nav() {
         <div className="flex items-stretch gap-1 overflow-x-auto">
           {navItems.map((item, index) => {
             const active = pathname === item.href;
-            const accent = ["green", "amber", "blue", "purple", "pink", "cyan", "orange", "blue"][index] || "green";
+            const accent = ["green", "amber", "red", "blue", "purple", "pink", "cyan", "orange", "blue"][index] || "green";
             return (
               <Link
                 key={item.href}
@@ -212,6 +225,8 @@ export default function Nav() {
                     } ${
                       accent === "green"
                         ? "bg-green-DEFAULT/15"
+                        : accent === "red"
+                        ? "bg-red-DEFAULT/15"
                         : accent === "amber"
                         ? "bg-amber-DEFAULT/15"
                         : accent === "blue"

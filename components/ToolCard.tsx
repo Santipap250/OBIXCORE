@@ -6,7 +6,7 @@ interface ToolCardProps {
   titleTh: string;
   description: string;
   icon: React.ReactNode;
-  accentColor?: "green" | "amber" | "blue" | "cyan" | "purple" | "orange" | "pink";
+  accentColor?: "green" | "amber" | "blue" | "cyan" | "purple" | "orange" | "pink" | "red";
   badge?: string;
 }
 
@@ -18,6 +18,7 @@ const accentMap = {
   purple: { border: "border-purple-DEFAULT/20", hover: "hover:border-purple-DEFAULT/60 hover:-translate-y-1 hover:bg-purple-muted/20", icon: "bg-purple-muted/80 border-purple-DEFAULT/40 text-purple-DEFAULT", badge: "bg-purple-muted/80 text-purple-DEFAULT", glow: "from-purple-DEFAULT/15" },
   orange: { border: "border-orange-DEFAULT/20", hover: "hover:border-orange-DEFAULT/60 hover:-translate-y-1 hover:bg-orange-muted/20", icon: "bg-orange-muted/80 border-orange-DEFAULT/40 text-orange-DEFAULT", badge: "bg-orange-muted/80 text-orange-DEFAULT", glow: "from-orange-DEFAULT/15" },
   pink:   { border: "border-pink-DEFAULT/20",   hover: "hover:border-pink-DEFAULT/60 hover:-translate-y-1 hover:bg-pink-muted/20",   icon: "bg-pink-muted/80 border-pink-DEFAULT/40 text-pink-DEFAULT",   badge: "bg-pink-muted/80 text-pink-DEFAULT",   glow: "from-pink-DEFAULT/15" },
+  red:    { border: "border-red-DEFAULT/20",    hover: "hover:border-red-DEFAULT/60 hover:-translate-y-1 hover:bg-red-muted/20",     icon: "bg-red-muted/80 border-red-DEFAULT/40 text-red-DEFAULT",     badge: "bg-red-muted/80 text-red-DEFAULT",     glow: "from-red-DEFAULT/15" },
 };
 
 export default function ToolCard({
