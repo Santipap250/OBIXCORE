@@ -40,7 +40,7 @@ function scaleRange(r: Range, factor: number): Range {
 
 /** Propeller disc area in m², from diameter in inches. */
 export function propDiscAreaM2(propDiameterIn: number): number {
-  const d = safeNumber(propDiameterIn, 5.1, 1, 15);
+  const d = safeNumber(propDiameterIn, 5.1, 1, 18);
   const radiusM = (d * IN_TO_M) / 2;
   return Math.PI * radiusM * radiusM;
 }
@@ -53,8 +53,8 @@ export function propDiscAreaM2(propDiameterIn: number): number {
  * theory, not a guess specific to this app. We use the middle of that band.
  */
 export function estimateLoadedRpm(motorKV: number, batteryS: number): { unloadedRpm: number; loadedRpm: number } {
-  const kv = safeNumber(motorKV, 2306, 300, 6000);
-  const s = safeNumber(batteryS, 4, 1, 8);
+  const kv = safeNumber(motorKV, 2306, 300, 30000);
+  const s = safeNumber(batteryS, 4, 1, 12);
   const voltage = s * 3.7; // nominal per-cell voltage
   const unloadedRpm = kv * voltage;
   const LOADED_FACTOR = 0.8; // mid-point of the typical 0.75–0.85 loaded/unloaded band
@@ -73,8 +73,8 @@ export function estimateLoadedRpm(motorKV: number, batteryS: number): { unloaded
  * systemEfficiencyRange() below, not by fudging this formula.
  */
 export function idealHoverPowerPerMotorW(weightG: number, motorCount: number, propDiameterIn: number): number {
-  const w = safeNumber(weightG, 350, 20, 5000);
-  const motors = safeNumber(motorCount, 4, 1, 8);
+  const w = safeNumber(weightG, 350, 15, 25000);
+  const motors = safeNumber(motorCount, 4, 1, 12);
   const thrustPerMotorN = (w / 1000) * GRAVITY / motors;
   const area = propDiscAreaM2(propDiameterIn);
   return Math.pow(thrustPerMotorN, 1.5) / Math.sqrt(2 * AIR_DENSITY_KG_M3 * area);
@@ -105,15 +105,15 @@ function bladeEfficiencyFactor(bladeCount: number): number {
  * with motor/prop quality, which this tool has no way to know.
  */
 export function systemEfficiencyRange(propDiameterIn: number, bladeCount: number, motorKV: number, batteryS: number): Range {
-  const d = safeNumber(propDiameterIn, 5.1, 1, 15);
+  const d = safeNumber(propDiameterIn, 5.1, 1, 18);
   // Bigger prop = lower disc loading = closer to ideal. Reference: 5.1" → ~0.16
-  const sizeFactor = clamp(0.16 * Math.pow(d / 5.1, 0.55), 0.08, 0.34);
+  const sizeFactor = clamp(0.16 * Math.pow(d / 5.1, 0.55), 0.06, 0.36);
   const blade = bladeEfficiencyFactor(bladeCount);
   // KV/voltage matching: motors run most efficiently nearest their designed
   // KV-for-cell-count; far off-spec combos (e.g. very high KV on 6S) lose a
   // little efficiency to excess electrical frequency / heat.
-  const kv = safeNumber(motorKV, 2306, 300, 6000);
-  const s = safeNumber(batteryS, 4, 1, 8);
+  const kv = safeNumber(motorKV, 2306, 300, 30000);
+  const s = safeNumber(batteryS, 4, 1, 12);
   const kvVoltageMismatch = Math.abs(kv * s - 2306 * 4) / (2306 * 4);
   const matchFactor = clamp(1 - kvVoltageMismatch * 0.18, 0.82, 1.0);
 
@@ -134,8 +134,8 @@ export interface HoverCurrentInput {
 export function estimateHoverCurrentA(input: HoverCurrentInput): Range {
   const idealW = idealHoverPowerPerMotorW(input.weightG, input.motorCount, input.propDiameterIn);
   const eff = systemEfficiencyRange(input.propDiameterIn, input.bladeCount, input.motorKV, input.batteryS);
-  const motors = safeNumber(input.motorCount, 4, 1, 8);
-  const voltage = safeNumber(input.batteryS, 4, 1, 8) * 3.7;
+  const motors = safeNumber(input.motorCount, 4, 1, 12);
+  const voltage = safeNumber(input.batteryS, 4, 1, 12) * 3.7;
 
   const electricalWTypical = idealW / eff.typical;
   const electricalWLow = idealW / eff.high; // higher efficiency → lower power needed
