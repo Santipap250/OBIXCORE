@@ -16,6 +16,21 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "v0.4.0",
+    date: "2026-07-13",
+    title: "เปิดตัว ConfigDoctor (Diagnosis Engine)",
+    summary:
+      "วิเคราะห์ build โดรน FPV แบบละเอียดครบทุกคลาส ตั้งแต่ Tiny Whoop ถึง Heavy Lifter ได้ Health/Safety/Efficiency/Performance/Reliability Score พร้อม warning เรียงระดับความรุนแรงและคำแนะนำเรียงลำดับความสำคัญ",
+    changes: [
+      { kind: "new", text: "หน้า ConfigDoctor — กรอกสเปกโดรน (และค่าที่ใช้อยู่ตอนนี้ถ้ามี) แล้วรับรายงานวิเคราะห์เต็มรูปแบบ" },
+      { kind: "new", text: "5 คะแนนหลัก: Health, Safety, Efficiency, Performance, Reliability (0-100)" },
+      { kind: "new", text: "Warning แยกระดับ Critical/High/Medium/Low พร้อมเหตุผลและวิธีแก้ในทุกจุด" },
+      { kind: "new", text: "Recommendation เรียง Priority 1-3 พร้อมเหตุผลประกอบ" },
+      { kind: "new", text: "PID / Filter / Rates Analysis — เทียบค่าที่ใช้อยู่กับค่าที่แนะนำจากสเปก build เดียวกับที่ Tuning Wizard ใช้" },
+      { kind: "new", text: "Mechanical Compatibility, Power System, และ Flight Characteristics ครบทุกจุดตามสเปก" },
+    ],
+  },
+  {
     version: "v0.3.0",
     date: "2026-07-11",
     title: "เพิ่ม Drone Profiles",

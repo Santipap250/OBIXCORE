@@ -126,3 +126,25 @@ export function confidenceLabel(score: number): ConfidenceLabel {
   if (score >= 60) return "Medium";
   return "Low";
 }
+
+/** Drone class labels — single source of truth for the 6-class model used
+ * by the Wizard, Preset Library, and ConfigDoctor (Diagnosis Engine) alike,
+ * so all three always describe the same class the same way instead of each
+ * keeping its own copy. */
+export const SETUP_CLASS_LABEL_TH: Record<string, string> = {
+  micro: "Micro / Tiny Whoop",
+  cinewhoop: "Cinewhoop / Toothpick",
+  freestyle: "Freestyle 5\"",
+  racing: "Racing 5\"",
+  longrange: "Long Range 7\"–9\"",
+  heavylift: "Heavy Lifter 10\"+",
+};
+
+/** 4-tier severity used by ConfigDoctor (the 3-tier SEVERITY_META above is
+ * kept as-is since Problem Solver already ships with only high/medium/low). */
+export const DIAGNOSIS_SEVERITY_META: Record<string, StatusMeta> = {
+  critical: { label: "Critical", classes: "text-red-DEFAULT bg-red-muted border-red-DEFAULT/50" },
+  high: { label: "High", classes: "text-orange-DEFAULT bg-orange-muted border-orange-DEFAULT/40" },
+  medium: { label: "Medium", classes: "text-amber-DEFAULT bg-amber-muted border-amber-DEFAULT/40" },
+  low: { label: "Low", classes: "text-blue-DEFAULT bg-blue-muted border-blue-DEFAULT/40" },
+};

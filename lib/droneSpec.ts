@@ -48,7 +48,7 @@ const MIN_PROP_BY_FRAME: Record<FrameSize, number> = {
 
 // ── Ideal KV per S-count ────────────────────────────────────
 // Higher S → lower KV needed for same tip-speed. Roughly KV ≈ 2250 / S (4S reference 2250KV)
-function idealKvRange(s: number): [number, number] {
+export function idealKvRange(s: number): [number, number] {
   const center = Math.round(2250 / (s / 4));
   return [Math.round(center * 0.7), Math.round(center * 1.35)];
 }

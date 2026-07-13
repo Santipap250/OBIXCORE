@@ -16,7 +16,7 @@
 //   longrange  Long Range             7"–9"      6S
 //   heavylift  Heavy Lifter           10"+       6S–12S
 import type { WizardInput, WizardResult } from "@/types";
-import { clamp, round, confidenceLabel as toConfidenceLabel } from "./utils";
+import { clamp, round, confidenceLabel as toConfidenceLabel, SETUP_CLASS_LABEL_TH } from "./utils";
 import {
   estimateHoverCurrentA,
   estimateAverageFlightCurrentA,
@@ -43,7 +43,7 @@ function classifyDrone(propDiameterIn: number, style: WizardInput["style"]): Set
 // Nominal reference prop/weight per class. These are the "typical build"
 // anchors that propLoad/inertia are measured against — not hard rules,
 // just the center of the bell curve for that class.
-const NOMINAL_PROP_IN: Record<SetupClass, number> = {
+export const NOMINAL_PROP_IN: Record<SetupClass, number> = {
   micro: 1.6,
   cinewhoop: 3.0,
   freestyle: 5.1,
@@ -52,7 +52,7 @@ const NOMINAL_PROP_IN: Record<SetupClass, number> = {
   heavylift: 12.0,
 };
 
-const NOMINAL_WEIGHT_G: Record<SetupClass, number> = {
+export const NOMINAL_WEIGHT_G: Record<SetupClass, number> = {
   micro: 35,
   cinewhoop: 200,
   freestyle: 420,
@@ -73,14 +73,10 @@ function estimatePropBlades(provided: number | undefined): { value: number; esti
   return { value: 3, estimated: true };
 }
 
-const CLASS_LABEL_TH: Record<SetupClass, string> = {
-  micro: "Micro / Tiny Whoop",
-  cinewhoop: "Cinewhoop / Toothpick",
-  freestyle: "Freestyle 5\"",
-  racing: "Racing 5\"",
-  longrange: "Long Range",
-  heavylift: "Heavy Lifter",
-};
+// Single source of truth lives in lib/utils.ts (shared with Preset Library
+// and ConfigCoctor/Diagnosis Engine) — kept as a local alias so the rest of
+// this file doesn't need to change.
+const CLASS_LABEL_TH = SETUP_CLASS_LABEL_TH as Record<SetupClass, string>;
 
 interface AxisPid { p: number; i: number; d: number; f: number }
 interface YawPid { p: number; i: number; d: number }
@@ -190,6 +186,19 @@ const CONFIDENCE_BASE_BY_CLASS: Record<SetupClass, number> = {
   // Widest spread of real-world builds (payload, motor count, frame design
   // all vary a lot), so we're less confident a generic baseline fits.
   heavylift: 60,
+};
+
+// Frame-vs-prop expected range per class, mm. Exported so ConfigDoctor's
+// Mechanical Compatibility check uses the exact same reference ranges as
+// the Wizard's own frame/prop consistency warning above — one table, not
+// two that could quietly drift apart.
+export const EXPECTED_FRAME_RANGE_MM: Record<SetupClass, [number, number]> = {
+  micro: [55, 130],
+  cinewhoop: [110, 190],
+  freestyle: [200, 260],
+  racing: [200, 260],
+  longrange: [260, 400],
+  heavylift: [380, 900],
 };
 
 const SUMMARY_BY_CLASS: Record<SetupClass, string> = {
@@ -340,15 +349,7 @@ export function calculateTuning(input: WizardInput): WizardResult {
 
   // Frame-vs-prop consistency check (classification is prop-driven, but a
   // wildly mismatched frame number is worth flagging rather than ignoring).
-  const expectedFrameRange: Record<SetupClass, [number, number]> = {
-    micro: [55, 130],
-    cinewhoop: [110, 190],
-    freestyle: [200, 260],
-    racing: [200, 260],
-    longrange: [260, 400],
-    heavylift: [380, 900],
-  };
-  const [frLo, frHi] = expectedFrameRange[setupClass];
+  const [frLo, frHi] = EXPECTED_FRAME_RANGE_MM[setupClass];
   if (frameSize < frLo * 0.85 || frameSize > frHi * 1.15) {
     warnings.push(
       `Frame ${frameSize}mm ดูไม่สอดคล้องกับ prop ${propDiameter.toFixed(1)}" (กลุ่ม ${CLASS_LABEL_TH[setupClass]} ปกติเฟรมประมาณ ${frLo}–${frHi}mm) — ตรวจสอบว่าใส่ค่าถูกกลุ่มหรือไม่`
@@ -506,5 +507,10 @@ export function calculateTuning(input: WizardInput): WizardResult {
     escWarning,
     totalWeightG: totalWeight,
     estimatedFields,
+    // Exposed (additive) so ConfigDoctor/Diagnosis Engine can reuse the
+    // exact same load/inertia numbers the Wizard tuned against, instead of
+    // recomputing a parallel formula.
+    propLoad,
+    inertia,
   };
 }
