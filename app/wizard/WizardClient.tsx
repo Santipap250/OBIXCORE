@@ -1,12 +1,18 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { calculateTuning } from "@/lib/wizard";
-import type { WizardInput, WizardResult } from "@/types";
+import { recommendPresets } from "@/lib/presetRecommender";
+import presetsData from "@/data/presets.json";
+import type { WizardInput, WizardResult, Preset } from "@/types";
 import { CONFIDENCE_META } from "@/lib/utils";
 import ValueDisplay from "@/components/ValueDisplay";
 import CodeBlock from "@/components/CodeBlock";
+import CopyButton from "@/components/CopyButton";
 import { getProfile, profileToWizardInput } from "@/lib/droneProfile";
+
+const presets = presetsData as unknown as Preset[];
 
 const DEFAULT_INPUT: WizardInput = {
   frameSize: 220,
@@ -106,6 +112,11 @@ export default function WizardClient() {
       document.getElementById("result-top")?.scrollIntoView({ behavior: "smooth" });
     }, 50);
   };
+
+  const presetMatches = useMemo(() => {
+    if (!result) return [];
+    return recommendPresets(input, result, presets, 2);
+  }, [input, result]);
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
@@ -367,6 +378,45 @@ export default function WizardClient() {
               </div>
             )}
           </div>
+
+          {/* Recommended presets */}
+          {presetMatches.length > 0 && (
+            <section>
+              <div className="flex items-center gap-3 mb-3">
+                <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">Preset ที่แนะนำ</h2>
+                <div className="flex-1 h-px bg-bg-border" />
+              </div>
+              <div className="space-y-2">
+                {presetMatches.map(({ preset, matchScore, reasons }) => (
+                  <div key={preset.id} className="p-3 rounded-xl bg-purple-muted/15 border border-purple-DEFAULT/25">
+                    <div className="flex items-start justify-between gap-3 mb-1.5">
+                      <p className="font-orbitron font-semibold text-sm text-text">{preset.name}</p>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-purple-DEFAULT/40 bg-purple-muted text-purple-DEFAULT shrink-0">
+                        Match {matchScore}%
+                      </span>
+                    </div>
+                    <ul className="space-y-1 mb-2.5">
+                      {reasons.map((r, i) => (
+                        <li key={i} className="flex gap-2 text-[11px] font-sarabun text-text-muted leading-relaxed">
+                          <span className="text-purple-DEFAULT flex-shrink-0">→</span>
+                          {r}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href={`/presets?highlight=${preset.id}`}
+                        className="flex-1 text-center text-xs font-mono py-2 rounded-lg border border-purple-DEFAULT/40 text-purple-DEFAULT hover:bg-purple-muted/40 transition-colors"
+                      >
+                        ดู preset นี้
+                      </Link>
+                      <CopyButton text={preset.cliCommands.join("\n")} label="Copy CLI" size="sm" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Estimated current / flight time */}
           <section>
