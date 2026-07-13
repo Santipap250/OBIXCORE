@@ -1,242 +1,1490 @@
 [
   {
-    "id": "preset-5inch-freestyle-001",
-    "name": "Smooth Gremlin 5\" 4S",
-    "description": "ค่า freestyle สำหรับ 5\" 4S เน้น smooth feel และ propwash ต่ำ เหมาะสำหรับคนชอบบิน flow",
-    "type": "freestyle",
-    "frameSize": "5inch",
-    "batteryS": 4,
-    "bfVersion": "4.4",
-    "difficulty": "intermediate",
-    "tags": ["5inch", "4s", "freestyle", "smooth", "propwash"],
-    "pid": {
-      "roll":  { "p": 47, "i": 52, "d": 32, "f": 120 },
-      "pitch": { "p": 48, "i": 52, "d": 32, "f": 120 },
-      "yaw":   { "p": 35, "i": 90, "d": 0 }
-    },
-    "rates": {
-      "type": "actual",
-      "roll":  { "rc_rate": 1.0, "rate": 0.70, "expo": 0.10 },
-      "pitch": { "rc_rate": 1.0, "rate": 0.70, "expo": 0.10 },
-      "yaw":   { "rc_rate": 1.0, "rate": 0.50, "expo": 0.10 }
-    },
-    "filters": {
-      "gyroLpf1Hz": 200,
-      "gyroLpf2Hz": 200,
-      "dTermLpf1Hz": 100,
-      "rpmFilter": true,
-      "dynamicNotch": "MEDIUM"
-    },
-    "cliCommands": [
-      "# Smooth Gremlin 5\" 4S — OBIXCORE Preset",
-      "set p_roll = 47",
-      "set i_roll = 52",
-      "set d_roll = 32",
-      "set f_roll = 120",
-      "set p_pitch = 48",
-      "set i_pitch = 52",
-      "set d_pitch = 32",
-      "set f_pitch = 120",
-      "set p_yaw = 35",
-      "set i_yaw = 90",
-      "set d_yaw = 0",
-      "set gyro_lowpass_hz = 200",
-      "set gyro_lowpass2_hz = 200",
-      "set dterm_lowpass_hz = 100",
-      "set dterm_lowpass_type = BIQUAD",
-      "set dyn_notch_mode = MEDIUM",
-      "set rpm_filter_harmonics = 3",
-      "set roll_rc_rate = 100",
-      "set roll_expo = 10",
-      "set roll_srate = 70",
-      "set pitch_rc_rate = 100",
-      "set pitch_expo = 10",
-      "set pitch_srate = 70",
-      "set yaw_rc_rate = 100",
-      "set yaw_expo = 10",
-      "set yaw_srate = 50",
-      "save"
-    ],
-    "notes": "ถ้า propwash ยังอยู่ให้เพิ่ม iterm_relax = RP และลอง set iterm_relax_cutoff = 15"
-  },
-  {
-    "id": "preset-5inch-race-001",
-    "name": "RaceSharp 5\" 6S",
-    "description": "ค่า race สำหรับ 5\" 6S เน้น responsive และ precise เหมาะสำหรับ gate racing",
-    "type": "race",
-    "frameSize": "5inch",
-    "batteryS": 6,
-    "bfVersion": "4.4",
-    "difficulty": "advanced",
-    "tags": ["5inch", "6s", "race", "responsive", "precise"],
-    "pid": {
-      "roll":  { "p": 52, "i": 52, "d": 28, "f": 140 },
-      "pitch": { "p": 52, "i": 52, "d": 28, "f": 140 },
-      "yaw":   { "p": 38, "i": 90, "d": 0 }
-    },
-    "rates": {
-      "type": "actual",
-      "roll":  { "rc_rate": 1.0, "rate": 0.72, "expo": 0.0 },
-      "pitch": { "rc_rate": 1.0, "rate": 0.72, "expo": 0.0 },
-      "yaw":   { "rc_rate": 1.0, "rate": 0.50, "expo": 0.0 }
-    },
-    "filters": {
-      "gyroLpf1Hz": 200,
-      "gyroLpf2Hz": 200,
-      "dTermLpf1Hz": 110,
-      "rpmFilter": true,
-      "dynamicNotch": "LOW"
-    },
-    "cliCommands": [
-      "# RaceSharp 5\" 6S — OBIXCORE Preset",
-      "set p_roll = 52",
-      "set i_roll = 52",
-      "set d_roll = 28",
-      "set f_roll = 140",
-      "set p_pitch = 52",
-      "set i_pitch = 52",
-      "set d_pitch = 28",
-      "set f_pitch = 140",
-      "set p_yaw = 38",
-      "set i_yaw = 90",
-      "set d_yaw = 0",
-      "set gyro_lowpass_hz = 200",
-      "set gyro_lowpass2_hz = 200",
-      "set dterm_lowpass_hz = 110",
-      "set dterm_lowpass_type = BIQUAD",
-      "set dyn_notch_mode = LOW",
-      "set rpm_filter_harmonics = 3",
-      "set roll_rc_rate = 100",
-      "set roll_expo = 0",
-      "set roll_srate = 72",
-      "set pitch_rc_rate = 100",
-      "set pitch_expo = 0",
-      "set pitch_srate = 72",
-      "set yaw_rc_rate = 100",
-      "set yaw_expo = 0",
-      "set yaw_srate = 50",
-      "save"
-    ],
-    "notes": "ปรับ D term ได้ถ้ามอเตอร์ร้อน — ลด d_roll และ d_pitch ทีละ 2"
-  },
-  {
-    "id": "preset-5inch-beginner-001",
-    "name": "SafeStart 5\" 4S",
-    "description": "ค่าเริ่มต้นสำหรับมือใหม่ โดรนตอบสนองช้า ให้เวลาปรับตัว ลดโอกาสพัง",
-    "type": "beginner",
-    "frameSize": "5inch",
-    "batteryS": 4,
+    "id": "preset-micro-1s-whoop-001",
+    "name": "Whoop Cruiser 1S",
+    "description": "ค่านุ่มสำหรับ Tiny Whoop 1S บินในบ้าน/ในร่ม เน้นควบคุมง่ายและไม่ชนง่าย",
+    "setupClass": "micro",
+    "style": "cinematic",
+    "frameSizeLabel": "65mm (1S Whoop)",
+    "propSizeIn": 1.2,
+    "batteryS": 1,
+    "weightG": 27,
     "bfVersion": "4.4",
     "difficulty": "beginner",
-    "tags": ["5inch", "4s", "beginner", "safe", "forgiving"],
+    "useCase": "บินในบ้าน ในร่ม พื้นที่แคบ มือใหม่หัดบิน whoop",
+    "confidence": 82,
+    "tags": [
+      "tinywhoop",
+      "1s",
+      "indoor",
+      "beginner",
+      "soft"
+    ],
     "pid": {
-      "roll":  { "p": 38, "i": 50, "d": 26, "f": 80 },
-      "pitch": { "p": 38, "i": 50, "d": 26, "f": 80 },
-      "yaw":   { "p": 30, "i": 85, "d": 0 }
+      "roll": {
+        "p": 31,
+        "i": 57,
+        "d": 18,
+        "f": 69
+      },
+      "pitch": {
+        "p": 31,
+        "i": 57,
+        "d": 18,
+        "f": 69
+      },
+      "yaw": {
+        "p": 26,
+        "i": 83,
+        "d": 0
+      }
     },
     "rates": {
-      "type": "actual",
-      "roll":  { "rc_rate": 0.8, "rate": 0.55, "expo": 0.15 },
-      "pitch": { "rc_rate": 0.8, "rate": 0.55, "expo": 0.15 },
-      "yaw":   { "rc_rate": 0.8, "rate": 0.40, "expo": 0.15 }
+      "roll": {
+        "rc_rate": 0.782,
+        "rate": 0.528,
+        "expo": 0.16
+      },
+      "pitch": {
+        "rc_rate": 0.782,
+        "rate": 0.528,
+        "expo": 0.16
+      },
+      "yaw": {
+        "rc_rate": 0.8,
+        "rate": 0.414,
+        "expo": 0.14
+      }
     },
     "filters": {
-      "gyroLpf1Hz": 200,
-      "gyroLpf2Hz": 200,
-      "dTermLpf1Hz": 90,
+      "gyroLpf1Hz": 250,
+      "gyroLpf2Hz": 250,
+      "dTermLpf1Hz": 123,
       "rpmFilter": true,
       "dynamicNotch": "MEDIUM"
     },
     "cliCommands": [
-      "# SafeStart 5\" 4S — OBIXCORE Preset",
-      "set p_roll = 38",
-      "set i_roll = 50",
-      "set d_roll = 26",
-      "set f_roll = 80",
-      "set p_pitch = 38",
-      "set i_pitch = 50",
-      "set d_pitch = 26",
-      "set f_pitch = 80",
-      "set p_yaw = 30",
-      "set i_yaw = 85",
+      "# Whoop Cruiser 1S — OBIXCORE Preset (micro)",
+      "# Setup class: micro · Confidence: 68% (Medium)",
+      "# Est. hover current: ~7.87A · Est. avg flight current: ~9.84A",
+      "#",
+      "# ── PID ─────────────────────────────────────",
+      "set p_roll = 31",
+      "set i_roll = 57",
+      "set d_roll = 18",
+      "set f_roll = 69",
+      "set p_pitch = 31",
+      "set i_pitch = 57",
+      "set d_pitch = 18",
+      "set f_pitch = 69",
+      "set p_yaw = 26",
+      "set i_yaw = 83",
       "set d_yaw = 0",
-      "set gyro_lowpass_hz = 200",
-      "set gyro_lowpass2_hz = 200",
-      "set dterm_lowpass_hz = 90",
+      "#",
+      "# ── Filters ─────────────────────────────────",
+      "set gyro_lowpass_hz = 250",
+      "set gyro_lowpass2_hz = 250",
+      "set dterm_lowpass_hz = 123",
       "set dterm_lowpass_type = PT1",
       "set dyn_notch_mode = MEDIUM",
       "set rpm_filter_harmonics = 3",
-      "set roll_rc_rate = 80",
-      "set roll_expo = 15",
-      "set roll_srate = 55",
-      "set pitch_rc_rate = 80",
-      "set pitch_expo = 15",
-      "set pitch_srate = 55",
+      "#",
+      "# ── Rates ────────────────────────────────────",
+      "set roll_rc_rate = 78",
+      "set roll_expo = 16",
+      "set roll_srate = 53",
+      "set pitch_rc_rate = 78",
+      "set pitch_expo = 16",
+      "set pitch_srate = 53",
       "set yaw_rc_rate = 80",
-      "set yaw_expo = 15",
-      "set yaw_srate = 40",
+      "set yaw_expo = 14",
+      "set yaw_srate = 41",
       "save"
     ],
-    "notes": "เมื่อเก่งขึ้นค่อยๆ เพิ่ม P และ F term ทีละ 5 จนรู้สึกว่าโดรนตอบสนองพอดี"
+    "notes": "ถ้าเฟรมมีการ์ดใบพัดหนา อาจต้องเพิ่ม dynamic notch เป็น HIGH ถ้าเจอ oscillation ตอน throttle punch",
+    "referenceSpec": {
+      "frameSize": 65,
+      "motorKV": 19000,
+      "batteryS": 1,
+      "propSize": 12,
+      "weight": 27,
+      "style": "cinematic",
+      "propBlades": 3,
+      "motorCount": 4
+    }
   },
   {
-    "id": "preset-3inch-freestyle-001",
-    "name": "Pocket Ripper 3\" 3S",
-    "description": "ค่า freestyle สำหรับ 3\" 3S เบา ว่องไว เหมาะบินในสวนหรือพื้นที่แคบ",
-    "type": "freestyle",
-    "frameSize": "3inch",
-    "batteryS": 3,
+    "id": "preset-micro-2s-whoop-001",
+    "name": "Whoop Punch 2S",
+    "description": "ค่าเน้น punch สำหรับ Tiny Whoop 2S บินนอกบ้านลานเล็กๆ ได้ ตอบสนองไวขึ้นกว่ารุ่น 1S",
+    "setupClass": "micro",
+    "style": "freestyle",
+    "frameSizeLabel": "75mm (2S Whoop)",
+    "propSizeIn": 1.6,
+    "batteryS": 2,
+    "weightG": 34,
     "bfVersion": "4.4",
     "difficulty": "intermediate",
-    "tags": ["3inch", "3s", "freestyle", "light", "indoor"],
+    "useCase": "สวนหลังบ้าน ลานเล็ก มือที่ผ่าน 1S มาแล้วอยากได้ punch เพิ่ม",
+    "confidence": 80,
+    "tags": [
+      "tinywhoop",
+      "2s",
+      "outdoor-small",
+      "punchy"
+    ],
     "pid": {
-      "roll":  { "p": 45, "i": 52, "d": 25, "f": 100 },
-      "pitch": { "p": 46, "i": 52, "d": 25, "f": 100 },
-      "yaw":   { "p": 33, "i": 88, "d": 0 }
+      "roll": {
+        "p": 42,
+        "i": 53,
+        "d": 18,
+        "f": 75
+      },
+      "pitch": {
+        "p": 43,
+        "i": 53,
+        "d": 18,
+        "f": 75
+      },
+      "yaw": {
+        "p": 28,
+        "i": 80,
+        "d": 0
+      }
     },
     "rates": {
-      "type": "actual",
-      "roll":  { "rc_rate": 1.0, "rate": 0.68, "expo": 0.12 },
-      "pitch": { "rc_rate": 1.0, "rate": 0.68, "expo": 0.12 },
-      "yaw":   { "rc_rate": 1.0, "rate": 0.48, "expo": 0.10 }
+      "roll": {
+        "rc_rate": 0.85,
+        "rate": 0.6,
+        "expo": 0.1
+      },
+      "pitch": {
+        "rc_rate": 0.85,
+        "rate": 0.6,
+        "expo": 0.1
+      },
+      "yaw": {
+        "rc_rate": 0.8,
+        "rate": 0.45,
+        "expo": 0.1
+      }
     },
     "filters": {
-      "gyroLpf1Hz": 200,
-      "gyroLpf2Hz": 200,
-      "dTermLpf1Hz": 110,
+      "gyroLpf1Hz": 238,
+      "gyroLpf2Hz": 241,
+      "dTermLpf1Hz": 113,
       "rpmFilter": true,
       "dynamicNotch": "MEDIUM"
     },
     "cliCommands": [
-      "# Pocket Ripper 3\" 3S — OBIXCORE Preset",
-      "set p_roll = 45",
-      "set i_roll = 52",
-      "set d_roll = 25",
-      "set f_roll = 100",
-      "set p_pitch = 46",
-      "set i_pitch = 52",
-      "set d_pitch = 25",
-      "set f_pitch = 100",
-      "set p_yaw = 33",
-      "set i_yaw = 88",
+      "# Whoop Punch 2S — OBIXCORE Preset (micro)",
+      "# Setup class: micro · Confidence: 58% (Low)",
+      "# Est. hover current: ~3.56A · Est. avg flight current: ~6.05A",
+      "#",
+      "# ── PID ─────────────────────────────────────",
+      "set p_roll = 42",
+      "set i_roll = 53",
+      "set d_roll = 18",
+      "set f_roll = 75",
+      "set p_pitch = 43",
+      "set i_pitch = 53",
+      "set d_pitch = 18",
+      "set f_pitch = 75",
+      "set p_yaw = 28",
+      "set i_yaw = 80",
       "set d_yaw = 0",
-      "set gyro_lowpass_hz = 200",
-      "set gyro_lowpass2_hz = 200",
-      "set dterm_lowpass_hz = 110",
+      "#",
+      "# ── Filters ─────────────────────────────────",
+      "set gyro_lowpass_hz = 238",
+      "set gyro_lowpass2_hz = 241",
+      "set dterm_lowpass_hz = 113",
       "set dterm_lowpass_type = BIQUAD",
       "set dyn_notch_mode = MEDIUM",
       "set rpm_filter_harmonics = 3",
-      "set roll_rc_rate = 100",
-      "set roll_expo = 12",
-      "set roll_srate = 68",
-      "set pitch_rc_rate = 100",
-      "set pitch_expo = 12",
-      "set pitch_srate = 68",
-      "set yaw_rc_rate = 100",
+      "#",
+      "# ── Rates ────────────────────────────────────",
+      "set roll_rc_rate = 85",
+      "set roll_expo = 10",
+      "set roll_srate = 60",
+      "set pitch_rc_rate = 85",
+      "set pitch_expo = 10",
+      "set pitch_srate = 60",
+      "set yaw_rc_rate = 80",
+      "set yaw_expo = 10",
+      "set yaw_srate = 45",
+      "save"
+    ],
+    "notes": "2S แรงกว่า 1S มาก — ระวังชนของแตกง่ายกว่าเดิม ค่อยๆ เพิ่ม throttle จนคุ้นมือ",
+    "referenceSpec": {
+      "frameSize": 75,
+      "motorKV": 20000,
+      "batteryS": 2,
+      "propSize": 16,
+      "weight": 34,
+      "style": "freestyle",
+      "propBlades": 3,
+      "motorCount": 4
+    }
+  },
+  {
+    "id": "preset-cinewhoop-3in-4s-001",
+    "name": "CineDuct 3\" 4S Smooth",
+    "description": "ค่านิ่งมากสำหรับ cinewhoop 3\" 4S เน้นภาพนิ่งสำหรับถ่ายวิดีโอใกล้คน/ในที่แคบ",
+    "setupClass": "cinewhoop",
+    "style": "cinematic",
+    "frameSizeLabel": "145mm (3\" Cinewhoop)",
+    "propSizeIn": 3,
+    "batteryS": 4,
+    "weightG": 190,
+    "bfVersion": "4.4",
+    "difficulty": "intermediate",
+    "useCase": "ถ่ายวิดีโอในร่ม ใกล้คน โชว์ event ต้องการภาพนิ่งไม่สั่น",
+    "confidence": 85,
+    "tags": [
+      "cinewhoop",
+      "3inch",
+      "4s",
+      "smooth",
+      "video"
+    ],
+    "pid": {
+      "roll": {
+        "p": 36,
+        "i": 55,
+        "d": 22,
+        "f": 85
+      },
+      "pitch": {
+        "p": 37,
+        "i": 55,
+        "d": 22,
+        "f": 85
+      },
+      "yaw": {
+        "p": 30,
+        "i": 92,
+        "d": 0
+      }
+    },
+    "rates": {
+      "roll": {
+        "rc_rate": 0.874,
+        "rate": 0.572,
+        "expo": 0.16
+      },
+      "pitch": {
+        "rc_rate": 0.874,
+        "rate": 0.572,
+        "expo": 0.16
+      },
+      "yaw": {
+        "rc_rate": 0.92,
+        "rate": 0.442,
+        "expo": 0.14
+      }
+    },
+    "filters": {
+      "gyroLpf1Hz": 240,
+      "gyroLpf2Hz": 240,
+      "dTermLpf1Hz": 98,
+      "rpmFilter": true,
+      "dynamicNotch": "MEDIUM"
+    },
+    "cliCommands": [
+      "# CineDuct 3\" 4S Smooth — OBIXCORE Preset (cinewhoop)",
+      "# Setup class: cinewhoop · Confidence: 87% (High)",
+      "# Est. hover current: ~7.64A · Est. avg flight current: ~9.55A",
+      "#",
+      "# ── PID ─────────────────────────────────────",
+      "set p_roll = 36",
+      "set i_roll = 55",
+      "set d_roll = 22",
+      "set f_roll = 85",
+      "set p_pitch = 37",
+      "set i_pitch = 55",
+      "set d_pitch = 22",
+      "set f_pitch = 85",
+      "set p_yaw = 30",
+      "set i_yaw = 92",
+      "set d_yaw = 0",
+      "#",
+      "# ── Filters ─────────────────────────────────",
+      "set gyro_lowpass_hz = 240",
+      "set gyro_lowpass2_hz = 240",
+      "set dterm_lowpass_hz = 98",
+      "set dterm_lowpass_type = PT1",
+      "set dyn_notch_mode = MEDIUM",
+      "set rpm_filter_harmonics = 3",
+      "#",
+      "# ── Rates ────────────────────────────────────",
+      "set roll_rc_rate = 87",
+      "set roll_expo = 16",
+      "set roll_srate = 57",
+      "set pitch_rc_rate = 87",
+      "set pitch_expo = 16",
+      "set pitch_srate = 57",
+      "set yaw_rc_rate = 92",
+      "set yaw_expo = 14",
+      "set yaw_srate = 44",
+      "save"
+    ],
+    "notes": "กรงป้องกันใบพัดรบกวนการไหลของอากาศ ถ้าเจอ oscillation แปลกๆ ลองปรับ dynamic notch เป็น MEDIUM/HIGH ก่อน",
+    "referenceSpec": {
+      "frameSize": 145,
+      "motorKV": 1700,
+      "batteryS": 4,
+      "propSize": 30,
+      "weight": 190,
+      "style": "cinematic",
+      "propBlades": 3,
+      "motorCount": 4
+    }
+  },
+  {
+    "id": "preset-cinewhoop-toothpick-3s-001",
+    "name": "Toothpick Ripper 2.7\" 3S",
+    "description": "ค่า freestyle เบาสำหรับ toothpick 2.7\" 3S ว่องไว เหมาะบินในสวนหรือพื้นที่แคบ",
+    "setupClass": "cinewhoop",
+    "style": "freestyle",
+    "frameSizeLabel": "120mm (2.7\" Toothpick)",
+    "propSizeIn": 2.7,
+    "batteryS": 3,
+    "weightG": 150,
+    "bfVersion": "4.4",
+    "difficulty": "intermediate",
+    "useCase": "freestyle เบาๆ ในพื้นที่แคบ สวน หรือ backyard",
+    "confidence": 78,
+    "tags": [
+      "toothpick",
+      "2.7inch",
+      "3s",
+      "freestyle",
+      "light",
+      "indoor"
+    ],
+    "pid": {
+      "roll": {
+        "p": 42,
+        "i": 52,
+        "d": 28,
+        "f": 92
+      },
+      "pitch": {
+        "p": 43,
+        "i": 52,
+        "d": 28,
+        "f": 92
+      },
+      "yaw": {
+        "p": 33,
+        "i": 88,
+        "d": 0
+      }
+    },
+    "rates": {
+      "roll": {
+        "rc_rate": 0.95,
+        "rate": 0.65,
+        "expo": 0.1
+      },
+      "pitch": {
+        "rc_rate": 0.95,
+        "rate": 0.65,
+        "expo": 0.1
+      },
+      "yaw": {
+        "rc_rate": 0.92,
+        "rate": 0.48,
+        "expo": 0.1
+      }
+    },
+    "filters": {
+      "gyroLpf1Hz": 240,
+      "gyroLpf2Hz": 240,
+      "dTermLpf1Hz": 112,
+      "rpmFilter": true,
+      "dynamicNotch": "MEDIUM"
+    },
+    "cliCommands": [
+      "# Toothpick Ripper 2.7\" 3S — OBIXCORE Preset (cinewhoop)",
+      "# Setup class: cinewhoop · Confidence: 76% (Medium)",
+      "# Est. hover current: ~8.56A · Est. avg flight current: ~14.55A",
+      "#",
+      "# ── PID ─────────────────────────────────────",
+      "set p_roll = 42",
+      "set i_roll = 52",
+      "set d_roll = 28",
+      "set f_roll = 92",
+      "set p_pitch = 43",
+      "set i_pitch = 52",
+      "set d_pitch = 28",
+      "set f_pitch = 92",
+      "set p_yaw = 33",
+      "set i_yaw = 88",
+      "set d_yaw = 0",
+      "#",
+      "# ── Filters ─────────────────────────────────",
+      "set gyro_lowpass_hz = 240",
+      "set gyro_lowpass2_hz = 240",
+      "set dterm_lowpass_hz = 112",
+      "set dterm_lowpass_type = BIQUAD",
+      "set dyn_notch_mode = MEDIUM",
+      "set rpm_filter_harmonics = 3",
+      "#",
+      "# ── Rates ────────────────────────────────────",
+      "set roll_rc_rate = 95",
+      "set roll_expo = 10",
+      "set roll_srate = 65",
+      "set pitch_rc_rate = 95",
+      "set pitch_expo = 10",
+      "set pitch_srate = 65",
+      "set yaw_rc_rate = 92",
       "set yaw_expo = 10",
       "set yaw_srate = 48",
       "save"
     ],
-    "notes": "3\" อาจมี motor noise มากกว่า 5\" ถ้าสั่นให้เพิ่ม dynamic notch เป็น HIGH"
+    "notes": "เฟรมเบา ไวต่อลม — ถ้าบินนอกบ้านลมแรงให้ลด rate ลงเล็กน้อย",
+    "referenceSpec": {
+      "frameSize": 120,
+      "motorKV": 2000,
+      "batteryS": 3,
+      "propSize": 27,
+      "weight": 150,
+      "style": "freestyle",
+      "propBlades": 3,
+      "motorCount": 4
+    }
+  },
+  {
+    "id": "preset-freestyle-5in-4s-safe-001",
+    "name": "SafeStart 5\" 4S",
+    "description": "ค่าเริ่มต้นสำหรับมือใหม่ โดรนตอบสนองช้า ให้เวลาปรับตัว ลดโอกาสพัง",
+    "setupClass": "freestyle",
+    "style": "cinematic",
+    "frameSizeLabel": "5inch",
+    "propSizeIn": 5.1,
+    "batteryS": 4,
+    "weightG": 400,
+    "bfVersion": "4.4",
+    "difficulty": "beginner",
+    "useCase": "มือใหม่หัดบิน 5\" คนแรกที่เพิ่งจบ simulator",
+    "confidence": 88,
+    "tags": [
+      "5inch",
+      "4s",
+      "freestyle",
+      "beginner",
+      "safe",
+      "forgiving"
+    ],
+    "pid": {
+      "roll": {
+        "p": 38,
+        "i": 54,
+        "d": 25,
+        "f": 94
+      },
+      "pitch": {
+        "p": 39,
+        "i": 54,
+        "d": 25,
+        "f": 94
+      },
+      "yaw": {
+        "p": 32,
+        "i": 94,
+        "d": 0
+      }
+    },
+    "rates": {
+      "roll": {
+        "rc_rate": 0.92,
+        "rate": 0.616,
+        "expo": 0.192
+      },
+      "pitch": {
+        "rc_rate": 0.92,
+        "rate": 0.616,
+        "expo": 0.192
+      },
+      "yaw": {
+        "rc_rate": 1,
+        "rate": 0.46,
+        "expo": 0.168
+      }
+    },
+    "filters": {
+      "gyroLpf1Hz": 250,
+      "gyroLpf2Hz": 250,
+      "dTermLpf1Hz": 89,
+      "rpmFilter": true,
+      "dynamicNotch": "MEDIUM"
+    },
+    "cliCommands": [
+      "# SafeStart 5\" 4S — OBIXCORE Preset (freestyle)",
+      "# Setup class: freestyle · Confidence: 96% (High)",
+      "# Est. hover current: ~10.01A · Est. avg flight current: ~12.51A",
+      "#",
+      "# ── PID ─────────────────────────────────────",
+      "set p_roll = 38",
+      "set i_roll = 54",
+      "set d_roll = 25",
+      "set f_roll = 94",
+      "set p_pitch = 39",
+      "set i_pitch = 54",
+      "set d_pitch = 25",
+      "set f_pitch = 94",
+      "set p_yaw = 32",
+      "set i_yaw = 94",
+      "set d_yaw = 0",
+      "#",
+      "# ── Filters ─────────────────────────────────",
+      "set gyro_lowpass_hz = 250",
+      "set gyro_lowpass2_hz = 250",
+      "set dterm_lowpass_hz = 89",
+      "set dterm_lowpass_type = PT1",
+      "set dyn_notch_mode = MEDIUM",
+      "set rpm_filter_harmonics = 3",
+      "#",
+      "# ── Rates ────────────────────────────────────",
+      "set roll_rc_rate = 92",
+      "set roll_expo = 19",
+      "set roll_srate = 62",
+      "set pitch_rc_rate = 92",
+      "set pitch_expo = 19",
+      "set pitch_srate = 62",
+      "set yaw_rc_rate = 100",
+      "set yaw_expo = 17",
+      "set yaw_srate = 46",
+      "save"
+    ],
+    "notes": "เมื่อเก่งขึ้นค่อยๆ เพิ่ม P และ F term ทีละ 5 จนรู้สึกว่าโดรนตอบสนองพอดี — ลองสลับไปใช้ Smooth Gremlin เมื่อคุมโดรนได้มั่นใจแล้ว",
+    "referenceSpec": {
+      "frameSize": 220,
+      "motorKV": 2000,
+      "batteryS": 4,
+      "propSize": 51,
+      "weight": 400,
+      "style": "cinematic",
+      "propBlades": 3,
+      "motorCount": 4
+    }
+  },
+  {
+    "id": "preset-freestyle-5in-4s-001",
+    "name": "Smooth Gremlin 5\" 4S",
+    "description": "ค่า freestyle สำหรับ 5\" 4S เน้น smooth feel และ propwash ต่ำ เหมาะสำหรับคนชอบบิน flow",
+    "setupClass": "freestyle",
+    "style": "freestyle",
+    "frameSizeLabel": "5inch",
+    "propSizeIn": 5.1,
+    "batteryS": 4,
+    "weightG": 420,
+    "bfVersion": "4.4",
+    "difficulty": "intermediate",
+    "useCase": "freestyle ทั่วไป ท่า flip/roll บินเล่นทั่วไป",
+    "confidence": 90,
+    "tags": [
+      "5inch",
+      "4s",
+      "freestyle",
+      "smooth",
+      "propwash"
+    ],
+    "pid": {
+      "roll": {
+        "p": 47,
+        "i": 52,
+        "d": 30,
+        "f": 102
+      },
+      "pitch": {
+        "p": 48,
+        "i": 52,
+        "d": 30,
+        "f": 102
+      },
+      "yaw": {
+        "p": 35,
+        "i": 90,
+        "d": 0
+      }
+    },
+    "rates": {
+      "roll": {
+        "rc_rate": 1,
+        "rate": 0.7,
+        "expo": 0.12
+      },
+      "pitch": {
+        "rc_rate": 1,
+        "rate": 0.7,
+        "expo": 0.12
+      },
+      "yaw": {
+        "rc_rate": 1,
+        "rate": 0.5,
+        "expo": 0.12
+      }
+    },
+    "filters": {
+      "gyroLpf1Hz": 250,
+      "gyroLpf2Hz": 250,
+      "dTermLpf1Hz": 96,
+      "rpmFilter": true,
+      "dynamicNotch": "MEDIUM"
+    },
+    "cliCommands": [
+      "# Smooth Gremlin 5\" 4S — OBIXCORE Preset (freestyle)",
+      "# Setup class: freestyle · Confidence: 96% (High)",
+      "# Est. hover current: ~10.52A · Est. avg flight current: ~17.88A",
+      "#",
+      "# ── PID ─────────────────────────────────────",
+      "set p_roll = 47",
+      "set i_roll = 52",
+      "set d_roll = 30",
+      "set f_roll = 102",
+      "set p_pitch = 48",
+      "set i_pitch = 52",
+      "set d_pitch = 30",
+      "set f_pitch = 102",
+      "set p_yaw = 35",
+      "set i_yaw = 90",
+      "set d_yaw = 0",
+      "#",
+      "# ── Filters ─────────────────────────────────",
+      "set gyro_lowpass_hz = 250",
+      "set gyro_lowpass2_hz = 250",
+      "set dterm_lowpass_hz = 96",
+      "set dterm_lowpass_type = BIQUAD",
+      "set dyn_notch_mode = MEDIUM",
+      "set rpm_filter_harmonics = 3",
+      "#",
+      "# ── Rates ────────────────────────────────────",
+      "set roll_rc_rate = 100",
+      "set roll_expo = 12",
+      "set roll_srate = 70",
+      "set pitch_rc_rate = 100",
+      "set pitch_expo = 12",
+      "set pitch_srate = 70",
+      "set yaw_rc_rate = 100",
+      "set yaw_expo = 12",
+      "set yaw_srate = 50",
+      "save"
+    ],
+    "notes": "ถ้า propwash ยังอยู่ให้เพิ่ม iterm_relax = RP และลอง set iterm_relax_cutoff = 15",
+    "referenceSpec": {
+      "frameSize": 220,
+      "motorKV": 2306,
+      "batteryS": 4,
+      "propSize": 51,
+      "weight": 420,
+      "style": "freestyle",
+      "propBlades": 3,
+      "motorCount": 4
+    }
+  },
+  {
+    "id": "preset-freestyle-5in-6s-001",
+    "name": "Freestyle 5\" 6S Punch",
+    "description": "ค่า freestyle สำหรับ 5\" 6S แรงบิดสูงขึ้น เหมาะกับคนที่ต้องการ punch แรงกว่า 4S",
+    "setupClass": "freestyle",
+    "style": "freestyle",
+    "frameSizeLabel": "5inch (6S)",
+    "propSizeIn": 5.1,
+    "batteryS": 6,
+    "weightG": 480,
+    "bfVersion": "4.4",
+    "difficulty": "advanced",
+    "useCase": "freestyle ระดับกลาง-สูง ต้องการ punch/vertical ที่แรงกว่า 4S เดิม",
+    "confidence": 84,
+    "tags": [
+      "5inch",
+      "6s",
+      "freestyle",
+      "punch"
+    ],
+    "pid": {
+      "roll": {
+        "p": 48,
+        "i": 53,
+        "d": 29,
+        "f": 102
+      },
+      "pitch": {
+        "p": 49,
+        "i": 53,
+        "d": 29,
+        "f": 102
+      },
+      "yaw": {
+        "p": 35,
+        "i": 90,
+        "d": 0
+      }
+    },
+    "rates": {
+      "roll": {
+        "rc_rate": 1,
+        "rate": 0.7,
+        "expo": 0.12
+      },
+      "pitch": {
+        "rc_rate": 1,
+        "rate": 0.7,
+        "expo": 0.12
+      },
+      "yaw": {
+        "rc_rate": 1,
+        "rate": 0.5,
+        "expo": 0.12
+      }
+    },
+    "filters": {
+      "gyroLpf1Hz": 248,
+      "gyroLpf2Hz": 249,
+      "dTermLpf1Hz": 94,
+      "rpmFilter": true,
+      "dynamicNotch": "MEDIUM"
+    },
+    "cliCommands": [
+      "# Freestyle 5\" 6S Punch — OBIXCORE Preset (freestyle)",
+      "# Setup class: freestyle · Confidence: 96% (High)",
+      "# Est. hover current: ~8.73A · Est. avg flight current: ~14.84A",
+      "#",
+      "# ── PID ─────────────────────────────────────",
+      "set p_roll = 48",
+      "set i_roll = 53",
+      "set d_roll = 29",
+      "set f_roll = 102",
+      "set p_pitch = 49",
+      "set i_pitch = 53",
+      "set d_pitch = 29",
+      "set f_pitch = 102",
+      "set p_yaw = 35",
+      "set i_yaw = 90",
+      "set d_yaw = 0",
+      "#",
+      "# ── Filters ─────────────────────────────────",
+      "set gyro_lowpass_hz = 248",
+      "set gyro_lowpass2_hz = 249",
+      "set dterm_lowpass_hz = 94",
+      "set dterm_lowpass_type = BIQUAD",
+      "set dyn_notch_mode = MEDIUM",
+      "set rpm_filter_harmonics = 3",
+      "#",
+      "# ── Rates ────────────────────────────────────",
+      "set roll_rc_rate = 100",
+      "set roll_expo = 12",
+      "set roll_srate = 70",
+      "set pitch_rc_rate = 100",
+      "set pitch_expo = 12",
+      "set pitch_srate = 70",
+      "set yaw_rc_rate = 100",
+      "set yaw_expo = 12",
+      "set yaw_srate = 50",
+      "save"
+    ],
+    "notes": "6S ร้อนไวกว่า 4S — เช็คอุณหภูมิมอเตอร์หลังบินรอบแรกเสมอ",
+    "referenceSpec": {
+      "frameSize": 225,
+      "motorKV": 1700,
+      "batteryS": 6,
+      "propSize": 51,
+      "weight": 480,
+      "style": "freestyle",
+      "propBlades": 3,
+      "motorCount": 4
+    }
+  },
+  {
+    "id": "preset-racing-5in-4s-001",
+    "name": "RaceSharp 5\" 4S Sprint",
+    "description": "ค่า race เบาสำหรับ 5\" 4S เน้น response ไวและน้ำหนักเบา เหมาะ sprint/gate racing ระยะสั้น",
+    "setupClass": "racing",
+    "style": "race",
+    "frameSizeLabel": "5inch (4S Race)",
+    "propSizeIn": 5.1,
+    "batteryS": 4,
+    "weightG": 320,
+    "bfVersion": "4.4",
+    "difficulty": "advanced",
+    "useCase": "gate racing sprint, sim-to-real transition, นักบินที่เริ่มแข่ง",
+    "confidence": 83,
+    "tags": [
+      "5inch",
+      "4s",
+      "race",
+      "responsive",
+      "light"
+    ],
+    "pid": {
+      "roll": {
+        "p": 56,
+        "i": 48,
+        "d": 35,
+        "f": 127
+      },
+      "pitch": {
+        "p": 57,
+        "i": 48,
+        "d": 35,
+        "f": 127
+      },
+      "yaw": {
+        "p": 40,
+        "i": 88,
+        "d": 0
+      }
+    },
+    "rates": {
+      "roll": {
+        "rc_rate": 1.071,
+        "rate": 0.811,
+        "expo": 0.025
+      },
+      "pitch": {
+        "rc_rate": 1.071,
+        "rate": 0.811,
+        "expo": 0.025
+      },
+      "yaw": {
+        "rc_rate": 1.04,
+        "rate": 0.572,
+        "expo": 0.025
+      }
+    },
+    "filters": {
+      "gyroLpf1Hz": 249,
+      "gyroLpf2Hz": 249,
+      "dTermLpf1Hz": 94,
+      "rpmFilter": true,
+      "dynamicNotch": "LOW"
+    },
+    "cliCommands": [
+      "# RaceSharp 5\" 4S Sprint — OBIXCORE Preset (racing)",
+      "# Setup class: racing · Confidence: 94% (High)",
+      "# Est. hover current: ~7.24A · Est. avg flight current: ~15.93A",
+      "#",
+      "# ── PID ─────────────────────────────────────",
+      "set p_roll = 56",
+      "set i_roll = 48",
+      "set d_roll = 35",
+      "set f_roll = 127",
+      "set p_pitch = 57",
+      "set i_pitch = 48",
+      "set d_pitch = 35",
+      "set f_pitch = 127",
+      "set p_yaw = 40",
+      "set i_yaw = 88",
+      "set d_yaw = 0",
+      "#",
+      "# ── Filters ─────────────────────────────────",
+      "set gyro_lowpass_hz = 249",
+      "set gyro_lowpass2_hz = 249",
+      "set dterm_lowpass_hz = 94",
+      "set dterm_lowpass_type = BIQUAD",
+      "set dyn_notch_mode = LOW",
+      "set rpm_filter_harmonics = 3",
+      "#",
+      "# ── Rates ────────────────────────────────────",
+      "set roll_rc_rate = 107",
+      "set roll_expo = 3",
+      "set roll_srate = 81",
+      "set pitch_rc_rate = 107",
+      "set pitch_expo = 3",
+      "set pitch_srate = 81",
+      "set yaw_rc_rate = 104",
+      "set yaw_expo = 3",
+      "set yaw_srate = 57",
+      "save"
+    ],
+    "notes": "ปรับ D term ได้ถ้ามอเตอร์ร้อน — ลด d_roll และ d_pitch ทีละ 2",
+    "referenceSpec": {
+      "frameSize": 210,
+      "motorKV": 2750,
+      "batteryS": 4,
+      "propSize": 51,
+      "weight": 320,
+      "style": "race",
+      "propBlades": 3,
+      "motorCount": 4
+    }
+  },
+  {
+    "id": "preset-racing-5in-6s-001",
+    "name": "RaceSharp 5\" 6S",
+    "description": "ค่า race สำหรับ 5\" 6S เน้น responsive และ precise เหมาะสำหรับ gate racing",
+    "setupClass": "racing",
+    "style": "race",
+    "frameSizeLabel": "5inch (6S Race)",
+    "propSizeIn": 5.1,
+    "batteryS": 6,
+    "weightG": 360,
+    "bfVersion": "4.4",
+    "difficulty": "advanced",
+    "useCase": "gate racing ระดับแข่งขันจริง ต้องการความไวสูงสุด",
+    "confidence": 90,
+    "tags": [
+      "5inch",
+      "6s",
+      "race",
+      "responsive",
+      "precise"
+    ],
+    "pid": {
+      "roll": {
+        "p": 57,
+        "i": 49,
+        "d": 34,
+        "f": 127
+      },
+      "pitch": {
+        "p": 58,
+        "i": 49,
+        "d": 34,
+        "f": 127
+      },
+      "yaw": {
+        "p": 40,
+        "i": 88,
+        "d": 0
+      }
+    },
+    "rates": {
+      "roll": {
+        "rc_rate": 1.071,
+        "rate": 0.811,
+        "expo": 0.025
+      },
+      "pitch": {
+        "rc_rate": 1.071,
+        "rate": 0.811,
+        "expo": 0.025
+      },
+      "yaw": {
+        "rc_rate": 1.04,
+        "rate": 0.572,
+        "expo": 0.025
+      }
+    },
+    "filters": {
+      "gyroLpf1Hz": 248,
+      "gyroLpf2Hz": 248,
+      "dTermLpf1Hz": 94,
+      "rpmFilter": true,
+      "dynamicNotch": "LOW"
+    },
+    "cliCommands": [
+      "# RaceSharp 5\" 6S — OBIXCORE Preset (racing)",
+      "# Setup class: racing · Confidence: 94% (High)",
+      "# Est. hover current: ~5.81A · Est. avg flight current: ~12.78A",
+      "#",
+      "# ── PID ─────────────────────────────────────",
+      "set p_roll = 57",
+      "set i_roll = 49",
+      "set d_roll = 34",
+      "set f_roll = 127",
+      "set p_pitch = 58",
+      "set i_pitch = 49",
+      "set d_pitch = 34",
+      "set f_pitch = 127",
+      "set p_yaw = 40",
+      "set i_yaw = 88",
+      "set d_yaw = 0",
+      "#",
+      "# ── Filters ─────────────────────────────────",
+      "set gyro_lowpass_hz = 248",
+      "set gyro_lowpass2_hz = 248",
+      "set dterm_lowpass_hz = 94",
+      "set dterm_lowpass_type = BIQUAD",
+      "set dyn_notch_mode = LOW",
+      "set rpm_filter_harmonics = 3",
+      "#",
+      "# ── Rates ────────────────────────────────────",
+      "set roll_rc_rate = 107",
+      "set roll_expo = 3",
+      "set roll_srate = 81",
+      "set pitch_rc_rate = 107",
+      "set pitch_expo = 3",
+      "set pitch_srate = 81",
+      "set yaw_rc_rate = 104",
+      "set yaw_expo = 3",
+      "set yaw_srate = 57",
+      "save"
+    ],
+    "notes": "ปรับ D term ได้ถ้ามอเตอร์ร้อน — ลด d_roll และ d_pitch ทีละ 2",
+    "referenceSpec": {
+      "frameSize": 220,
+      "motorKV": 1900,
+      "batteryS": 6,
+      "propSize": 51,
+      "weight": 360,
+      "style": "race",
+      "propBlades": 3,
+      "motorCount": 4
+    }
+  },
+  {
+    "id": "preset-longrange-7in-6s-001",
+    "name": "LongHaul 7\" 6S Cruiser",
+    "description": "ค่า long range สำหรับ 7\" 6S เน้น efficiency, ความนิ่ง และ throttle smoothness",
+    "setupClass": "longrange",
+    "style": "cinematic",
+    "frameSizeLabel": "7inch",
+    "propSizeIn": 7,
+    "batteryS": 6,
+    "weightG": 650,
+    "bfVersion": "4.4",
+    "difficulty": "intermediate",
+    "useCase": "บินระยะไกล สำรวจ ถ่าย FPV cruise เก็บวิว",
+    "confidence": 86,
+    "tags": [
+      "longrange",
+      "7inch",
+      "6s",
+      "efficiency",
+      "cruise"
+    ],
+    "pid": {
+      "roll": {
+        "p": 30,
+        "i": 50,
+        "d": 18,
+        "f": 81
+      },
+      "pitch": {
+        "p": 31,
+        "i": 50,
+        "d": 18,
+        "f": 81
+      },
+      "yaw": {
+        "p": 26,
+        "i": 85,
+        "d": 0
+      }
+    },
+    "rates": {
+      "roll": {
+        "rc_rate": 0.782,
+        "rate": 0.484,
+        "expo": 0.24
+      },
+      "pitch": {
+        "rc_rate": 0.782,
+        "rate": 0.484,
+        "expo": 0.24
+      },
+      "yaw": {
+        "rc_rate": 0.9,
+        "rate": 0.414,
+        "expo": 0.168
+      }
+    },
+    "filters": {
+      "gyroLpf1Hz": 200,
+      "gyroLpf2Hz": 200,
+      "dTermLpf1Hz": 74,
+      "rpmFilter": true,
+      "dynamicNotch": "MEDIUM"
+    },
+    "cliCommands": [
+      "# LongHaul 7\" 6S Cruiser — OBIXCORE Preset (longrange)",
+      "# Setup class: longrange · Confidence: 80% (High)",
+      "# Est. hover current: ~7.87A · Est. avg flight current: ~9.84A",
+      "#",
+      "# ── PID ─────────────────────────────────────",
+      "set p_roll = 30",
+      "set i_roll = 50",
+      "set d_roll = 18",
+      "set f_roll = 81",
+      "set p_pitch = 31",
+      "set i_pitch = 50",
+      "set d_pitch = 18",
+      "set f_pitch = 81",
+      "set p_yaw = 26",
+      "set i_yaw = 85",
+      "set d_yaw = 0",
+      "#",
+      "# ── Filters ─────────────────────────────────",
+      "set gyro_lowpass_hz = 200",
+      "set gyro_lowpass2_hz = 200",
+      "set dterm_lowpass_hz = 74",
+      "set dterm_lowpass_type = PT1",
+      "set dyn_notch_mode = MEDIUM",
+      "set rpm_filter_harmonics = 3",
+      "#",
+      "# ── Rates ────────────────────────────────────",
+      "set roll_rc_rate = 78",
+      "set roll_expo = 24",
+      "set roll_srate = 48",
+      "set pitch_rc_rate = 78",
+      "set pitch_expo = 24",
+      "set pitch_srate = 48",
+      "set yaw_rc_rate = 90",
+      "set yaw_expo = 17",
+      "set yaw_srate = 41",
+      "save"
+    ],
+    "notes": "บินคุมความเร็ว cruise คงที่จะประหยัดแบตกว่าการเร่ง/ผ่อน throttle บ่อยๆ อย่างมีนัยสำคัญ",
+    "referenceSpec": {
+      "frameSize": 295,
+      "motorKV": 1700,
+      "batteryS": 6,
+      "propSize": 70,
+      "weight": 650,
+      "style": "cinematic",
+      "propBlades": 2,
+      "motorCount": 4,
+      "batteryMah": 3000
+    }
+  },
+  {
+    "id": "preset-longrange-9in-6s-001",
+    "name": "LongHaul 9\" 6S Endurance",
+    "description": "ค่า long range สำหรับ 9\" 6S เน้นเวลาบินสูงสุด ใช้กับเฟรมใหญ่ที่ต้องการระยะทางไกลสุด",
+    "setupClass": "longrange",
+    "style": "cinematic",
+    "frameSizeLabel": "9inch",
+    "propSizeIn": 9,
+    "batteryS": 6,
+    "weightG": 850,
+    "bfVersion": "4.4",
+    "difficulty": "advanced",
+    "useCase": "mission บินไกลสุดๆ, mapping, long-range FPV touring",
+    "confidence": 80,
+    "tags": [
+      "longrange",
+      "9inch",
+      "6s",
+      "endurance",
+      "mapping"
+    ],
+    "pid": {
+      "roll": {
+        "p": 33,
+        "i": 51,
+        "d": 16,
+        "f": 81
+      },
+      "pitch": {
+        "p": 34,
+        "i": 51,
+        "d": 16,
+        "f": 81
+      },
+      "yaw": {
+        "p": 26,
+        "i": 85,
+        "d": 0
+      }
+    },
+    "rates": {
+      "roll": {
+        "rc_rate": 0.782,
+        "rate": 0.484,
+        "expo": 0.24
+      },
+      "pitch": {
+        "rc_rate": 0.782,
+        "rate": 0.484,
+        "expo": 0.24
+      },
+      "yaw": {
+        "rc_rate": 0.9,
+        "rate": 0.414,
+        "expo": 0.168
+      }
+    },
+    "filters": {
+      "gyroLpf1Hz": 196,
+      "gyroLpf2Hz": 197,
+      "dTermLpf1Hz": 67,
+      "rpmFilter": true,
+      "dynamicNotch": "MEDIUM"
+    },
+    "cliCommands": [
+      "# LongHaul 9\" 6S Endurance — OBIXCORE Preset (longrange)",
+      "# Setup class: longrange · Confidence: 68% (Medium)",
+      "# Est. hover current: ~8.04A · Est. avg flight current: ~10.05A",
+      "#",
+      "# ── PID ─────────────────────────────────────",
+      "set p_roll = 33",
+      "set i_roll = 51",
+      "set d_roll = 16",
+      "set f_roll = 81",
+      "set p_pitch = 34",
+      "set i_pitch = 51",
+      "set d_pitch = 16",
+      "set f_pitch = 81",
+      "set p_yaw = 26",
+      "set i_yaw = 85",
+      "set d_yaw = 0",
+      "#",
+      "# ── Filters ─────────────────────────────────",
+      "set gyro_lowpass_hz = 196",
+      "set gyro_lowpass2_hz = 197",
+      "set dterm_lowpass_hz = 67",
+      "set dterm_lowpass_type = PT1",
+      "set dyn_notch_mode = MEDIUM",
+      "set rpm_filter_harmonics = 3",
+      "#",
+      "# ── Rates ────────────────────────────────────",
+      "set roll_rc_rate = 78",
+      "set roll_expo = 24",
+      "set roll_srate = 48",
+      "set pitch_rc_rate = 78",
+      "set pitch_expo = 24",
+      "set pitch_srate = 48",
+      "set yaw_rc_rate = 90",
+      "set yaw_expo = 17",
+      "set yaw_srate = 41",
+      "save"
+    ],
+    "notes": "โหลด prop สูงกว่าปกติสำหรับ long range จะลดเวลาบินและเพิ่มความร้อนสะสมระหว่างบินไกล — ตรวจ prop pitch ให้เหมาะกับ cruise speed ที่ต้องการ",
+    "referenceSpec": {
+      "frameSize": 350,
+      "motorKV": 1300,
+      "batteryS": 6,
+      "propSize": 90,
+      "weight": 850,
+      "style": "cinematic",
+      "propBlades": 2,
+      "motorCount": 4,
+      "batteryMah": 6000
+    }
+  },
+  {
+    "id": "preset-heavylift-10in-cargo-001",
+    "name": "HeavyLift 10\" Cargo",
+    "description": "ค่า heavy lifter สำหรับเฟรม 10\" ที่แบก payload เน้นความปลอดภัยของมอเตอร์/ESC มากกว่าความไว",
+    "setupClass": "heavylift",
+    "style": "cinematic",
+    "frameSizeLabel": "10inch (Hexacopter)",
+    "propSizeIn": 10,
+    "batteryS": 6,
+    "weightG": 3400,
+    "bfVersion": "4.4",
+    "difficulty": "advanced",
+    "useCase": "งานส่งของเบา, ยก sensor/gimbal, งาน agriculture ขนาดเล็ก",
+    "confidence": 75,
+    "tags": [
+      "heavylift",
+      "10inch",
+      "cargo",
+      "payload",
+      "hex"
+    ],
+    "pid": {
+      "roll": {
+        "p": 22,
+        "i": 46,
+        "d": 14,
+        "f": 60
+      },
+      "pitch": {
+        "p": 23,
+        "i": 46,
+        "d": 14,
+        "f": 60
+      },
+      "yaw": {
+        "p": 20,
+        "i": 78,
+        "d": 0
+      }
+    },
+    "rates": {
+      "roll": {
+        "rc_rate": 0.598,
+        "rate": 0.352,
+        "expo": 0.32
+      },
+      "pitch": {
+        "rc_rate": 0.598,
+        "rate": 0.352,
+        "expo": 0.32
+      },
+      "yaw": {
+        "rc_rate": 0.7,
+        "rate": 0.322,
+        "expo": 0.252
+      }
+    },
+    "filters": {
+      "gyroLpf1Hz": 130,
+      "gyroLpf2Hz": 130,
+      "dTermLpf1Hz": 52,
+      "rpmFilter": true,
+      "dynamicNotch": "MEDIUM"
+    },
+    "cliCommands": [
+      "# HeavyLift 10\" Cargo — OBIXCORE Preset (heavylift)",
+      "# Setup class: heavylift · Confidence: 57% (Low)",
+      "# Est. hover current: ~50.19A · Est. avg flight current: ~62.74A",
+      "#",
+      "# ── PID ─────────────────────────────────────",
+      "set p_roll = 22",
+      "set i_roll = 46",
+      "set d_roll = 14",
+      "set f_roll = 60",
+      "set p_pitch = 23",
+      "set i_pitch = 46",
+      "set d_pitch = 14",
+      "set f_pitch = 60",
+      "set p_yaw = 20",
+      "set i_yaw = 78",
+      "set d_yaw = 0",
+      "#",
+      "# ── Filters ─────────────────────────────────",
+      "set gyro_lowpass_hz = 130",
+      "set gyro_lowpass2_hz = 130",
+      "set dterm_lowpass_hz = 52",
+      "set dterm_lowpass_type = PT1",
+      "set dyn_notch_mode = MEDIUM",
+      "set rpm_filter_harmonics = 3",
+      "#",
+      "# ── Rates ────────────────────────────────────",
+      "set roll_rc_rate = 60",
+      "set roll_expo = 32",
+      "set roll_srate = 35",
+      "set pitch_rc_rate = 60",
+      "set pitch_expo = 32",
+      "set pitch_srate = 35",
+      "set yaw_rc_rate = 70",
+      "set yaw_expo = 25",
+      "set yaw_srate = 32",
+      "save"
+    ],
+    "notes": "Heavy Lifter: ชั่งน้ำหนัก payload จริงก่อนบินเสมอ และเผื่อ margin ของ TWR อย่างน้อย 2:1 เพื่อความปลอดภัย",
+    "referenceSpec": {
+      "frameSize": 450,
+      "motorKV": 380,
+      "batteryS": 6,
+      "propSize": 100,
+      "weight": 2600,
+      "style": "cinematic",
+      "propBlades": 2,
+      "motorCount": 6,
+      "payloadG": 800,
+      "escCurrentRatingA": 40
+    }
+  },
+  {
+    "id": "preset-heavylift-15in-industrial-001",
+    "name": "HeavyLift 15\" Industrial",
+    "description": "ค่า heavy lifter สำหรับเฟรมใหญ่ 15\"+ 12S งานอุตสาหกรรม/เกษตรที่ต้องแบกของหนัก",
+    "setupClass": "heavylift",
+    "style": "cinematic",
+    "frameSizeLabel": "15inch (Industrial Hex/Octo)",
+    "propSizeIn": 15,
+    "batteryS": 12,
+    "weightG": 6800,
+    "bfVersion": "4.4",
+    "difficulty": "advanced",
+    "useCase": "โดรนพ่นยา, งานเกษตรขนาดใหญ่, ขนของหนักระยะสั้น",
+    "confidence": 70,
+    "tags": [
+      "heavylift",
+      "15inch",
+      "12s",
+      "industrial",
+      "agriculture"
+    ],
+    "pid": {
+      "roll": {
+        "p": 26,
+        "i": 52,
+        "d": 12,
+        "f": 60
+      },
+      "pitch": {
+        "p": 26,
+        "i": 52,
+        "d": 12,
+        "f": 60
+      },
+      "yaw": {
+        "p": 20,
+        "i": 78,
+        "d": 0
+      }
+    },
+    "rates": {
+      "roll": {
+        "rc_rate": 0.598,
+        "rate": 0.352,
+        "expo": 0.32
+      },
+      "pitch": {
+        "rc_rate": 0.598,
+        "rate": 0.352,
+        "expo": 0.32
+      },
+      "yaw": {
+        "rc_rate": 0.7,
+        "rate": 0.322,
+        "expo": 0.252
+      }
+    },
+    "filters": {
+      "gyroLpf1Hz": 128,
+      "gyroLpf2Hz": 129,
+      "dTermLpf1Hz": 45,
+      "rpmFilter": true,
+      "dynamicNotch": "MEDIUM"
+    },
+    "cliCommands": [
+      "# HeavyLift 15\" Industrial — OBIXCORE Preset (heavylift)",
+      "# Setup class: heavylift · Confidence: 50% (Low)",
+      "# Est. hover current: ~31.84A · Est. avg flight current: ~39.8A",
+      "#",
+      "# ── PID ─────────────────────────────────────",
+      "set p_roll = 26",
+      "set i_roll = 52",
+      "set d_roll = 12",
+      "set f_roll = 60",
+      "set p_pitch = 26",
+      "set i_pitch = 52",
+      "set d_pitch = 12",
+      "set f_pitch = 60",
+      "set p_yaw = 20",
+      "set i_yaw = 78",
+      "set d_yaw = 0",
+      "#",
+      "# ── Filters ─────────────────────────────────",
+      "set gyro_lowpass_hz = 128",
+      "set gyro_lowpass2_hz = 129",
+      "set dterm_lowpass_hz = 45",
+      "set dterm_lowpass_type = PT1",
+      "set dyn_notch_mode = MEDIUM",
+      "set rpm_filter_harmonics = 3",
+      "#",
+      "# ── Rates ────────────────────────────────────",
+      "set roll_rc_rate = 60",
+      "set roll_expo = 32",
+      "set roll_srate = 35",
+      "set pitch_rc_rate = 60",
+      "set pitch_expo = 32",
+      "set pitch_srate = 35",
+      "set yaw_rc_rate = 70",
+      "set yaw_expo = 25",
+      "set yaw_srate = 32",
+      "save"
+    ],
+    "notes": "Heavy Lifter: ความร้อนสะสมที่มอเตอร์/ESC คือความเสี่ยงหลัก — เช็คอุณหภูมิถี่ๆ และเผื่อ ESC/มอเตอร์ headroom มากกว่าปกติ",
+    "referenceSpec": {
+      "frameSize": 650,
+      "motorKV": 170,
+      "batteryS": 12,
+      "propSize": 150,
+      "weight": 4800,
+      "style": "cinematic",
+      "propBlades": 2,
+      "motorCount": 8,
+      "payloadG": 2000,
+      "escCurrentRatingA": 60
+    }
   }
 ]
