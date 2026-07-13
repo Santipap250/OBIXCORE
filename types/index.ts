@@ -168,6 +168,13 @@ export interface WizardResult {
   totalWeightG: number;
   /** Which optional inputs were missing and filled with a reasonable estimate. */
   estimatedFields: string[];
+  /** Prop/KV/battery/blade load vs. the class's nominal reference build
+   * (clamped 0.6–1.6×). Exposed so other engines (ConfigDoctor) can reuse
+   * the exact same load number the Wizard tuned PID/filters against. */
+  propLoad: number;
+  /** Total weight vs. the class's nominal reference weight (clamped
+   * 0.5–2.4×). Same rationale as propLoad above. */
+  inertia: number;
 }
 
 export interface CalculatorResult {
