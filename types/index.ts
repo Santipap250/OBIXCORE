@@ -57,14 +57,18 @@ export interface WizardInput {
   motorKV: number;
   batteryS: number;
   propSize: number; // e.g. 51 = 5.1 inch
-  weight: number; // grams AUW — include camera/payload, this is total flying weight
+  weight: number; // grams AUW (airframe + battery + camera) — does NOT include payload, see payloadG
   style: "race" | "freestyle" | "cinematic";
   // Advanced/optional — improve accuracy of current/flight-time estimate and
-  // enable the ESC headroom check. Safe defaults are used when omitted.
+  // enable the ESC headroom check. Safe defaults are used when omitted (and
+  // called out as estimates in the result's reasoning/tips).
   propBlades?: 2 | 3 | 4 | 5 | 6;
   batteryMah?: number;
   escCurrentRatingA?: number;
   motorCount?: number;
+  /** Extra suspended/delivery payload in grams, on top of `weight`. Mainly
+   * relevant for Heavy Lifter class builds carrying cargo, gimbals, etc. */
+  payloadG?: number;
 }
 
 export interface EstimateRange {
@@ -99,13 +103,27 @@ export interface WizardResult {
   reasoning: string[];
   confidence: number;
   confidenceLabel: "Low" | "Medium" | "High";
-  setupClass: "micro" | "small" | "mid" | "standard" | "long-range";
+  /**
+   * Detected drone class, driven primarily by prop size (per OBIXCORE's
+   * class spec):
+   *  - micro:      Tiny Whoop / Micro     · 1.2"–2"   · 1S–2S
+   *  - cinewhoop:  Cinewhoop / Toothpick  · 2.5"–3.5" · 3S–4S (up to 6S)
+   *  - freestyle:  Freestyle 5"           · 4S–6S
+   *  - racing:     Racing 5"              · 4S–6S
+   *  - longrange:  Long Range             · 7"–9"     · 6S
+   *  - heavylift:  Heavy Lifter           · 10"+      · 6S–12S
+   */
+  setupClass: "micro" | "cinewhoop" | "freestyle" | "racing" | "longrange" | "heavylift";
   summary: string;
   estimatedHoverCurrentA: EstimateRange;
   estimatedFlightCurrentA: EstimateRange;
   /** Only populated when batteryMah was provided. */
   estimatedFlightTimeMin: EstimateRange | null;
   escWarning: string | null;
+  /** Total flying weight used in physics calcs = weight + payloadG. */
+  totalWeightG: number;
+  /** Which optional inputs were missing and filled with a reasonable estimate. */
+  estimatedFields: string[];
 }
 
 export interface CalculatorResult {
