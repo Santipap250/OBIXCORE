@@ -25,7 +25,5 @@
       เก็บ baseline score ไว้เทียบรอบต่อไป
 
 ## ทำได้ทีหลัง (post-launch)
-- [ ] เพิ่ม Nav entry และหน้าแรกสำหรับ Blackbox/Step-Response Reader module
-      ที่ยังค้างจากงานก่อนหน้า
 - [ ] พิจารณาใส่ analytics (privacy-friendly เช่น Plausible/Umami) เพื่อดูว่า
       หน้าไหนถูกใช้เยอะสุด ก่อนตัดสินใจพัฒนาฟีเจอร์ต่อไป
