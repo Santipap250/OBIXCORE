@@ -8,6 +8,7 @@ const navItems = [
     href: "/",
     label: "Home",
     labelTh: "หน้าหลัก",
+    accent: "green" as const,
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
@@ -19,6 +20,7 @@ const navItems = [
     href: "/wizard",
     label: "Wizard",
     labelTh: "Wizard",
+    accent: "green" as const,
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="3"/>
@@ -30,6 +32,7 @@ const navItems = [
     href: "/diagnose",
     label: "Diagnose",
     labelTh: "วิเคราะห์",
+    accent: "red" as const,
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
         <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
@@ -41,6 +44,7 @@ const navItems = [
     href: "/problems",
     label: "Problems",
     labelTh: "แก้ปัญหา",
+    accent: "amber" as const,
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
         <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
@@ -53,6 +57,7 @@ const navItems = [
     href: "/calculator",
     label: "Calc",
     labelTh: "คำนวณ",
+    accent: "blue" as const,
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
         <rect x="4" y="2" width="16" height="20" rx="2"/>
@@ -67,6 +72,7 @@ const navItems = [
     href: "/presets",
     label: "Presets",
     labelTh: "Preset",
+    accent: "purple" as const,
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -81,6 +87,7 @@ const navItems = [
     href: "/visualizer",
     label: "3D View",
     labelTh: "3D View",
+    accent: "cyan" as const,
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="2"/><circle cx="4" cy="4" r="2"/><circle cx="20" cy="4" r="2"/>
@@ -96,6 +103,7 @@ const navItems = [
     href: "/blackbox",
     label: "Blackbox",
     labelTh: "Blackbox",
+    accent: "pink" as const,
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 12h4l2-7 4 14 3-9 2 5h5" />
@@ -106,6 +114,7 @@ const navItems = [
     href: "/profiles",
     label: "Profiles",
     labelTh: "Profiles",
+    accent: "blue" as const,
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="4" width="18" height="4" rx="1" />
@@ -114,7 +123,49 @@ const navItems = [
       </svg>
     ),
   },
-];
+] as const;
+
+type NavAccent = (typeof navItems)[number]["accent"];
+
+const ACCENT_BG_SOFT: Record<NavAccent, string> = {
+  green: "bg-green-muted/25",
+  red: "bg-red-muted/25",
+  amber: "bg-amber-muted/25",
+  blue: "bg-blue-muted/25",
+  purple: "bg-purple-muted/25",
+  cyan: "bg-cyan-muted/25",
+  pink: "bg-pink-muted/25",
+};
+
+const ACCENT_BG_GLOW: Record<NavAccent, string> = {
+  green: "bg-green-DEFAULT/15",
+  red: "bg-red-DEFAULT/15",
+  amber: "bg-amber-DEFAULT/15",
+  blue: "bg-blue-DEFAULT/15",
+  purple: "bg-purple-DEFAULT/15",
+  cyan: "bg-cyan-DEFAULT/15",
+  pink: "bg-pink-DEFAULT/15",
+};
+
+const ACCENT_RING: Record<NavAccent, string> = {
+  green: "ring-green-DEFAULT/30",
+  red: "ring-red-DEFAULT/30",
+  amber: "ring-amber-DEFAULT/30",
+  blue: "ring-blue-DEFAULT/30",
+  purple: "ring-purple-DEFAULT/30",
+  cyan: "ring-cyan-DEFAULT/30",
+  pink: "ring-pink-DEFAULT/30",
+};
+
+const ACCENT_TEXT: Record<NavAccent, string> = {
+  green: "text-green-DEFAULT",
+  red: "text-red-DEFAULT",
+  amber: "text-amber-DEFAULT",
+  blue: "text-blue-DEFAULT",
+  purple: "text-purple-DEFAULT",
+  cyan: "text-cyan-DEFAULT",
+  pink: "text-pink-DEFAULT",
+};
 
 export default function Nav() {
   const pathname = usePathname();
@@ -127,45 +178,27 @@ export default function Nav() {
         </Link>
 
         <div className="flex items-center gap-1 rounded-full border border-bg-border/80 bg-bg-surface/70 p-1">
-          {navItems.slice(1).map((item, index) => {
+          {navItems.slice(1).map((item) => {
             const active = pathname === item.href;
-            const accent = ["green", "red", "amber", "blue", "purple", "cyan", "orange", "blue"][index] || "green";
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={`group relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
                   active
-                    ? "bg-bg-elevated text-text shadow-[0_0_0_1px_rgba(255,255,255,0.03)]"
+                    ? `bg-bg-elevated text-text ring-1 ring-inset ${ACCENT_RING[item.accent]}`
                     : "text-text-muted hover:bg-bg-elevated/80 hover:text-text"
                 }`}
               >
                 <span
                   className={`absolute inset-0 rounded-full opacity-0 transition-opacity ${
                     active ? "opacity-100" : "group-hover:opacity-100"
-                  } ${
-                    accent === "green"
-                      ? "bg-green-muted/25"
-                      : accent === "red"
-                      ? "bg-red-muted/25"
-                      : accent === "amber"
-                      ? "bg-amber-muted/25"
-                      : accent === "blue"
-                      ? "bg-blue-muted/25"
-                      : accent === "cyan"
-                      ? "bg-cyan-muted/25"
-                      : accent === "orange"
-                      ? "bg-orange-muted/25"
-                      : "bg-purple-muted/25"
-                  }`}
+                  } ${ACCENT_BG_SOFT[item.accent]}`}
                 />
-                <span className={`relative transition-transform duration-200 ${active ? "scale-110" : "group-hover:scale-105"}`}>
+                <span className={`relative transition-transform duration-200 ${active ? `scale-110 ${ACCENT_TEXT[item.accent]}` : "group-hover:scale-105"}`}>
                   {item.icon(active)}
                 </span>
                 <span className="relative font-mono text-[13px] tracking-wide">{item.label}</span>
-                {active && (
-                  <span className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10" />
-                )}
               </Link>
             );
           })}
@@ -207,43 +240,38 @@ export default function Nav() {
 
       <nav className="md:hidden fixed bottom-3 left-3 right-3 z-50 hud-card px-2 py-2">
         <div className="flex items-stretch gap-1 overflow-x-auto">
-          {navItems.map((item, index) => {
+          {navItems.map((item) => {
             const active = pathname === item.href;
-            const accent = ["green", "amber", "red", "blue", "purple", "pink", "cyan", "orange", "blue"][index] || "green";
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={`relative flex w-[64px] flex-shrink-0 flex-col items-center justify-center gap-1 rounded-2xl px-2 py-2 text-[12px] transition-all ${
-                  active ? "text-text" : "text-text-muted"
+                  active ? ACCENT_TEXT[item.accent] : "text-text-muted"
                 }`}
               >
                 <div className="relative">
                   <span
                     className={`absolute inset-0 rounded-full blur-xl transition-opacity ${
-                      active ? "opacity-100 animate-glow-pulse" : "opacity-0"
-                    } ${
-                      accent === "green"
-                        ? "bg-green-DEFAULT/15"
-                        : accent === "red"
-                        ? "bg-red-DEFAULT/15"
-                        : accent === "amber"
-                        ? "bg-amber-DEFAULT/15"
-                        : accent === "blue"
-                        ? "bg-blue-DEFAULT/15"
-                        : accent === "purple"
-                        ? "bg-purple-DEFAULT/15"
-                        : accent === "cyan"
-                        ? "bg-cyan-DEFAULT/15"
-                        : accent === "orange"
-                        ? "bg-orange-DEFAULT/15"
-                        : "bg-pink-DEFAULT/15"
+                      active ? `opacity-100 animate-glow-pulse ${ACCENT_BG_GLOW[item.accent]}` : "opacity-0"
                     }`}
                   />
                   {item.icon(active)}
                 </div>
                 <span className="font-sarabun">{item.labelTh}</span>
-                {active && <span className="absolute bottom-0 left-1/2 h-0.5 w-8 -translate-x-1/2 rounded-full color-strip" />}
+                {active && (
+                  <span
+                    className={`absolute bottom-0 left-1/2 h-0.5 w-8 -translate-x-1/2 rounded-full ${
+                      item.accent === "green" ? "bg-green-DEFAULT"
+                      : item.accent === "red" ? "bg-red-DEFAULT"
+                      : item.accent === "amber" ? "bg-amber-DEFAULT"
+                      : item.accent === "blue" ? "bg-blue-DEFAULT"
+                      : item.accent === "purple" ? "bg-purple-DEFAULT"
+                      : item.accent === "cyan" ? "bg-cyan-DEFAULT"
+                      : "bg-pink-DEFAULT"
+                    }`}
+                  />
+                )}
               </Link>
             );
           })}
