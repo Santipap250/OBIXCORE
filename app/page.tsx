@@ -152,23 +152,51 @@ const tools = [
 ];
 
 const quickStats = [
-  { value: "8+", label: "Modules", color: "text-purple-DEFAULT" },
-  { value: "5+", label: "Problems", color: "text-amber-DEFAULT" },
-  { value: "3", label: "Calculators", color: "text-blue-DEFAULT" },
+  { value: "8", label: "Modules", color: "text-purple-DEFAULT" },
+  { value: "13", label: "Presets", color: "text-amber-DEFAULT" },
+  { value: "6", label: "คลาสโดรน", color: "text-blue-DEFAULT" },
   { value: "FREE", label: "ฟรีทั้งหมด", color: "text-green-DEFAULT" },
 ];
 
-const heroPills = [
-  "Aurora color system",
-  "Glass HUD cards",
-  "Copy-ready outputs",
+const valueProps = [
+  "จูนจาก physics จริง ไม่ใช่ค่าตายตัว",
+  "ครอบคลุม 6 คลาส Micro → Heavy Lifter",
+  "Copy CLI วางใน Betaflight ได้ทันที",
 ];
 
-const systemCards = [
-  { title: "System", body: "Online & ready", accent: "bg-green-DEFAULT" },
-  { title: "Theme", body: "Aurora Color Mode", accent: "bg-blue-DEFAULT" },
-  { title: "Mode", body: "Mobile + Desktop", accent: "bg-purple-DEFAULT" },
+const flowSteps = [
+  {
+    step: "01",
+    title: "เลือกปัญหา / กรอกสเปก",
+    body: "บอกอาการที่เจอใน Problem Solver หรือกรอกสเปกโดรนใน Wizard",
+    accent: "green" as const,
+  },
+  {
+    step: "02",
+    title: "วิเคราะห์",
+    body: "ระบบจัดกลุ่มคลาสโดรนและประเมิน propLoad/inertia จากสเปกจริง",
+    accent: "blue" as const,
+  },
+  {
+    step: "03",
+    title: "ได้ค่าจูนพร้อมเหตุผล",
+    body: "PID / Filter / Rates พร้อม confidence score และคำอธิบายว่าทำไมถึงได้ค่านี้",
+    accent: "purple" as const,
+  },
+  {
+    step: "04",
+    title: "Copy CLI ไปใช้",
+    body: "กด copy แล้ววางใน Betaflight CLI ได้เลย ไม่ต้องแปลงหน่วยเอง",
+    accent: "pink" as const,
+  },
 ];
+
+const flowAccentClasses = {
+  green: { dot: "bg-green-DEFAULT", text: "text-green-DEFAULT", border: "border-green-DEFAULT/25" },
+  blue: { dot: "bg-blue-DEFAULT", text: "text-blue-DEFAULT", border: "border-blue-DEFAULT/25" },
+  purple: { dot: "bg-purple-DEFAULT", text: "text-purple-DEFAULT", border: "border-purple-DEFAULT/25" },
+  pink: { dot: "bg-pink-DEFAULT", text: "text-pink-DEFAULT", border: "border-pink-DEFAULT/25" },
+};
 
 export default function HomePage() {
   return (
@@ -183,13 +211,17 @@ export default function HomePage() {
             <OBIXLogo maxWidth={640} className="mx-auto" />
           </div>
 
+          <h1 className="gradient-text font-orbitron mx-auto max-w-xl text-lg font-bold leading-snug md:text-2xl">
+            จูนโดรน FPV จากฟิสิกส์จริง ไม่ใช่การเดา
+          </h1>
+
           <p className="mx-auto max-w-2xl text-[15px] leading-relaxed text-text-muted">
             เครื่องมือจูนโดรน FPV ที่ใช้งานได้จริง — ตั้งค่า, วิเคราะห์, คำนวณ และ copy ค่าพร้อมใช้ได้ในที่เดียว
           </p>
 
           <div className="flex flex-wrap justify-center gap-2">
-            {heroPills.map((item) => (
-              <span key={item} className="hud-chip px-3 py-1 text-[10px] font-mono tracking-[0.22em] text-text-muted">
+            {valueProps.map((item) => (
+              <span key={item} className="hud-chip px-3 py-1.5 text-[11px] font-sarabun text-text-muted">
                 {item}
               </span>
             ))}
@@ -219,18 +251,15 @@ export default function HomePage() {
                 <path d="M5 12h14M13 5l7 7-7 7"/>
               </svg>
             </Link>
-          </div>
-
-          <div className="grid gap-3 sm:grid-cols-3">
-            {systemCards.map((card) => (
-              <div key={card.title} className="hud-panel rounded-2xl p-4 text-left">
-                <div className="flex items-center gap-2">
-                  <span className={`h-2.5 w-2.5 rounded-full ${card.accent} shadow-[0_0_12px_rgba(0,0,0,0.1)]`} />
-                  <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-text-faint">{card.title}</div>
-                </div>
-                <div className="mt-2 text-sm text-text">{card.body}</div>
-              </div>
-            ))}
+            <Link
+              href="/problems"
+              className="group mt-2 flex items-center justify-center gap-2 rounded-xl border border-bg-border bg-bg-surface/50 px-4 py-2.5 text-[13px] text-text-muted transition-all hover:border-amber-DEFAULT/40 hover:text-amber-DEFAULT active:scale-[0.99]"
+            >
+              เจอปัญหาการบินอยู่? ไปที่ Problem Solver
+              <svg className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M13 5l7 7-7 7"/>
+              </svg>
+            </Link>
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -241,6 +270,33 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="mt-6">
+        <div className="section-title mb-3">
+          <h2 className="font-orbitron text-xs font-bold uppercase tracking-[0.35em] text-text-muted">How It Works</h2>
+          <div className="section-title__line" />
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {flowSteps.map((s, i) => {
+            const a = flowAccentClasses[s.accent];
+            return (
+              <div key={s.step} className={`hud-panel relative rounded-2xl border p-4 text-left ${a.border}`}>
+                <div className="flex items-center gap-2">
+                  <span className={`h-1.5 w-1.5 rounded-full ${a.dot}`} />
+                  <span className={`font-mono text-[11px] tracking-[0.3em] ${a.text}`}>STEP {s.step}</span>
+                </div>
+                <p className="mt-2 font-orbitron text-[13px] font-semibold text-text">{s.title}</p>
+                <p className="mt-1.5 text-[12px] leading-relaxed text-text-muted">{s.body}</p>
+                {i < flowSteps.length - 1 && (
+                  <svg className="absolute -right-3 top-1/2 hidden h-4 w-4 -translate-y-1/2 text-text-faint lg:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M13 5l7 7-7 7"/>
+                  </svg>
+                )}
+              </div>
+            );
+          })}
         </div>
       </section>
 
