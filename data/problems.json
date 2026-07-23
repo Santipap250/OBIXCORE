@@ -41,8 +41,16 @@
         "warning": "Props bent แม้เล็กน้อยทำให้ vibration มากผิดปกติได้"
       }
     ],
-    "relatedPresetIds": ["preset-5inch-freestyle-001"],
-    "tags": ["pid", "d-term", "oscillation", "rpm-filter", "props"]
+    "relatedPresetIds": [
+      "preset-freestyle-5in-4s-001"
+    ],
+    "tags": [
+      "pid",
+      "d-term",
+      "oscillation",
+      "rpm-filter",
+      "props"
+    ]
   },
   {
     "id": "prob-propwash",
@@ -79,8 +87,15 @@
         "warning": null
       }
     ],
-    "relatedPresetIds": ["preset-5inch-freestyle-001"],
-    "tags": ["propwash", "i-term", "throttle", "freestyle"]
+    "relatedPresetIds": [
+      "preset-freestyle-5in-4s-001"
+    ],
+    "tags": [
+      "propwash",
+      "i-term",
+      "throttle",
+      "freestyle"
+    ]
   },
   {
     "id": "prob-toilet-bowl",
@@ -118,7 +133,12 @@
       }
     ],
     "relatedPresetIds": [],
-    "tags": ["yaw", "toilet-bowl", "drift", "motor"]
+    "tags": [
+      "yaw",
+      "toilet-bowl",
+      "drift",
+      "motor"
+    ]
   },
   {
     "id": "prob-video-noise",
@@ -156,7 +176,13 @@
       }
     ],
     "relatedPresetIds": [],
-    "tags": ["video", "vtx", "capacitor", "noise", "fpv-feed"]
+    "tags": [
+      "video",
+      "vtx",
+      "capacitor",
+      "noise",
+      "fpv-feed"
+    ]
   },
   {
     "id": "prob-motor-hot",
@@ -194,6 +220,12 @@
       }
     ],
     "relatedPresetIds": [],
-    "tags": ["motor", "heat", "d-term", "props", "current"]
+    "tags": [
+      "motor",
+      "heat",
+      "d-term",
+      "props",
+      "current"
+    ]
   }
 ]
