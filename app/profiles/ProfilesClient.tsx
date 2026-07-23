@@ -393,9 +393,9 @@ export default function ProfilesClient() {
             <NumberField label="Frame (มม.)" value={form.frameMm} min={65} max={360} step={5} unit="mm" onChange={(v) => set("frameMm", v)} />
             <NumberField label="Prop Size" value={form.propIn} min={2} max={9} step={0.1} unit='"' onChange={(v) => set("propIn", v)} />
             <NumberField label="Motor KV" value={form.motorKV} min={800} max={4000} step={50} unit="KV" onChange={(v) => set("motorKV", v)} />
-            <div>
+            <div className="col-span-2">
               <label className="mb-1.5 block text-xs font-mono uppercase tracking-wider text-text-muted">Battery</label>
-              <div className="grid grid-cols-5 gap-1">
+              <div className="grid grid-cols-5 gap-1.5">
                 {BATTERY_OPTIONS.map((s) => (
                   <button
                     key={s}
