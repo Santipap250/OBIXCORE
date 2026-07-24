@@ -4,25 +4,23 @@ import { usePathname } from "next/navigation";
 import OBIXLogo from "@/components/OBIXLogo";
 
 /**
- * Renders an icon via CSS mask so the PNG artwork (a plain silhouette)
- * is tinted with `currentColor` — this keeps each nav item's per-tool
- * accent color working exactly as before, just with the new icon set.
+ * Renders the icon artwork at full color (keeps the cyan glow look from the
+ * source art). Active/inactive state is shown via opacity + scale on the
+ * wrapping element, since the color itself is now baked into the image.
  */
-function MaskIcon({ src, active }: { src: string; active: boolean }) {
+function IconImg({ src, size = 30, active = true }: { src: string; size?: number; active?: boolean }) {
   return (
     <span
       aria-hidden="true"
-      className="inline-block h-[22px] w-[22px] shrink-0 bg-current"
+      className="inline-block shrink-0 transition-opacity"
       style={{
-        opacity: active ? 1 : 0.85,
-        WebkitMaskImage: `url(${src})`,
-        maskImage: `url(${src})`,
-        WebkitMaskSize: "contain",
-        maskSize: "contain",
-        WebkitMaskRepeat: "no-repeat",
-        maskRepeat: "no-repeat",
-        WebkitMaskPosition: "center",
-        maskPosition: "center",
+        width: size,
+        height: size,
+        opacity: active ? 1 : 0.7,
+        backgroundImage: `url(${src})`,
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
       }}
     />
   );
@@ -34,63 +32,63 @@ const navItems = [
     label: "Home",
     labelTh: "หน้าหลัก",
     accent: "green" as const,
-    icon: (active: boolean) => <MaskIcon src="/icons/home.png" active={active} />,
+    icon: (active: boolean, size?: number) => <IconImg src="/icons/home.png" active={active} size={size} />,
   },
   {
     href: "/wizard",
     label: "Wizard",
     labelTh: "Wizard",
     accent: "green" as const,
-    icon: (active: boolean) => <MaskIcon src="/icons/wizard.png" active={active} />,
+    icon: (active: boolean, size?: number) => <IconImg src="/icons/wizard.png" active={active} size={size} />,
   },
   {
     href: "/diagnose",
     label: "Diagnose",
     labelTh: "วิเคราะห์",
     accent: "red" as const,
-    icon: (active: boolean) => <MaskIcon src="/icons/diagnose.png" active={active} />,
+    icon: (active: boolean, size?: number) => <IconImg src="/icons/diagnose.png" active={active} size={size} />,
   },
   {
     href: "/problems",
     label: "Problems",
     labelTh: "แก้ปัญหา",
     accent: "amber" as const,
-    icon: (active: boolean) => <MaskIcon src="/icons/problems.png" active={active} />,
+    icon: (active: boolean, size?: number) => <IconImg src="/icons/problems.png" active={active} size={size} />,
   },
   {
     href: "/calculator",
     label: "Calc",
     labelTh: "คำนวณ",
     accent: "blue" as const,
-    icon: (active: boolean) => <MaskIcon src="/icons/calculator.png" active={active} />,
+    icon: (active: boolean, size?: number) => <IconImg src="/icons/calculator.png" active={active} size={size} />,
   },
   {
     href: "/presets",
     label: "Presets",
     labelTh: "Preset",
     accent: "purple" as const,
-    icon: (active: boolean) => <MaskIcon src="/icons/presets.png" active={active} />,
+    icon: (active: boolean, size?: number) => <IconImg src="/icons/presets.png" active={active} size={size} />,
   },
   {
     href: "/visualizer",
     label: "3D View",
     labelTh: "3D View",
     accent: "cyan" as const,
-    icon: (active: boolean) => <MaskIcon src="/icons/3d-view.png" active={active} />,
+    icon: (active: boolean, size?: number) => <IconImg src="/icons/3d-view.png" active={active} size={size} />,
   },
   {
     href: "/blackbox",
     label: "Blackbox",
     labelTh: "Blackbox",
     accent: "pink" as const,
-    icon: (active: boolean) => <MaskIcon src="/icons/blackbox.png" active={active} />,
+    icon: (active: boolean, size?: number) => <IconImg src="/icons/blackbox.png" active={active} size={size} />,
   },
   {
     href: "/profiles",
     label: "Profiles",
     labelTh: "Profiles",
     accent: "blue" as const,
-    icon: (active: boolean) => <MaskIcon src="/icons/profiles.png" active={active} />,
+    icon: (active: boolean, size?: number) => <IconImg src="/icons/profiles.png" active={active} size={size} />,
   },
 ] as const;
 
@@ -165,7 +163,7 @@ export default function Nav() {
                   } ${ACCENT_BG_SOFT[item.accent]}`}
                 />
                 <span className={`relative transition-transform duration-200 ${active ? `scale-110 ${ACCENT_TEXT[item.accent]}` : "group-hover:scale-105"}`}>
-                  {item.icon(active)}
+                  {item.icon(active, 24)}
                 </span>
                 <span className="relative font-mono text-[13px] tracking-wide">{item.label}</span>
               </Link>
@@ -225,7 +223,7 @@ export default function Nav() {
                       active ? `opacity-100 animate-glow-pulse ${ACCENT_BG_GLOW[item.accent]}` : "opacity-0"
                     }`}
                   />
-                  {item.icon(active)}
+                  {item.icon(active, 30)}
                 </div>
                 <span className="font-sarabun">{item.labelTh}</span>
                 {active && (
