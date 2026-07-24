@@ -1,12 +1,11 @@
 import Link from "next/link";
-import ToolIcon, { type ToolIconKey } from "@/components/ToolIcon";
 
 interface ToolCardProps {
   href: string;
   title: string;
   titleTh: string;
   description: string;
-  iconKey: ToolIconKey;
+  icon: React.ReactNode;
   accentColor?: "green" | "amber" | "blue" | "cyan" | "purple" | "orange" | "pink" | "red";
   badge?: string;
 }
@@ -27,7 +26,7 @@ export default function ToolCard({
   title,
   titleTh,
   description,
-  iconKey,
+  icon,
   accentColor = "green",
   badge,
 }: ToolCardProps) {
@@ -48,7 +47,7 @@ export default function ToolCard({
       <div className="flex items-start gap-4">
         <div className={`relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl border ${a.icon}`}>
           <div className={`absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.06),_transparent_60%)]`} />
-          <ToolIcon icon={iconKey} size={72} className="h-9 w-9" />
+          {icon}
         </div>
 
         <div className="min-w-0 flex-1">
