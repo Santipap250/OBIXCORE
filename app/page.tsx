@@ -1,6 +1,7 @@
 import ToolCard from "@/components/ToolCard";
 import Link from "next/link";
 import OBIXLogo from "@/components/OBIXLogo";
+import type { ToolIconKey } from "@/components/ToolIcon";
 import type { Metadata } from "next";
 
 const HOME_TITLE = "OBIXCORE — FPV Drone Tuning Platform | Betaflight PID, Preset, Calculator";
@@ -36,7 +37,15 @@ export const metadata: Metadata = {
   },
 };
 
-const tools = [
+const tools: Array<{
+  href: string;
+  title: string;
+  titleTh: string;
+  description: string;
+  accentColor: "green" | "amber" | "blue" | "cyan" | "purple" | "orange" | "pink" | "red";
+  badge?: string;
+  iconKey: ToolIconKey;
+}> = [
   {
     href: "/wizard",
     title: "Tuning Wizard",
@@ -44,11 +53,7 @@ const tools = [
     description: "กรอกสเปกโดรน → ได้ค่า PID + Filter + Rates + CLI พร้อม copy",
     accentColor: "green" as const,
     badge: "แนะนำ",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
-      </svg>
-    ),
+    iconKey: "wizard" as const,
   },
   {
     href: "/diagnose",
@@ -57,12 +62,7 @@ const tools = [
     description: "Health/Safety/Efficiency/Performance/Reliability Score พร้อม warning และคำแนะนำเรียงลำดับความสำคัญ",
     accentColor: "red" as const,
     badge: "NEW",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
-        <path d="M3.5 8.5h4l1.5-3 2 6 1.5-3h4"/>
-      </svg>
-    ),
+    iconKey: "analysis" as const,
   },
   {
     href: "/problems",
@@ -70,12 +70,7 @@ const tools = [
     titleTh: "แก้ปัญหาโดรน",
     description: "เลือกอาการที่เจอ → ได้ขั้นตอนแก้ไขทีละ step พร้อม CLI command",
     accentColor: "amber" as const,
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-      </svg>
-    ),
+    iconKey: "warning" as const,
   },
   {
     href: "/calculator",
@@ -83,13 +78,7 @@ const tools = [
     titleTh: "คำนวณ Thrust / Flight Time",
     description: "คำนวณ thrust-to-weight, flight time, และ current draw โดยประมาณ",
     accentColor: "blue" as const,
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="4" y="2" width="16" height="20" rx="2"/>
-        <line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/>
-        <line x1="8" y1="14" x2="12" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/>
-      </svg>
-    ),
+    iconKey: "calculator" as const,
   },
   {
     href: "/presets",
@@ -97,13 +86,7 @@ const tools = [
     titleTh: "คลัง Preset พร้อมใช้",
     description: "ค่า PID + Rates + Filters ที่ผ่านการทดสอบจริง กด copy แล้ววางใน CLI ได้เลย",
     accentColor: "purple" as const,
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
-      </svg>
-    ),
+    iconKey: "preset" as const,
   },
   {
     href: "/visualizer",
@@ -111,16 +94,7 @@ const tools = [
     titleTh: "ดู Build โดรน 3D",
     description: "Preview โดรน FPV แบบ interactive พร้อมตรวจ compatibility ของ frame/prop/motor/battery",
     accentColor: "cyan" as const,
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="2"/><circle cx="4" cy="4" r="2"/><circle cx="20" cy="4" r="2"/>
-        <circle cx="4" cy="20" r="2"/><circle cx="20" cy="20" r="2"/>
-        <line x1="6" y1="4" x2="10" y2="4"/><line x1="14" y1="4" x2="18" y2="4"/>
-        <line x1="6" y1="20" x2="10" y2="20"/><line x1="14" y1="20" x2="18" y2="20"/>
-        <line x1="4" y1="6" x2="4" y2="10"/><line x1="4" y1="14" x2="4" y2="18"/>
-        <line x1="20" y1="6" x2="20" y2="10"/><line x1="20" y1="14" x2="20" y2="18"/>
-      </svg>
-    ),
+    iconKey: "3d-view" as const,
   },
   {
     href: "/blackbox",
@@ -128,11 +102,7 @@ const tools = [
     titleTh: "วิเคราะห์การบินแบบไม่ต้องมี Log",
     description: "ตอบคำถามว่าโดรนคุณรู้สึกยังไงตอนบิน แล้วรับคำแนะนำ PID/filter delta พร้อมคำสั่ง CLI",
     accentColor: "pink" as const,
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M2 12h4l2-7 4 14 3-9 2 5h5" />
-      </svg>
-    ),
+    iconKey: "blackbox" as const,
   },
   {
     href: "/profiles",
@@ -141,13 +111,7 @@ const tools = [
     description: "บันทึกสเปกโดรนแต่ละลำไว้ แล้วโหลดเข้า Wizard หรือ Visualizer ได้ทันทีโดยไม่ต้องกรอกใหม่",
     accentColor: "blue" as const,
     badge: "NEW",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="4" width="18" height="4" rx="1" />
-        <rect x="3" y="10" width="18" height="4" rx="1" />
-        <rect x="3" y="16" width="10" height="4" rx="1" />
-      </svg>
-    ),
+    iconKey: "profiles" as const,
   },
 ];
 
