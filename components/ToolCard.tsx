@@ -36,7 +36,7 @@ export default function ToolCard({
     <Link
       href={href}
       className={`
-        group relative block rounded-2xl border bg-bg-surface/92 p-5
+        group relative block w-full rounded-2xl border bg-bg-surface/92 p-5
         shadow-[0_12px_28px_rgba(0,0,0,0.20)]
         transition-all duration-300 active:scale-[0.99]
         ${a.border} ${a.hover}
