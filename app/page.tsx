@@ -200,7 +200,7 @@ const flowAccentClasses = {
 
 export default function HomePage() {
   return (
-    <div className="page-shell py-6">
+    <div className="mx-auto max-w-2xl px-4 py-6">
       <section className="hud-card overflow-hidden rounded-[1.75rem] p-5 md:p-6">
         <div className="absolute inset-x-0 top-0 h-1 color-strip" />
         <div className="absolute -right-12 top-8 h-40 w-40 rounded-full bg-blue-DEFAULT/10 blur-3xl" />
