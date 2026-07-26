@@ -278,11 +278,11 @@ export default function HomePage() {
           <h2 className="font-orbitron text-xs font-bold uppercase tracking-[0.35em] text-text-muted">How It Works</h2>
           <div className="section-title__line" />
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {flowSteps.map((s, i) => {
             const a = flowAccentClasses[s.accent];
             return (
-              <div key={s.step} className={`hud-panel relative rounded-2xl border p-4 text-left ${a.border}`}>
+              <div key={s.step} className={`hud-panel relative w-full rounded-2xl border p-4 text-left ${a.border}`}>
                 <div className="flex items-center gap-2">
                   <span className={`h-1.5 w-1.5 rounded-full ${a.dot}`} />
                   <span className={`font-mono text-[11px] tracking-[0.3em] ${a.text}`}>STEP {s.step}</span>
@@ -305,7 +305,7 @@ export default function HomePage() {
           <h2 className="font-orbitron text-xs font-bold uppercase tracking-[0.35em] text-text-muted">Core Modules</h2>
           <div className="section-title__line" />
         </div>
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {tools.map((tool) => (
             <ToolCard key={tool.href} {...tool} />
           ))}
