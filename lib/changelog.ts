@@ -16,6 +16,24 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "v0.5.0",
+    date: "2026-07-27",
+    title: "รีดีไซน์หน้า Home + ปรับดีไซน์ให้เป็นระบบเดียวกันทุกหน้า",
+    summary:
+      "ยกเครื่อง UI/UX รอบใหญ่ — หน้า Home มี hero ใหม่, ทุกหน้าเครื่องมือใช้ดีไซน์เดียวกัน, และแก้บั๊กเรื่องการแสดงผลบนมือถือหลายจุดที่กระทบการใช้งานจริง",
+    changes: [
+      { kind: "improved", text: "หน้า Home ออกแบบใหม่ — headline, value proposition, และ How It Works 4 ขั้นตอน (เลือกปัญหา → วิเคราะห์ → ได้ค่าจูน → copy CLI)" },
+      { kind: "improved", text: "Header ของทุกหน้าเครื่องมือ (Wizard, ConfigDoctor, Calculator, Preset, Problem Solver, Visualizer) ใช้ดีไซน์เดียวกันทั้งหมดแล้ว" },
+      { kind: "improved", text: "ไอคอนในเมนูและการ์ดเครื่องมือหน้า Home ใช้ชุดเดียวกันทั้งเว็บ" },
+      { kind: "fixed", text: "แก้สีไอคอนในเมนูที่เคยไม่ตรงกับสีของแต่ละเครื่องมือ" },
+      { kind: "fixed", text: "แก้ข้อความในการ์ด ConfigDoctor ที่เคยล้นขอบจอบนมือถือบางรุ่น" },
+      { kind: "fixed", text: "แก้ปุ่มเลือกจำนวนเซลแบตเตอรี่ในหน้า Drone Profiles ที่เคยเล็กเกินไปจนกดยากบนมือถือ" },
+      { kind: "fixed", text: "แก้คะแนน Health/Safety/Efficiency/Performance/Reliability ในหน้า ConfigDoctor ที่เคยล้นจอบนมือถือหน้าจอแคบ" },
+      { kind: "fixed", text: "แก้ CLI command ที่มีบรรทัดยาวจนล้นกรอบบนมือถือ ตอนนี้เลื่อนดูในกรอบได้แทน" },
+      { kind: "fixed", text: "แก้ layout การ์ดในหน้า Home และ Support ที่บางครั้งไม่กางเต็มความกว้างจอบนมือถือ" },
+    ],
+  },
+  {
     version: "v0.4.0",
     date: "2026-07-13",
     title: "เปิดตัว ConfigDoctor (Diagnosis Engine)",
