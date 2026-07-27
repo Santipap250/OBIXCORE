@@ -52,7 +52,7 @@ export default function ToolCard({
 
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">
-            <h3 className="font-orbitron text-sm font-semibold tracking-wide text-text transition-colors group-hover:text-inherit">
+            <h3 className="font-orbitron text-sm font-semibold tracking-wide text-text transition-colors group-hover:text-inherit break-words">
               {title}
             </h3>
             {badge && (
@@ -61,10 +61,10 @@ export default function ToolCard({
               </span>
             )}
           </div>
-          <p className="mt-1 font-sarabun text-[13px] leading-relaxed text-text-muted">
+          <p className="mt-1 font-sarabun text-[13px] leading-relaxed text-text-muted break-words">
             {titleTh}
           </p>
-          <p className="mt-1.5 font-sarabun text-[13px] leading-relaxed text-text-muted/90">
+          <p className="mt-1.5 font-sarabun text-[13px] leading-relaxed text-text-muted/90 break-words">
             {description}
           </p>
         </div>
