@@ -151,18 +151,107 @@ const tools = [
   },
 ];
 
-const quickStats = [
-  { value: "8", label: "Modules", color: "text-purple-DEFAULT" },
-  { value: "13", label: "Presets", color: "text-amber-DEFAULT" },
-  { value: "6", label: "คลาสโดรน", color: "text-blue-DEFAULT" },
-  { value: "FREE", label: "ฟรีทั้งหมด", color: "text-green-DEFAULT" },
+const featurePills = [
+  {
+    label: "จูนจาก",
+    highlight: "Physics",
+    accent: "green" as const,
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="1"/>
+        <ellipse cx="12" cy="12" rx="10" ry="4.5"/>
+        <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(60 12 12)"/>
+        <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(120 12 12)"/>
+      </svg>
+    ),
+  },
+  {
+    label: "รองรับ 6 คลาส",
+    highlight: "Micro → Heavy Lifter",
+    accent: "blue" as const,
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2 3 7l9 5 9-5-9-5Z"/>
+        <path d="M3 12l9 5 9-5"/>
+        <path d="M3 17l9 5 9-5"/>
+      </svg>
+    ),
+  },
+  {
+    label: "Copy CLI",
+    highlight: "Betaflight",
+    accent: "purple" as const,
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="4 17 10 11 4 5"/>
+        <line x1="12" y1="19" x2="20" y2="19"/>
+      </svg>
+    ),
+  },
+  {
+    label: "ใช้งานฟรี",
+    highlight: "ไม่ซับซ้อน",
+    accent: "amber" as const,
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M7 11l3 3 7-7"/>
+        <circle cx="12" cy="12" r="10"/>
+      </svg>
+    ),
+  },
 ];
 
-const valueProps = [
-  "จูนจาก physics จริง ไม่ใช่ค่าตายตัว",
-  "ครอบคลุม 6 คลาส Micro → Heavy Lifter",
-  "Copy CLI วางใน Betaflight ได้ทันที",
+const quickStats = [
+  {
+    value: "8",
+    label: "Modules",
+    color: "text-purple-DEFAULT",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+      </svg>
+    ),
+  },
+  {
+    value: "13",
+    label: "Presets",
+    color: "text-amber-DEFAULT",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+      </svg>
+    ),
+  },
+  {
+    value: "6",
+    label: "คลาสโดรน",
+    color: "text-blue-DEFAULT",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2 3 7l9 5 9-5-9-5Z"/><path d="M3 12l9 5 9-5"/><path d="M3 17l9 5 9-5"/>
+      </svg>
+    ),
+  },
+  {
+    value: "FREE",
+    label: "ฟรีทั้งหมด",
+    color: "text-green-DEFAULT",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    ),
+  },
 ];
+
+const pillAccentClasses = {
+  green: { border: "border-green-DEFAULT/25", text: "text-green-DEFAULT", bg: "bg-green-muted/10" },
+  blue: { border: "border-blue-DEFAULT/25", text: "text-blue-DEFAULT", bg: "bg-blue-muted/10" },
+  purple: { border: "border-purple-DEFAULT/25", text: "text-purple-DEFAULT", bg: "bg-purple-muted/10" },
+  amber: { border: "border-amber-DEFAULT/25", text: "text-amber-DEFAULT", bg: "bg-amber-muted/10" },
+};
 
 const flowSteps = [
   {
@@ -219,52 +308,80 @@ export default function HomePage() {
             เครื่องมือจูนโดรน FPV ที่ใช้งานได้จริง — ตั้งค่า, วิเคราะห์, คำนวณ และ copy ค่าพร้อมใช้ได้ในที่เดียว
           </p>
 
-          <div className="flex flex-wrap justify-center gap-2">
-            {valueProps.map((item) => (
-              <span key={item} className="hud-chip px-3 py-1.5 text-[11px] font-sarabun text-text-muted">
-                {item}
-              </span>
-            ))}
+          <div className="grid grid-cols-2 gap-2">
+            {featurePills.map((item) => {
+              const a = pillAccentClasses[item.accent];
+              return (
+                <div
+                  key={item.label}
+                  className={`flex items-center gap-2.5 rounded-xl border ${a.border} ${a.bg} px-3 py-2.5 text-left`}
+                >
+                  <span className={a.text}>{item.icon}</span>
+                  <span className="text-[11px] leading-tight text-text-muted">
+                    {item.label}
+                    <br />
+                    <span className={`font-semibold ${a.text}`}>{item.highlight}</span>
+                  </span>
+                </div>
+              );
+            })}
           </div>
 
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto max-w-3xl space-y-2">
             <Link
               href="/wizard"
               className="group flex items-center justify-between rounded-2xl border border-green-DEFAULT/35 bg-gradient-to-r from-green-muted/20 via-bg-surface/75 to-blue-muted/15 px-4 py-4 text-left transition-all hover:border-green-DEFAULT hover:shadow-[0_0_18px_rgba(0,232,122,0.10)] active:scale-[0.99]"
             >
               <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-green-DEFAULT to-cyan-DEFAULT text-bg-DEFAULT shadow-[0_0_16px_rgba(0,232,122,0.16)]">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-green-DEFAULT to-cyan-DEFAULT text-bg-DEFAULT shadow-[0_0_18px_rgba(0,232,122,0.22)]">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M13 2L4 14h7l-1 8 10-14h-7l1-6z"/>
                   </svg>
                 </div>
                 <div>
-                  <div className="font-orbitron text-sm font-bold tracking-[0.28em] text-text">
-                    START WIZARD
+                  <div className="font-orbitron text-[11px] font-bold uppercase tracking-[0.3em] text-green-DEFAULT">
+                    START TUNING
                   </div>
-                  <div className="mt-1 text-sm text-text-muted">
-                    เปิดหน้า Tuning Wizard เพื่อเริ่มคำนวณค่า PID / Filter / Rates
+                  <div className="font-orbitron text-lg font-bold text-text">
+                    WIZARD
                   </div>
                 </div>
               </div>
-              <svg className="h-5 w-5 text-green-DEFAULT transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M13 5l7 7-7 7"/>
-              </svg>
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-green-DEFAULT/40 text-green-DEFAULT transition-transform group-hover:translate-x-1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
+              </span>
             </Link>
+
             <Link
               href="/problems"
-              className="group mt-2 flex items-center justify-center gap-2 rounded-xl border border-bg-border bg-bg-surface/50 px-4 py-2.5 text-[13px] text-text-muted transition-all hover:border-amber-DEFAULT/40 hover:text-amber-DEFAULT active:scale-[0.99]"
+              className="group flex items-center justify-between rounded-2xl border border-purple-DEFAULT/30 bg-purple-muted/10 px-4 py-3.5 text-left transition-all hover:border-purple-DEFAULT/60 active:scale-[0.99]"
             >
-              เจอปัญหาการบินอยู่? ไปที่ Problem Solver
-              <svg className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M13 5l7 7-7 7"/>
-              </svg>
+              <div className="flex items-center gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-purple-DEFAULT/40 text-purple-DEFAULT">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                  </svg>
+                </span>
+                <div className="text-[13px]">
+                  <div className="text-text-muted">เจอปัญหาการบินอยู่?</div>
+                  <div className="font-orbitron text-[13px] font-bold text-purple-DEFAULT">ไปที่ PROBLEM SOLVER</div>
+                </div>
+              </div>
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-purple-DEFAULT/40 text-purple-DEFAULT transition-transform group-hover:translate-x-1">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
+              </span>
             </Link>
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {quickStats.map((s) => (
               <div key={s.label} className="hud-panel rounded-2xl p-3 text-center">
+                <span className={`mx-auto mb-1 flex h-8 w-8 items-center justify-center ${s.color}`}>{s.icon}</span>
                 <div className={`font-orbitron text-xl font-bold ${s.color}`}>{s.value}</div>
                 <div className="mt-1 text-[11px] text-text-muted">{s.label}</div>
               </div>
