@@ -46,7 +46,7 @@ const tools = [
     badge: "แนะนำ",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+        <path d="M4 18c1-6 4-11 8-15 4 4 7 9 8 15-2.5-1.5-5.3-2-8-2s-5.5.5-8 2Z"/><path d="M9 6l.6 1.6M14.4 7.6L15 6"/><circle cx="12" cy="4" r="1"/>
       </svg>
     ),
   },
@@ -59,8 +59,7 @@ const tools = [
     badge: "NEW",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
-        <path d="M3.5 8.5h4l1.5-3 2 6 1.5-3h4"/>
+        <circle cx="10.5" cy="10.5" r="6.5"/><path d="M6 10.5h2l1.2-2.5 1.6 4 1.2-1.5h2"/><line x1="15.2" y1="15.2" x2="20" y2="20"/>
       </svg>
     ),
   },
@@ -85,9 +84,7 @@ const tools = [
     accentColor: "blue" as const,
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="4" y="2" width="16" height="20" rx="2"/>
-        <line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/>
-        <line x1="8" y1="14" x2="12" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/>
+        <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><circle cx="8" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="12" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="16" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="8" cy="15" r="0.9" fill="currentColor" stroke="none"/><circle cx="12" cy="15" r="0.9" fill="currentColor" stroke="none"/><circle cx="16" cy="15" r="0.9" fill="currentColor" stroke="none"/>
       </svg>
     ),
   },
@@ -99,9 +96,7 @@ const tools = [
     accentColor: "purple" as const,
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 12.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1.1-2 1.1.4-2.2-1.6-1.5 2.2-.3z"/>
       </svg>
     ),
   },
@@ -113,12 +108,7 @@ const tools = [
     accentColor: "cyan" as const,
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="2"/><circle cx="4" cy="4" r="2"/><circle cx="20" cy="4" r="2"/>
-        <circle cx="4" cy="20" r="2"/><circle cx="20" cy="20" r="2"/>
-        <line x1="6" y1="4" x2="10" y2="4"/><line x1="14" y1="4" x2="18" y2="4"/>
-        <line x1="6" y1="20" x2="10" y2="20"/><line x1="14" y1="20" x2="18" y2="20"/>
-        <line x1="4" y1="6" x2="4" y2="10"/><line x1="4" y1="14" x2="4" y2="18"/>
-        <line x1="20" y1="6" x2="20" y2="10"/><line x1="20" y1="14" x2="20" y2="18"/>
+        <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="M12 3v9M12 12l8-4.5M12 12l-8-4.5M12 12v9"/>
       </svg>
     ),
   },
