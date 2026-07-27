@@ -202,24 +202,16 @@ export default function VisualizerClient() {
         <div className="absolute inset-x-0 top-0 h-1 color-strip" />
         <div className="absolute -right-12 top-8 h-36 w-36 rounded-full bg-purple-DEFAULT/8 blur-3xl pointer-events-none" />
 
-        <div className="relative flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-purple-DEFAULT/40 bg-purple-muted/40">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b491ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="2" /><circle cx="4" cy="4" r="2" /><circle cx="20" cy="4" r="2" />
-                  <circle cx="4" cy="20" r="2" /><circle cx="20" cy="20" r="2" />
-                  <line x1="6" y1="4" x2="10" y2="4" /><line x1="14" y1="4" x2="18" y2="4" />
-                  <line x1="6" y1="20" x2="10" y2="20" /><line x1="14" y1="20" x2="18" y2="20" />
-                  <line x1="4" y1="6" x2="4" y2="10" /><line x1="4" y1="14" x2="4" y2="18" />
-                  <line x1="20" y1="6" x2="20" y2="10" /><line x1="20" y1="14" x2="20" y2="18" />
-                </svg>
-              </span>
-              <h1 className="font-orbitron text-lg font-bold tracking-[0.3em] text-text">
-                BUILD VISUALIZER
-              </h1>
-            </div>
-            <p className="text-sm text-text-muted">
+            <span className="hud-chip inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.28em] text-purple-DEFAULT">
+              <span className="h-1.5 w-1.5 rounded-full bg-purple-DEFAULT shadow-[0_0_10px_rgba(180,145,255,0.6)]" />
+              Build Visualizer
+            </span>
+            <h1 className="mt-3 font-orbitron text-2xl font-bold tracking-tight">
+              <span className="gradient-text">พรีวิวโดรนก่อนประกอบจริง</span>
+            </h1>
+            <p className="mt-2 text-[13px] leading-relaxed text-text-muted">
               ตรวจสอบ compatibility และ preview โดรน FPV ของคุณแบบ interactive
             </p>
           </div>
