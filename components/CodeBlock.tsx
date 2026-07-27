@@ -24,8 +24,8 @@ export default function CodeBlock({ lines, title, maxHeight = "320px" }: CodeBlo
         <CopyButton text={text} label="Copy All" size="sm" />
       </div>
 
-      <div className="overflow-y-auto bg-bg-surface/90" style={{ maxHeight }}>
-        <pre className="p-4 text-xs leading-relaxed">
+      <div className="overflow-x-auto overflow-y-auto bg-bg-surface/90" style={{ maxHeight }}>
+        <pre className="w-max min-w-full p-4 text-xs leading-relaxed">
           {lines.map((line, i) => (
             <div key={i} className="flex">
               <span className="mr-4 w-6 shrink-0 select-none text-right font-mono text-text-faint">
