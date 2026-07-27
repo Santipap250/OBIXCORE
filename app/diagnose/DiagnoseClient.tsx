@@ -191,7 +191,7 @@ export default function DiagnoseClient() {
           {showCurrentTune && (
             <div className="space-y-4 p-4 rounded-xl bg-bg-surface border border-bg-border animate-fade-in">
               <p className="text-[10px] font-mono text-text-faint uppercase tracking-widest">PID (Roll/Pitch ร่วมกัน)</p>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                 {(["p", "i", "d", "f"] as const).map((k) => (
                   <InputField key={k} label={k.toUpperCase()} value={currentTune.pidRollPitch?.[k] ?? 0} min={0} max={300} step={1}
                     onChange={(v) => setCurrentTune((prev) => ({ ...prev, pidRollPitch: { p: 0, i: 0, d: 0, f: 0, ...prev.pidRollPitch, [k]: v } }))} />
@@ -247,7 +247,7 @@ export default function DiagnoseClient() {
               <p className="font-orbitron font-semibold text-sm text-text mb-1">{result.setupClassLabel}</p>
               <p className="text-xs font-sarabun text-text-muted leading-relaxed">{result.summary}</p>
             </div>
-            <div className="grid grid-cols-5 gap-2 mt-3">
+            <div className="grid grid-cols-3 gap-2 mt-3 sm:grid-cols-5">
               <ValueDisplay label="Health" value={result.scores.health} color={scoreColor(result.scores.health)} size="sm" />
               <ValueDisplay label="Safety" value={result.scores.safety} color={scoreColor(result.scores.safety)} size="sm" />
               <ValueDisplay label="Effic." value={result.scores.efficiency} color={scoreColor(result.scores.efficiency)} size="sm" />
