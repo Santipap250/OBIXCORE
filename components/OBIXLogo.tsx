@@ -49,7 +49,7 @@ export default function OBIXLogo({
       style={{ width: resolvedWidth, height: resolvedHeight, maxWidth: "100%" }}
     >
       <Image
-        src="/obixcore-logo.png"
+        src="/obixcore-logo.webp"
         alt="OBIXCORE FPV Tuning Platform"
         fill
         sizes={`(max-width: 768px) 92vw, ${resolvedWidth}px`}
