@@ -281,7 +281,7 @@ export default function VisualizerClient() {
       </div>
 
       {/* ── Main layout: Viewer + Controls ── */}
-      <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_340px]">
 
         {/* Left: 3D Preview + Stats */}
         <div className="flex flex-col gap-4">
