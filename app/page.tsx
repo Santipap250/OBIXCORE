@@ -1,6 +1,5 @@
 import ToolCard from "@/components/ToolCard";
 import Link from "next/link";
-import Image from "next/image";
 import OBIXLogo from "@/components/OBIXLogo";
 import type { Metadata } from "next";
 
@@ -331,39 +330,28 @@ export default function HomePage() {
           <div className="mx-auto max-w-3xl space-y-2">
             <Link
               href="/wizard"
-              className="group relative block overflow-hidden rounded-2xl border border-green-DEFAULT/35 transition-all hover:border-green-DEFAULT hover:shadow-[0_0_18px_rgba(0,232,122,0.14)] active:scale-[0.99]"
+              className="group flex items-center justify-between rounded-2xl border border-green-DEFAULT/35 bg-gradient-to-r from-green-muted/20 via-bg-surface/75 to-blue-muted/15 px-4 py-4 text-left transition-all hover:border-green-DEFAULT hover:shadow-[0_0_18px_rgba(0,232,122,0.10)] active:scale-[0.99]"
             >
-              <div className="relative h-52 w-full sm:h-60">
-                <Image
-                  src="/images/drone-hero.jpg"
-                  alt="โดรน FPV ที่จูนด้วย OBIXCORE"
-                  fill
-                  sizes="(max-width: 640px) 100vw, 672px"
-                  className="object-cover object-[center_30%] transition-transform duration-500 group-hover:scale-105"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-bg-DEFAULT via-bg-DEFAULT/55 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-bg-DEFAULT/70 via-transparent to-transparent" />
-              </div>
-
-              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-green-DEFAULT to-cyan-DEFAULT text-bg-DEFAULT shadow-[0_0_18px_rgba(0,232,122,0.22)]">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M13 2L4 14h7l-1 8 10-14h-7l1-6z"/>
+                  </svg>
+                </div>
                 <div>
                   <div className="font-orbitron text-[11px] font-bold uppercase tracking-[0.3em] text-green-DEFAULT">
                     START TUNING
                   </div>
-                  <div className="gradient-text font-orbitron text-2xl font-bold leading-none">
-                    OBIXCORE
-                  </div>
-                  <div className="mt-1 font-orbitron text-base font-bold text-text">
+                  <div className="font-orbitron text-lg font-bold text-text">
                     WIZARD
                   </div>
                 </div>
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-green-DEFAULT/50 bg-bg-DEFAULT/60 text-green-DEFAULT backdrop-blur transition-transform group-hover:translate-x-1">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14M13 5l7 7-7 7"/>
-                  </svg>
-                </span>
               </div>
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-green-DEFAULT/40 text-green-DEFAULT transition-transform group-hover:translate-x-1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
+              </span>
             </Link>
 
             <Link
