@@ -7,8 +7,9 @@
       Fonts แต่ type-check ผ่านสะอาดทุกรอบ และ Vercel build จริงผ่านแล้ว)
 - [x] ตั้ง environment variable `NEXT_PUBLIC_SITE_URL` บน Vercel เป็นโดเมนจริง
       แล้ว — ยืนยันแล้วว่า canonical/OG/Twitter meta ไม่ใช่ localhost อีกต่อไป
-- [ ] เติมค่าจริงใน `lib/support.ts`: `buyMeACoffeeUrl` ยังเป็น placeholder
-      (PromptPay QR, ชื่อผู้รับ, อีเมลติดต่อ, Facebook ใส่ค่าจริงแล้ว)
+- [x] `lib/support.ts` ครบสำหรับ launch — `buyMeACoffeeUrl` เป็น `null`
+      ได้ตามปกติ (ไม่ blocking) ปุ่มจะซ่อนอัตโนมัติเมื่อไม่มีค่า ใส่เพิ่ม
+      ทีหลังได้ตลอดถ้ามีลิงก์จริงในอนาคต
 - [x] เช็ค `/public/og-image.svg` แล้ว — เป็นภาพที่สร้างมาเฉพาะสำหรับ OG
       card จริง ขนาด 1200×630 ถูกต้องตามมาตรฐาน มีโลโก้ OBIXCORE +
       "FPV TUNING PLATFORM" ครบ สีตรงกับ brand ของเว็บ ไม่ใช่ placeholder
