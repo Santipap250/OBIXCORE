@@ -4,25 +4,25 @@ import { usePathname } from "next/navigation";
 import OBIXLogo from "@/components/OBIXLogo";
 
 /**
- * Renders the icon artwork at full color (keeps the cyan glow look from the
- * source art). Active/inactive state is shown via opacity + scale on the
- * wrapping element, since the color itself is now baked into the image.
+ * Line-style icon matching the reference mockup: thin uniform stroke,
+ * neutral blue by default, tinted via currentColor when the tab is active
+ * (color is applied by the wrapping element, not baked into an image).
  */
-function IconImg({ src, size = 30, active = true }: { src: string; size?: number; active?: boolean }) {
+function NavIcon({ path, size = 26, active = false }: { path: React.ReactNode; size?: number; active?: boolean }) {
   return (
-    <span
-      aria-hidden="true"
-      className="inline-block shrink-0 transition-opacity"
-      style={{
-        width: size,
-        height: size,
-        opacity: active ? 1 : 0.7,
-        backgroundImage: `url(${src})`,
-        backgroundSize: "contain",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-      }}
-    />
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={active ? 1.9 : 1.6}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="shrink-0"
+    >
+      {path}
+    </svg>
   );
 }
 
@@ -32,63 +32,117 @@ const navItems = [
     label: "Home",
     labelTh: "หน้าหลัก",
     accent: "green" as const,
-    icon: (active: boolean, size?: number) => <IconImg src="/icons/home.png" active={active} size={size} />,
+    icon: (active: boolean, size?: number) => (
+      <NavIcon
+        active={active}
+        size={size}
+        path={<><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></>}
+      />
+    ),
   },
   {
     href: "/wizard",
     label: "Wizard",
     labelTh: "Wizard",
     accent: "green" as const,
-    icon: (active: boolean, size?: number) => <IconImg src="/icons/wizard.png" active={active} size={size} />,
+    icon: (active: boolean, size?: number) => (
+      <NavIcon
+        active={active}
+        size={size}
+        path={<><path d="M4 18c1-6 4-11 8-15 4 4 7 9 8 15-2.5-1.5-5.3-2-8-2s-5.5.5-8 2Z"/><path d="M9 6l.6 1.6M14.4 7.6L15 6"/><circle cx="12" cy="4" r="1"/></>}
+      />
+    ),
   },
   {
     href: "/diagnose",
     label: "Diagnose",
     labelTh: "วิเคราะห์",
     accent: "red" as const,
-    icon: (active: boolean, size?: number) => <IconImg src="/icons/diagnose.png" active={active} size={size} />,
+    icon: (active: boolean, size?: number) => (
+      <NavIcon
+        active={active}
+        size={size}
+        path={<><circle cx="10.5" cy="10.5" r="6.5"/><path d="M6 10.5h2l1.2-2.5 1.6 4 1.2-1.5h2"/><line x1="15.2" y1="15.2" x2="20" y2="20"/></>}
+      />
+    ),
   },
   {
     href: "/problems",
     label: "Problems",
     labelTh: "แก้ปัญหา",
     accent: "amber" as const,
-    icon: (active: boolean, size?: number) => <IconImg src="/icons/problems.png" active={active} size={size} />,
+    icon: (active: boolean, size?: number) => (
+      <NavIcon
+        active={active}
+        size={size}
+        path={<><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></>}
+      />
+    ),
   },
   {
     href: "/calculator",
     label: "Calc",
     labelTh: "คำนวณ",
     accent: "blue" as const,
-    icon: (active: boolean, size?: number) => <IconImg src="/icons/calculator.png" active={active} size={size} />,
+    icon: (active: boolean, size?: number) => (
+      <NavIcon
+        active={active}
+        size={size}
+        path={<><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><circle cx="8" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="12" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="16" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="8" cy="15" r="0.9" fill="currentColor" stroke="none"/><circle cx="12" cy="15" r="0.9" fill="currentColor" stroke="none"/><circle cx="16" cy="15" r="0.9" fill="currentColor" stroke="none"/></>}
+      />
+    ),
   },
   {
     href: "/presets",
     label: "Presets",
     labelTh: "Preset",
     accent: "purple" as const,
-    icon: (active: boolean, size?: number) => <IconImg src="/icons/presets.png" active={active} size={size} />,
+    icon: (active: boolean, size?: number) => (
+      <NavIcon
+        active={active}
+        size={size}
+        path={<><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 12.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1.1-2 1.1.4-2.2-1.6-1.5 2.2-.3z"/></>}
+      />
+    ),
   },
   {
     href: "/visualizer",
     label: "3D View",
     labelTh: "3D View",
     accent: "cyan" as const,
-    icon: (active: boolean, size?: number) => <IconImg src="/icons/3d-view.png" active={active} size={size} />,
+    icon: (active: boolean, size?: number) => (
+      <NavIcon
+        active={active}
+        size={size}
+        path={<><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="M12 3v9M12 12l8-4.5M12 12l-8-4.5M12 12v9"/></>}
+      />
+    ),
   },
   {
     href: "/blackbox",
     label: "Blackbox",
     labelTh: "Blackbox",
     accent: "pink" as const,
-    icon: (active: boolean, size?: number) => <IconImg src="/icons/blackbox.png" active={active} size={size} />,
+    icon: (active: boolean, size?: number) => (
+      <NavIcon
+        active={active}
+        size={size}
+        path={<path d="M2 12h4l2-7 4 14 3-9 2 5h5"/>}
+      />
+    ),
   },
   {
     href: "/profiles",
     label: "Profiles",
     labelTh: "Profiles",
     accent: "blue" as const,
-    icon: (active: boolean, size?: number) => <IconImg src="/icons/profiles.png" active={active} size={size} />,
+    icon: (active: boolean, size?: number) => (
+      <NavIcon
+        active={active}
+        size={size}
+        path={<><rect x="3" y="4" width="18" height="4" rx="1"/><rect x="3" y="10" width="18" height="4" rx="1"/><rect x="3" y="16" width="10" height="4" rx="1"/></>}
+      />
+    ),
   },
 ] as const;
 
@@ -162,7 +216,7 @@ export default function Nav() {
                     active ? "opacity-100" : "group-hover:opacity-100"
                   } ${ACCENT_BG_SOFT[item.accent]}`}
                 />
-                <span className={`relative transition-transform duration-200 ${active ? `scale-110 ${ACCENT_TEXT[item.accent]}` : "group-hover:scale-105"}`}>
+                <span className={`relative transition-transform duration-200 ${active ? `scale-110 ${ACCENT_TEXT[item.accent]}` : "text-blue-DEFAULT/70 group-hover:scale-105 group-hover:text-blue-DEFAULT"}`}>
                   {item.icon(active, 24)}
                 </span>
                 <span className="relative font-mono text-[13px] tracking-wide">{item.label}</span>
@@ -210,11 +264,9 @@ export default function Nav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative flex w-[64px] flex-shrink-0 flex-col items-center justify-center gap-1 rounded-2xl px-2 py-2 text-[12px] transition-all ${
-                  active ? ACCENT_TEXT[item.accent] : "text-text-muted"
-                }`}
+                className="relative flex w-[64px] flex-shrink-0 flex-col items-center justify-center gap-1 rounded-2xl px-2 py-2 text-[12px] transition-all"
               >
-                <div className="relative">
+                <div className={`relative ${active ? ACCENT_TEXT[item.accent] : "text-blue-DEFAULT/70"}`}>
                   <span
                     className={`absolute inset-0 rounded-full blur-xl transition-opacity ${
                       active ? `opacity-100 animate-glow-pulse ${ACCENT_BG_GLOW[item.accent]}` : "opacity-0"
@@ -222,7 +274,7 @@ export default function Nav() {
                   />
                   {item.icon(active, 30)}
                 </div>
-                <span className="font-sarabun">{item.labelTh}</span>
+                <span className={`font-sarabun ${active ? ACCENT_TEXT[item.accent] : "text-text-muted"}`}>{item.labelTh}</span>
                 {active && (
                   <span
                     className={`absolute bottom-0 left-1/2 h-0.5 w-8 -translate-x-1/2 rounded-full ${
