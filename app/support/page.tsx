@@ -163,7 +163,7 @@ export default function SupportPage() {
           <h2 className="font-orbitron text-xs font-bold uppercase tracking-[0.35em] text-text-muted">งบสนับสนุนช่วยอะไรบ้าง</h2>
           <div className="section-title__line" />
         </div>
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {buildHelps.map((item) => (
             <div key={item.title} className="hud-panel rounded-2xl p-4">
               <div className={`inline-flex h-10 w-10 items-center justify-center rounded-xl border ${accentBg[item.accent]} ${accentText[item.accent]}`}>
@@ -183,7 +183,7 @@ export default function SupportPage() {
           <div className="section-title__line" />
         </div>
 
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
           {SUPPORT_TIERS.map((tier) => {
             const a = tierAccent[tier.accent];
             return (
