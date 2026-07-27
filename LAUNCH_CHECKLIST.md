@@ -9,8 +9,10 @@
       แล้ว — ยืนยันแล้วว่า canonical/OG/Twitter meta ไม่ใช่ localhost อีกต่อไป
 - [ ] เติมค่าจริงใน `lib/support.ts`: `buyMeACoffeeUrl` ยังเป็น placeholder
       (PromptPay QR, ชื่อผู้รับ, อีเมลติดต่อ, Facebook ใส่ค่าจริงแล้ว)
-- [ ] เช็คว่า `/public/og-image.svg` เป็นภาพที่อยากใช้จริงตอนแชร์ลิงก์บน
-      social (ตอนนี้ทุกหน้าอ้างอิงไฟล์เดียวกัน)
+- [x] เช็ค `/public/og-image.svg` แล้ว — เป็นภาพที่สร้างมาเฉพาะสำหรับ OG
+      card จริง ขนาด 1200×630 ถูกต้องตามมาตรฐาน มีโลโก้ OBIXCORE +
+      "FPV TUNING PLATFORM" ครบ สีตรงกับ brand ของเว็บ ไม่ใช่ placeholder
+      พร้อมใช้จริง ไม่ต้องแก้อะไรเพิ่ม
 
 ## แนะนำให้ทำ (ไม่ blocking)
 - [ ] ทดสอบแชร์ลิงก์จริงผ่าน Facebook/Twitter/LINE debugger tool เพื่อดู
