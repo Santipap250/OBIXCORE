@@ -15,6 +15,30 @@
  */
 export type SetupClass = "micro" | "cinewhoop" | "freestyle" | "racing" | "longrange" | "heavylift";
 
+export type TrickDifficulty = "beginner" | "intermediate" | "advanced" | "expert";
+export type TrickCategory = "aerial" | "proximity" | "dive" | "combo";
+
+export interface Trick {
+  id: string;
+  name: string;
+  nameTh: string;
+  difficulty: TrickDifficulty;
+  category: TrickCategory;
+  /** Short 1-2 sentence description of what the trick looks like. */
+  description: string;
+  /** Conceptual walk-through — general approach, not literal stick-input
+   * numbers (those depend on each pilot's own rates/expo). */
+  steps: string[];
+  tips: string[];
+  commonMistakes: string[];
+  /** IDs of tricks worth being comfortable with before attempting this one. */
+  prerequisiteTrickIds: string[];
+  /** Which drone classes this trick realistically suits — heavier/slower
+   * classes (longrange, heavylift) aren't built for aggressive acro. */
+  recommendedClasses: SetupClass[];
+  tags: string[];
+}
+
 export interface Preset {
   id: string;
   name: string;
