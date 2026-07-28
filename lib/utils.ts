@@ -70,6 +70,16 @@ export const DIFFICULTY_COLORS: Record<string, string> = {
   advanced: "text-red-DEFAULT border-red-DEFAULT bg-red-muted",
 };
 
+/** 4-tier difficulty used by Trick Library (kept separate from the 3-tier
+ * DIFFICULTY_COLORS above since Presets ship with only beginner/intermediate/
+ * advanced — same precedent as DIAGNOSIS_SEVERITY_META vs SEVERITY_META). */
+export const TRICK_DIFFICULTY_COLORS: Record<string, string> = {
+  beginner: "text-green-DEFAULT border-green-DEFAULT bg-green-muted",
+  intermediate: "text-blue-DEFAULT border-blue-DEFAULT bg-blue-muted",
+  advanced: "text-orange-DEFAULT border-orange-DEFAULT bg-orange-muted",
+  expert: "text-red-DEFAULT border-red-DEFAULT bg-red-muted",
+};
+
 export const STYLE_COLORS: Record<string, string> = {
   race: "text-red-DEFAULT border-red-DEFAULT bg-red-muted",
   freestyle: "text-purple-DEFAULT border-purple-DEFAULT bg-purple-muted",

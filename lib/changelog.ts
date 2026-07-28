@@ -16,6 +16,17 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "v0.6.0",
+    date: "2026-07-27",
+    title: "เปิดตัว Trick Library",
+    summary:
+      "โมดูลใหม่ — คลังท่าบิน freestyle ตั้งแต่ระดับเริ่มต้นถึงขั้นสูง พร้อมขั้นตอน เคล็ดลับ และข้อผิดพลาดที่พบบ่อยของแต่ละท่า",
+    changes: [
+      { kind: "new", text: "Trick Library — 8 ท่าบิน freestyle จริง (Power Loop, Split-S, Barrel Roll, Power Dive, Ground Skimming, Wall Ride, Matty Flip, Stall Turn) พร้อมระดับความยาก เคล็ดลับ ข้อผิดพลาดที่พบบ่อย และท่าที่ควรคล่องก่อน" },
+      { kind: "new", text: "กรองท่าบินตามระดับความยาก (Beginner → Expert) และดูว่าท่าไหนเหมาะกับโดรนคลาสไหนบ้าง" },
+    ],
+  },
+  {
     version: "v0.5.0",
     date: "2026-07-27",
     title: "รีดีไซน์หน้า Home + ปรับดีไซน์ให้เป็นระบบเดียวกันทุกหน้า",
