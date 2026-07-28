@@ -139,6 +139,19 @@ const tools = [
       </svg>
     ),
   },
+  {
+    href: "/tricks",
+    title: "Trick Library",
+    titleTh: "คลังท่าบิน Freestyle",
+    description: "ท่าบินตั้งแต่ระดับเริ่มต้นถึงขั้นสูง พร้อมขั้นตอน เคล็ดลับ และข้อผิดพลาดที่พบบ่อย",
+    accentColor: "orange" as const,
+    badge: "NEW",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 4c4 0 6 2 8 6 2-4 4-6 8-6"/><path d="M4 20c4 0 6-2 8-6 2 4 4 6 8 6"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>
+      </svg>
+    ),
+  },
 ];
 
 const featurePills = [
@@ -193,7 +206,7 @@ const featurePills = [
 
 const quickStats = [
   {
-    value: "8",
+    value: "9",
     label: "Modules",
     color: "text-purple-DEFAULT",
     icon: (
