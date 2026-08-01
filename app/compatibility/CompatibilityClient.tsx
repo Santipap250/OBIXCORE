@@ -73,7 +73,7 @@ export default function CompatibilityClient() {
       </div>
 
       {/* Category filter */}
-      <div className="mb-4 flex gap-2 overflow-x-auto pb-2">
+      <div className="mb-4 flex gap-2 overflow-x-auto pb-2 scrollbar-none">
         {CATEGORIES.map((c) => (
           <button
             key={c.value}
