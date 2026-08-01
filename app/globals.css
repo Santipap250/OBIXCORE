@@ -57,6 +57,42 @@ html {
   outline-offset: 2px;
 }
 
+/* Custom scrollbar — themed to match the dark HUD palette instead of the
+   browser's default gray bar. Firefox uses `scrollbar-color`; WebKit
+   browsers (Chrome/Edge/Safari) use the ::-webkit-scrollbar-* pseudo
+   elements below. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #1c2436 #050814;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #050814;
+}
+::-webkit-scrollbar-thumb {
+  background: #1c2436;
+  border-radius: 999px;
+  border: 2px solid #050814;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #46f0b8;
+}
+
+/* Used on compact horizontal filter-chip rows (Problems/Tricks/Compatibility
+   category pills) where even the slim themed scrollbar above would look
+   bulky against a ~40px-tall strip. Swipe/drag still works — just hidden. */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 /* Grid background */
 .bg-grid {
   background-image: linear-gradient(rgba(70,240,184,0.03) 1px, transparent 1px),
