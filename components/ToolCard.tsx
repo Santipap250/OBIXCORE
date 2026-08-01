@@ -57,7 +57,7 @@ export default function ToolCard({
               {title}
             </h3>
             {badge && (
-              <span className={`hud-chip px-2 py-0.5 text-[12px] font-mono uppercase tracking-[0.22em] ${a.badge}`}>
+              <span className={`shimmer-sweep hud-chip px-2 py-0.5 text-[12px] font-mono uppercase tracking-[0.22em] backdrop-blur-sm ${a.badge}`}>
                 {badge}
               </span>
             )}
