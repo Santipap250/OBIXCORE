@@ -157,6 +157,19 @@ const navItems = [
       />
     ),
   },
+  {
+    href: "/compatibility",
+    label: "Parts",
+    labelTh: "ชิ้นส่วน",
+    accent: "lime" as const,
+    icon: (active: boolean, size?: number) => (
+      <NavIcon
+        active={active}
+        size={size}
+        path={<><path d="M14.7 6.3a3 3 0 0 0-4.24 4.24l-6.36 6.36a1.5 1.5 0 0 0 2.12 2.12l6.36-6.36a3 3 0 0 0 4.24-4.24l-2.12 2.12-2.12-2.12z"/></>}
+      />
+    ),
+  },
 ] as const;
 
 type NavAccent = (typeof navItems)[number]["accent"];
@@ -170,6 +183,7 @@ const ACCENT_BG_SOFT: Record<NavAccent, string> = {
   cyan: "bg-cyan-muted/25",
   pink: "bg-pink-muted/25",
   orange: "bg-orange-muted/25",
+  lime: "bg-lime-muted/25",
 };
 
 const ACCENT_BG_GLOW: Record<NavAccent, string> = {
@@ -181,6 +195,7 @@ const ACCENT_BG_GLOW: Record<NavAccent, string> = {
   cyan: "bg-cyan-DEFAULT/15",
   pink: "bg-pink-DEFAULT/15",
   orange: "bg-orange-DEFAULT/15",
+  lime: "bg-lime-DEFAULT/15",
 };
 
 const ACCENT_RING: Record<NavAccent, string> = {
@@ -192,6 +207,7 @@ const ACCENT_RING: Record<NavAccent, string> = {
   cyan: "ring-cyan-DEFAULT/30",
   pink: "ring-pink-DEFAULT/30",
   orange: "ring-orange-DEFAULT/30",
+  lime: "ring-lime-DEFAULT/30",
 };
 
 const ACCENT_TEXT: Record<NavAccent, string> = {
@@ -203,6 +219,7 @@ const ACCENT_TEXT: Record<NavAccent, string> = {
   cyan: "text-cyan-DEFAULT",
   pink: "text-pink-DEFAULT",
   orange: "text-orange-DEFAULT",
+  lime: "text-lime-DEFAULT",
 };
 
 export default function Nav() {
@@ -302,6 +319,7 @@ export default function Nav() {
                       : item.accent === "purple" ? "bg-purple-DEFAULT"
                       : item.accent === "cyan" ? "bg-cyan-DEFAULT"
                       : item.accent === "orange" ? "bg-orange-DEFAULT"
+                      : item.accent === "lime" ? "bg-lime-DEFAULT"
                       : "bg-pink-DEFAULT"
                     }`}
                   />
