@@ -11,79 +11,16 @@ interface ToolCardProps {
 }
 
 const accentMap = {
-  green: {
-    border: "border-cyan-DEFAULT/20",
-    hover: "hover:border-cyan-DEFAULT/55 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(34,211,238,0.10)]",
-    shell: "from-cyan-DEFAULT/10 via-bg-surface/95 to-bg-surface/90",
-    icon: "bg-cyan-muted/70 border-cyan-DEFAULT/35 text-cyan-DEFAULT",
-    badge: "bg-cyan-muted/60 text-cyan-DEFAULT",
-    glow: "from-cyan-DEFAULT/12",
-  },
-  amber: {
-    border: "border-amber-DEFAULT/20",
-    hover: "hover:border-amber-DEFAULT/55 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(245,158,11,0.10)]",
-    shell: "from-amber-DEFAULT/10 via-bg-surface/95 to-bg-surface/90",
-    icon: "bg-amber-muted/70 border-amber-DEFAULT/35 text-amber-DEFAULT",
-    badge: "bg-amber-muted/60 text-amber-DEFAULT",
-    glow: "from-amber-DEFAULT/12",
-  },
-  blue: {
-    border: "border-blue-DEFAULT/25",
-    hover: "hover:border-blue-DEFAULT/55 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(99,179,255,0.12)]",
-    shell: "from-blue-DEFAULT/10 via-bg-surface/95 to-bg-surface/90",
-    icon: "bg-blue-muted/70 border-blue-DEFAULT/35 text-blue-DEFAULT",
-    badge: "bg-blue-muted/60 text-blue-DEFAULT",
-    glow: "from-blue-DEFAULT/12",
-  },
-  cyan: {
-    border: "border-cyan-DEFAULT/25",
-    hover: "hover:border-cyan-DEFAULT/60 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(34,211,238,0.12)]",
-    shell: "from-cyan-DEFAULT/10 via-bg-surface/95 to-bg-surface/90",
-    icon: "bg-cyan-muted/70 border-cyan-DEFAULT/35 text-cyan-DEFAULT",
-    badge: "bg-cyan-muted/60 text-cyan-DEFAULT",
-    glow: "from-cyan-DEFAULT/12",
-  },
-  purple: {
-    border: "border-purple-DEFAULT/22",
-    hover: "hover:border-purple-DEFAULT/55 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(180,145,255,0.12)]",
-    shell: "from-purple-DEFAULT/10 via-bg-surface/95 to-bg-surface/90",
-    icon: "bg-purple-muted/70 border-purple-DEFAULT/35 text-purple-DEFAULT",
-    badge: "bg-purple-muted/60 text-purple-DEFAULT",
-    glow: "from-purple-DEFAULT/12",
-  },
-  orange: {
-    border: "border-orange-DEFAULT/20",
-    hover: "hover:border-orange-DEFAULT/55 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(255,159,107,0.12)]",
-    shell: "from-orange-DEFAULT/10 via-bg-surface/95 to-bg-surface/90",
-    icon: "bg-orange-muted/70 border-orange-DEFAULT/35 text-orange-DEFAULT",
-    badge: "bg-orange-muted/60 text-orange-DEFAULT",
-    glow: "from-orange-DEFAULT/12",
-  },
-  pink: {
-    border: "border-pink-DEFAULT/20",
-    hover: "hover:border-pink-DEFAULT/55 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(255,95,183,0.12)]",
-    shell: "from-pink-DEFAULT/10 via-bg-surface/95 to-bg-surface/90",
-    icon: "bg-pink-muted/70 border-pink-DEFAULT/35 text-pink-DEFAULT",
-    badge: "bg-pink-muted/60 text-pink-DEFAULT",
-    glow: "from-pink-DEFAULT/12",
-  },
-  red: {
-    border: "border-red-DEFAULT/20",
-    hover: "hover:border-red-DEFAULT/55 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(255,107,138,0.12)]",
-    shell: "from-red-DEFAULT/10 via-bg-surface/95 to-bg-surface/90",
-    icon: "bg-red-muted/70 border-red-DEFAULT/35 text-red-DEFAULT",
-    badge: "bg-red-muted/60 text-red-DEFAULT",
-    glow: "from-red-DEFAULT/12",
-  },
-  lime: {
-    border: "border-lime-DEFAULT/20",
-    hover: "hover:border-lime-DEFAULT/55 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(198,242,74,0.10)]",
-    shell: "from-lime-DEFAULT/10 via-bg-surface/95 to-bg-surface/90",
-    icon: "bg-lime-muted/70 border-lime-DEFAULT/35 text-lime-DEFAULT",
-    badge: "bg-lime-muted/60 text-lime-DEFAULT",
-    glow: "from-lime-DEFAULT/12",
-  },
-} as const;
+  green:  { border: "border-green-DEFAULT/20",  hover: "hover:border-green-DEFAULT/60 hover:-translate-y-1 hover:bg-green-muted/20",  icon: "bg-green-muted/80 border-green-DEFAULT/40 text-green-DEFAULT",  badge: "bg-green-muted/80 text-green-DEFAULT",  glow: "from-green-DEFAULT/15" },
+  amber:  { border: "border-amber-DEFAULT/20",  hover: "hover:border-amber-DEFAULT/60 hover:-translate-y-1 hover:bg-amber-muted/20",  icon: "bg-amber-muted/80 border-amber-DEFAULT/40 text-amber-DEFAULT",  badge: "bg-amber-muted/80 text-amber-DEFAULT",  glow: "from-amber-DEFAULT/15" },
+  blue:   { border: "border-blue-DEFAULT/20",   hover: "hover:border-blue-DEFAULT/60 hover:-translate-y-1 hover:bg-blue-muted/20",   icon: "bg-blue-muted/80 border-blue-DEFAULT/40 text-blue-DEFAULT",   badge: "bg-blue-muted/80 text-blue-DEFAULT",   glow: "from-blue-DEFAULT/15" },
+  cyan:   { border: "border-cyan-DEFAULT/20",   hover: "hover:border-cyan-DEFAULT/60 hover:-translate-y-1 hover:bg-cyan-muted/20",   icon: "bg-cyan-muted/80 border-cyan-DEFAULT/40 text-cyan-DEFAULT",   badge: "bg-cyan-muted/80 text-cyan-DEFAULT",   glow: "from-cyan-DEFAULT/15" },
+  purple: { border: "border-purple-DEFAULT/20", hover: "hover:border-purple-DEFAULT/60 hover:-translate-y-1 hover:bg-purple-muted/20", icon: "bg-purple-muted/80 border-purple-DEFAULT/40 text-purple-DEFAULT", badge: "bg-purple-muted/80 text-purple-DEFAULT", glow: "from-purple-DEFAULT/15" },
+  orange: { border: "border-orange-DEFAULT/20", hover: "hover:border-orange-DEFAULT/60 hover:-translate-y-1 hover:bg-orange-muted/20", icon: "bg-orange-muted/80 border-orange-DEFAULT/40 text-orange-DEFAULT", badge: "bg-orange-muted/80 text-orange-DEFAULT", glow: "from-orange-DEFAULT/15" },
+  pink:   { border: "border-pink-DEFAULT/20",   hover: "hover:border-pink-DEFAULT/60 hover:-translate-y-1 hover:bg-pink-muted/20",   icon: "bg-pink-muted/80 border-pink-DEFAULT/40 text-pink-DEFAULT",   badge: "bg-pink-muted/80 text-pink-DEFAULT",   glow: "from-pink-DEFAULT/15" },
+  red:    { border: "border-red-DEFAULT/20",    hover: "hover:border-red-DEFAULT/60 hover:-translate-y-1 hover:bg-red-muted/20",     icon: "bg-red-muted/80 border-red-DEFAULT/40 text-red-DEFAULT",     badge: "bg-red-muted/80 text-red-DEFAULT",     glow: "from-red-DEFAULT/15" },
+  lime:   { border: "border-lime-DEFAULT/20",   hover: "hover:border-lime-DEFAULT/60 hover:-translate-y-1 hover:bg-lime-muted/20",   icon: "bg-lime-muted/80 border-lime-DEFAULT/40 text-lime-DEFAULT",   badge: "bg-lime-muted/80 text-lime-DEFAULT",   glow: "from-lime-DEFAULT/15" },
+};
 
 export default function ToolCard({
   href,
@@ -99,66 +36,54 @@ export default function ToolCard({
   return (
     <Link
       href={href}
-      aria-label={title}
       className={`
-        group relative block w-full overflow-hidden rounded-[1.75rem] border
-        bg-bg-surface/90 p-5 shadow-[0_18px_44px_rgba(0,0,0,0.24)]
+        group relative block w-full rounded-2xl border bg-bg-surface/92 p-5
+        shadow-[0_12px_28px_rgba(0,0,0,0.20)]
         transition-all duration-300 active:scale-[0.99]
         ${a.border} ${a.hover}
       `}
     >
-      <div className={`absolute inset-0 bg-gradient-to-br ${a.shell}`} />
-      <div className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-current to-transparent opacity-30 ${a.glow}`} />
-      <div className="absolute -left-12 top-0 h-28 w-28 rounded-full bg-cyan-DEFAULT/10 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-      <div className="absolute -right-10 bottom-0 h-24 w-24 rounded-full bg-purple-DEFAULT/10 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-
-      <div className="relative flex items-start gap-4">
-        <div className={`relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-[1.15rem] border ${a.icon} shadow-[0_0_0_1px_rgba(255,255,255,0.02)]`}>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_transparent_60%)] opacity-0 transition-opacity group-hover:opacity-100" />
-          <div className="relative scale-[0.98]">{icon}</div>
+      <div className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-current to-transparent opacity-20 ${a.glow}`} />
+      <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+      <div className="flex items-start gap-4">
+        <div className={`relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl border ${a.icon}`}>
+          <div className={`absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.06),_transparent_60%)]`} />
+          {icon}
         </div>
 
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <h3 className="font-orbitron text-base font-semibold tracking-wide text-text transition-colors group-hover:text-white">
+          <div className="flex items-center gap-2 flex-wrap">
+            <h3 className="font-orbitron text-sm font-semibold tracking-wide text-text transition-colors group-hover:text-inherit break-words">
               {title}
             </h3>
             {badge && (
-              <span className={`hud-chip rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.22em] ${a.badge}`}>
+              <span className={`hud-chip px-2 py-0.5 text-[12px] font-mono uppercase tracking-[0.22em] ${a.badge}`}>
                 {badge}
               </span>
             )}
           </div>
-
-          <p className="mt-1 text-[13px] font-medium leading-relaxed text-cyan-100/80">
+          <p className="mt-1 font-sarabun text-[13px] leading-relaxed text-text-muted break-words">
             {titleTh}
           </p>
-          <p className="mt-2 text-[13px] leading-relaxed text-text-muted">
+          <p className="mt-1.5 font-sarabun text-[13px] leading-relaxed text-text-muted/90 break-words">
             {description}
           </p>
-
-          <div className="mt-4 flex items-center gap-2">
-            <div className="hud-accent-line flex-1" />
-            <span className="font-mono text-[10px] tracking-[0.3em] text-text-faint">
-              OPEN MODULE
-            </span>
-            <div className="hud-accent-line flex-1" />
-          </div>
         </div>
 
-        <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/8 bg-white/5 text-text-muted transition-all duration-300 group-hover:translate-x-1 group-hover:border-cyan-DEFAULT/30 group-hover:bg-cyan-DEFAULT/10 group-hover:text-cyan-DEFAULT">
-          <svg
-            className="h-4 w-4"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M9 18l6-6-6-6" />
-          </svg>
-        </div>
+        <svg
+          className="mt-1 h-4 w-4 flex-shrink-0 text-text-faint transition-all group-hover:translate-x-1 group-hover:text-text-muted"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+        >
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </div>
+
+      <div className="mt-4 flex items-center gap-2">
+        <div className="hud-accent-line flex-1" />
+        <span className="text-[12px] font-mono uppercase tracking-[0.28em] text-text-faint">
+          OPEN MODULE
+        </span>
+        <div className="hud-accent-line flex-1" />
       </div>
     </Link>
   );

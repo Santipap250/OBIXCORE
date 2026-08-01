@@ -8,21 +8,21 @@ interface BadgeProps {
 }
 
 export default function Badge({ children, variant = "default", value, className = "" }: BadgeProps) {
-  let colorClasses = "border-cyan-DEFAULT/18 text-text-muted bg-bg-elevated/80";
+  let colorClasses = "text-text-muted border-bg-border bg-bg-elevated";
 
   if (variant === "difficulty" && value) {
     colorClasses = DIFFICULTY_COLORS[value] || colorClasses;
   } else if (variant === "style" && value) {
     colorClasses = STYLE_COLORS[value] || colorClasses;
   } else if (variant === "outline") {
-    colorClasses = "border-white/10 text-text-muted bg-bg-surface/70";
+    colorClasses = "text-text-muted border-bg-border bg-bg-surface";
   }
 
   return (
     <span
       className={`
-        hud-chip inline-flex items-center rounded-full border px-2.5 py-1 text-[10px] font-mono font-semibold uppercase tracking-[0.22em]
-        shadow-[0_0_0_1px_rgba(255,255,255,0.02)_inset]
+        hud-chip inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-mono font-medium
+        uppercase tracking-[0.22em]
         ${colorClasses} ${className}
       `}
     >
