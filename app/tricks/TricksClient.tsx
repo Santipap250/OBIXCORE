@@ -92,18 +92,19 @@ export default function TricksClient() {
             ไม่พบท่าในระดับนี้
           </p>
         )}
-        {filtered.map((t) => {
+        {filtered.map((t, i) => {
           const isSelected = selected?.id === t.id;
           return (
             <button
               key={t.id}
               onClick={() => selectTrick(t)}
               aria-pressed={isSelected}
-              className={`w-full rounded-xl border p-4 text-left transition-all active:scale-[0.99] ${
+              className={`animate-slide-up w-full rounded-xl border p-4 text-left transition-all active:scale-[0.99] ${
                 isSelected
                   ? "border-orange-DEFAULT/60 bg-orange-muted/20"
                   : "border-bg-border bg-bg-surface hover:bg-bg-elevated"
               }`}
+              style={{ animationDelay: `${Math.min(i, 10) * 40}ms`, animationFillMode: "backwards" }}
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0 flex-1">
