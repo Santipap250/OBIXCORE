@@ -13,13 +13,13 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: "/changelog",
     type: "website",
-    images: [{ url: "/og-image.svg", width: 1200, height: 630, alt: "OBIXCORE Changelog" }],
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "OBIXCORE Changelog" }],
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: ["/og-image.svg"],
+    images: ["/og-image.jpg"],
   },
 };
 
