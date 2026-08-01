@@ -148,7 +148,7 @@ export default function PresetsClient() {
         </div>
       ) : (
         <div className="space-y-3">
-          {filtered.map((preset) => {
+          {filtered.map((preset, i) => {
             const isOpen = expanded === preset.id;
             const isHighlighted = highlightId === preset.id;
             const styleConf = STYLE_META[preset.style];
@@ -159,9 +159,10 @@ export default function PresetsClient() {
               <div
                 key={preset.id}
                 ref={isHighlighted ? highlightedRef : undefined}
-                className={`rounded-xl border overflow-hidden transition-all ${
+                className={`animate-slide-up rounded-xl border overflow-hidden transition-all ${
                   isHighlighted ? "border-green-DEFAULT ring-1 ring-green-DEFAULT/50" : isOpen ? "border-purple-DEFAULT/40" : "border-bg-border"
                 }`}
+                style={{ animationDelay: `${Math.min(i, 10) * 40}ms`, animationFillMode: "backwards" }}
               >
                 {/* Card header — 1-glance summary + quick actions */}
                 <div className="w-full text-left p-4 bg-bg-surface hover:bg-bg-elevated transition-colors">
