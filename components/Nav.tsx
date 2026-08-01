@@ -281,7 +281,7 @@ export default function Nav() {
       </nav>
 
       <nav className="md:hidden fixed bottom-3 left-3 right-3 z-50 hud-card px-2 py-2">
-        <div className="flex items-stretch gap-1 overflow-x-auto">
+        <div className="flex items-stretch gap-1 overflow-x-auto scrollbar-none">
           {[...navItems, {
             href: "/support",
             label: "Support",
