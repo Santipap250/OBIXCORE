@@ -97,8 +97,12 @@ export default function CompatibilityClient() {
             ไม่พบผลลัพธ์ที่ตรงกับคำค้นหา
           </p>
         )}
-        {filtered.map((f) => (
-          <div key={f.id} className="rounded-xl border border-bg-border bg-bg-surface p-4">
+        {filtered.map((f, i) => (
+          <div
+            key={f.id}
+            className="animate-slide-up rounded-xl border border-bg-border bg-bg-surface p-4"
+            style={{ animationDelay: `${Math.min(i, 10) * 40}ms`, animationFillMode: "backwards" }}
+          >
             <div className="flex items-start justify-between gap-2">
               <p className="min-w-0 flex-1 break-words font-sarabun text-sm font-semibold text-text">{f.title}</p>
               <Badge variant="outline">{f.category}</Badge>
