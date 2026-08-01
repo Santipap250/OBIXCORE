@@ -293,6 +293,7 @@ pre {
   .animate-float-slow,
   .animate-float-slower,
   .animate-pulse-green,
+  .animate-ping,
   .animate-glow-pulse {
     animation: none !important;
   }
