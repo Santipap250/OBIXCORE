@@ -17,11 +17,7 @@ html {
 }
 
 body {
-  background:
-    radial-gradient(circle at top left, rgba(34, 211, 238, 0.16), transparent 26%),
-    radial-gradient(circle at 82% 18%, rgba(99, 179, 255, 0.14), transparent 22%),
-    radial-gradient(circle at 20% 82%, rgba(180, 145, 255, 0.10), transparent 24%),
-    linear-gradient(180deg, #050814 0%, #070b16 50%, #050814 100%);
+  background-color: #060912;
   color: #edf4ff;
   font-family: var(--font-sarabun), 'Sarabun', sans-serif;
   min-height: 100vh;
@@ -164,12 +160,11 @@ html {
   position: relative;
   overflow: hidden;
   border-radius: 1.5rem;
-  border: 1px solid rgba(54, 80, 125, 0.92);
+  border: 1px solid rgba(36, 49, 75, 0.92);
   background:
-    linear-gradient(180deg, rgba(10, 16, 32, 0.98), rgba(6, 9, 18, 0.94)),
-    radial-gradient(circle at top left, rgba(34,211,238,0.12), transparent 28%),
-    radial-gradient(circle at top right, rgba(99,179,255,0.10), transparent 26%),
-    radial-gradient(circle at 50% 100%, rgba(180,145,255,0.06), transparent 28%);
+    linear-gradient(180deg, rgba(11, 17, 32, 0.97), rgba(6, 9, 18, 0.92)),
+    radial-gradient(circle at top left, rgba(70,240,184,0.08), transparent 28%),
+    radial-gradient(circle at top right, rgba(99,179,255,0.07), transparent 26%);
   box-shadow:
     0 12px 36px rgba(0, 0, 0, 0.28),
     inset 0 1px 0 rgba(255, 255, 255, 0.02);
@@ -182,9 +177,9 @@ html {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(135deg, rgba(34, 211, 238, 0.08), transparent 34%),
-    linear-gradient(225deg, rgba(99, 179, 255, 0.07), transparent 40%),
-    linear-gradient(315deg, rgba(180, 145, 255, 0.06), transparent 34%);
+    linear-gradient(135deg, rgba(0, 232, 122, 0.06), transparent 34%),
+    linear-gradient(225deg, rgba(0, 170, 255, 0.05), transparent 40%),
+    linear-gradient(315deg, rgba(176, 96, 255, 0.04), transparent 34%);
   opacity: 0.7;
   pointer-events: none;
 }
@@ -193,7 +188,7 @@ html {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
   transform: translateX(-120%);
   animation: shimmerSweep 10s linear infinite;
   pointer-events: none;
@@ -211,8 +206,8 @@ html {
 
 .hud-chip {
   border-radius: 9999px;
-  border: 1px solid rgba(54, 80, 125, 0.80);
-  background: linear-gradient(180deg, rgba(12, 20, 38, 0.96), rgba(8, 12, 22, 0.90));
+  border: 1px solid rgba(36, 49, 75, 0.95);
+  background: rgba(17, 26, 46, 0.88);
   backdrop-filter: blur(12px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
   contain: paint;
@@ -222,11 +217,8 @@ html {
   position: relative;
   overflow: hidden;
   border-radius: 1.25rem;
-  border: 1px solid rgba(54, 80, 125, 0.82);
-  background:
-    linear-gradient(180deg, rgba(10, 16, 32, 0.97), rgba(8, 12, 22, 0.91)),
-    radial-gradient(circle at top left, rgba(34,211,238,0.06), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(180,145,255,0.05), transparent 30%);
+  border: 1px solid rgba(36, 49, 75, 0.95);
+  background: linear-gradient(180deg, rgba(15, 19, 24, 0.96), rgba(10, 12, 16, 0.90));
   box-shadow: 0 16px 42px rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(12px);
   contain: paint;
@@ -234,18 +226,18 @@ html {
 
 .hud-accent-line {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(34,211,238,0.80), rgba(99,179,255,0.72), rgba(180,145,255,0.60), transparent);
+  background: linear-gradient(90deg, transparent, rgba(0,232,122,0.75), rgba(0,170,255,0.65), rgba(176,96,255,0.55), transparent);
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, #22d3ee, #63b3ff 34%, #b491ff 70%, #f59e0b);
+  background: linear-gradient(90deg, #46f0b8, #7de6ff 35%, #b491ff 68%, #ffd166);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .color-strip {
-  background: linear-gradient(90deg, #22d3ee, #63b3ff 33%, #b491ff 66%, #f59e0b);
+  background: linear-gradient(90deg, #46f0b8, #63b3ff 33%, #b491ff 66%, #ffd166);
 }
 
 .page-shell {
@@ -263,51 +255,15 @@ html {
 .section-title__line {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(34,211,238,0.45), rgba(99,179,255,0.45), rgba(180,145,255,0.35), rgba(255,255,255,0.02));
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(0,232,122,0.45), rgba(0,170,255,0.45), rgba(176,96,255,0.35), rgba(255,255,255,0.02));
 }
 
 /* Glow utilities */
-.glow-green { box-shadow: 0 0 20px rgba(34,211,238,0.22); }
-.glow-amber { box-shadow: 0 0 20px rgba(245,158,11,0.22); }
-.glow-blue  { box-shadow: 0 0 20px rgba(99,179,255,0.24); }
+.glow-green { box-shadow: 0 0 20px rgba(0,232,122,0.2); }
+.glow-amber { box-shadow: 0 0 20px rgba(255,187,0,0.2); }
+.glow-blue  { box-shadow: 0 0 20px rgba(0,170,255,0.2); }
 
-.border-neon-green { border-color: #22d3ee; box-shadow: 0 0 12px rgba(34,211,238,0.32); }
-
-
-/* Blue-cyan emphasis utilities for the redesigned homepage */
-.glow-cyan { box-shadow: 0 0 24px rgba(34,211,238,0.22); }
-.glow-violet { box-shadow: 0 0 24px rgba(180,145,255,0.20); }
-
-.border-neon-cyan { border-color: #22d3ee; box-shadow: 0 0 10px rgba(34,211,238,0.25); }
-
-.hero-sheen {
-  position: relative;
-}
-.hero-sheen::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.10) 46%, transparent 62%);
-  transform: translateX(-120%);
-  animation: shimmerSweep 7s linear infinite;
-  pointer-events: none;
-  opacity: 0.55;
-}
-
-.btn-neo-blue {
-  background: linear-gradient(135deg, rgba(34,211,238,0.20), rgba(99,179,255,0.16), rgba(180,145,255,0.12));
-  border: 1px solid rgba(125,230,255,0.24);
-  box-shadow:
-    0 0 0 1px rgba(34,211,238,0.10) inset,
-    0 16px 36px rgba(0,0,0,0.30),
-    0 0 32px rgba(34,211,238,0.18);
-}
-.btn-neo-blue:hover {
-  box-shadow:
-    0 0 0 1px rgba(34,211,238,0.18) inset,
-    0 20px 46px rgba(0,0,0,0.36),
-    0 0 40px rgba(34,211,238,0.28);
-}
+.border-neon-green { border-color: #46f0b8; box-shadow: 0 0 8px rgba(0,232,122,0.3); }
 
 @layer utilities {
   .font-orbitron { font-family: var(--font-orbitron), sans-serif; }
@@ -346,10 +302,6 @@ pre {
   .hud-panel,
   .hud-chip {
     backdrop-filter: none;
-  }
-
-  .hero-sheen::after {
-    animation: none !important;
   }
 
   .hud-card::after {

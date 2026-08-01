@@ -24,7 +24,7 @@ const sarabun = Sarabun({
   display: "swap",
 });
 
-const SITE_DESCRIPTION = "OBIXCORE เครื่องมือจูนโดรน FPV แบบครบวงจร: Tuning Wizard, Problem Solver, Calculator, Preset Library และ 3D Visualizer";
+const SITE_DESCRIPTION = "เครื่องมือจูนโดรน FPV ครบครัน Tuning Wizard, Problem Solver, Calculator และ Preset Library";
 
 // Resolves relative OG/Twitter image paths (e.g. "/og-image.jpg") into
 // absolute URLs. Set NEXT_PUBLIC_SITE_URL in your Render environment to
@@ -98,7 +98,7 @@ const structuredData = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#071425",
+  themeColor: "#050814",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
