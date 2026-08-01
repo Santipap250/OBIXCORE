@@ -94,6 +94,20 @@ html {
   mix-blend-mode: screen;
 }
 
+/* Subtle hexagon texture — echoes the FPV/HUD circuit aesthetic without
+   competing with foreground content. Kept very low-opacity on purpose. */
+.hud-hex {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 0 L56 16 L56 49 L28 65 L0 49 L0 16 Z' fill='none' stroke='rgba(125,230,255,0.05)' stroke-width='1'/%3E%3Cpath d='M28 33 L56 49 L56 82 L28 98 L0 82 L0 49 Z' fill='none' stroke='rgba(125,230,255,0.05)' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 56px 98px;
+  opacity: 0.5;
+}
+
+/* Radial vignette — darkens the far edges slightly so content reads with
+   more depth/focus instead of a flat wash of color edge-to-edge. */
+.hud-vignette {
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, transparent 55%, rgba(5,8,20,0.55) 100%);
+}
+
 .scanline-overlay {
   background: linear-gradient(
     180deg,
@@ -268,6 +282,7 @@ pre {
 
   .bg-grid,
   .hud-noise,
+  .hud-hex,
   .scanline-overlay {
     opacity: 0.035;
   }

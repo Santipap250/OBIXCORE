@@ -125,9 +125,11 @@ export default function RootLayout({
       </head>
       <body className="relative isolate min-h-screen overflow-x-hidden bg-bg font-sarabun text-text antialiased">
         <div className="pointer-events-none fixed inset-0 -z-30 bg-[radial-gradient(circle_at_top_left,_rgba(70,240,184,0.18),_transparent_28%),radial-gradient(circle_at_82%_16%,_rgba(99,179,255,0.14),_transparent_22%),radial-gradient(circle_at_16%_78%,_rgba(180,145,255,0.16),_transparent_24%),radial-gradient(circle_at_78%_82%,_rgba(255,209,102,0.10),_transparent_20%),linear-gradient(180deg,#050814_0%,#060912_44%,#050814_100%)]" />
+        <div className="pointer-events-none fixed inset-0 -z-[25] hud-hex" />
         <div className="pointer-events-none fixed inset-0 -z-20 bg-grid opacity-35" />
         <div className="pointer-events-none fixed inset-0 -z-10 hud-noise" />
         <div className="pointer-events-none fixed inset-0 -z-10 scanline-overlay" />
+        <div className="pointer-events-none fixed inset-0 -z-10 hud-vignette" />
 
         <div className="pointer-events-none fixed -top-28 -left-24 h-72 w-72 rounded-full bg-cyan-DEFAULT/15 blur-3xl animate-float-slow" />
         <div className="pointer-events-none fixed top-20 -right-24 h-80 w-80 rounded-full bg-blue-DEFAULT/14 blur-3xl animate-float-slower" />
