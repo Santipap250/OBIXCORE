@@ -22,13 +22,13 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: "/blackbox",
     type: "website",
-    images: [{ url: "/og-image.svg", width: 1200, height: 630, alt: "OBIXCORE Blackbox / Step-Response Reader" }],
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "OBIXCORE Blackbox / Step-Response Reader" }],
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: ["/og-image.svg"],
+    images: ["/og-image.jpg"],
   },
 };
 
