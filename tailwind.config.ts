@@ -55,6 +55,11 @@ const config: Config = {
           dim: "#d74bb7",
           muted: "#44133a",
         },
+        lime: {
+          DEFAULT: "#c6f24a",
+          dim: "#9fce2e",
+          muted: "#2e3a0f",
+        },
         text: {
           DEFAULT: "#edf4ff",
           muted: "#94a5bc",
