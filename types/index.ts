@@ -209,3 +209,18 @@ export interface CalculatorResult {
   batteryRating: "sufficient" | "marginal" | "insufficient";
   warnings: string[];
 }
+
+export type PartCategory = "motor" | "prop" | "stack" | "battery" | "vtx";
+
+/** A reference fact about a hardware standard (mounting pattern, connector
+ * type, etc.) — general hobbyist-knowledge reference, not a guarantee.
+ * Always double-check exact specs against the manufacturer before buying. */
+export interface CompatFact {
+  id: string;
+  category: PartCategory;
+  title: string;
+  appliesTo: string;
+  detail: string;
+  recommendedClasses: SetupClass[];
+  tags: string[];
+}
