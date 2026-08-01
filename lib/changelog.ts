@@ -16,6 +16,17 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "v0.7.0",
+    date: "2026-08-01",
+    title: "เปิดตัว Parts Compatibility",
+    summary:
+      "โมดูลใหม่ — อ้างอิงมาตรฐาน mounting pattern, ขั้วแบต, และขั้วเสา VTX ของชิ้นส่วนโดรน FPV พร้อมค้นหาและกรองตามประเภท",
+    changes: [
+      { kind: "new", text: "Parts Compatibility — ข้อมูลอ้างอิง 12 รายการ ครอบคลุมมอเตอร์, ใบพัด, FC/ESC stack, ขั้วแบต, และขั้วเสา VTX พร้อมระบุว่าเหมาะกับโดรนคลาสไหน" },
+      { kind: "new", text: "ค้นหาและกรองตามประเภทชิ้นส่วนได้ (มอเตอร์/ใบพัด/FC-ESC/แบตเตอรี่/VTX)" },
+    ],
+  },
+  {
     version: "v0.6.0",
     date: "2026-07-27",
     title: "เปิดตัว Trick Library",
