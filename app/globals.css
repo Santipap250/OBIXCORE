@@ -145,6 +145,34 @@ html {
   background: radial-gradient(ellipse 80% 60% at 50% 0%, transparent 55%, rgba(5,8,20,0.55) 100%);
 }
 
+/* Shimmer sweep — a soft diagonal light streak that sweeps across on
+   hover. Reserved for primary CTAs/badges only (used sparingly on
+   purpose — this is a premium accent, not a background loop). */
+@keyframes shimmerSweep {
+  0% { transform: translateX(-160%) skewX(-20deg); }
+  100% { transform: translateX(260%) skewX(-20deg); }
+}
+.shimmer-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: translateX(-160%) skewX(-20deg);
+  pointer-events: none;
+}
+.shimmer-sweep:hover::after {
+  animation: shimmerSweep 0.9s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .shimmer-sweep::after { display: none; }
+}
+
 .scanline-overlay {
   background: linear-gradient(
     180deg,

@@ -310,6 +310,7 @@ export default function HomePage() {
         <div className="absolute inset-x-0 top-0 h-1 color-strip" />
         <div className="absolute -right-12 top-8 h-40 w-40 rounded-full bg-blue-DEFAULT/10 blur-3xl" />
         <div className="absolute -left-14 bottom-6 h-44 w-44 rounded-full bg-pink-DEFAULT/10 blur-3xl" />
+        <div className="absolute left-1/2 top-1/3 h-56 w-56 -translate-x-1/2 rounded-full bg-green-DEFAULT/8 blur-3xl" />
 
         <div className="relative space-y-6 text-center">
           <div className="mx-auto w-full max-w-[640px]">
@@ -346,7 +347,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-3xl space-y-2">
             <Link
               href="/wizard"
-              className="group flex items-center justify-between rounded-2xl border border-green-DEFAULT bg-gradient-to-r from-green-DEFAULT via-[#8ef0c8] to-cyan-DEFAULT px-4 py-4 text-left shadow-[0_0_24px_rgba(70,240,184,0.35)] transition-all hover:shadow-[0_0_34px_rgba(70,240,184,0.5)] active:scale-[0.99]"
+              className="shimmer-sweep group flex items-center justify-between rounded-2xl border border-green-DEFAULT bg-gradient-to-r from-green-DEFAULT via-[#8ef0c8] to-cyan-DEFAULT px-4 py-4 text-left shadow-[0_2px_4px_rgba(0,0,0,0.3),0_0_28px_rgba(70,240,184,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(0,0,0,0.35),0_0_40px_rgba(70,240,184,0.5)] active:translate-y-0 active:scale-[0.99]"
             >
               <div className="flex items-center gap-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-bg-DEFAULT text-green-DEFAULT">
@@ -372,7 +373,7 @@ export default function HomePage() {
 
             <Link
               href="/problems"
-              className="group flex items-center justify-between rounded-2xl border border-purple-DEFAULT/30 bg-purple-muted/10 px-4 py-3.5 text-left transition-all hover:border-purple-DEFAULT/60 active:scale-[0.99]"
+              className="shimmer-sweep group flex items-center justify-between rounded-2xl border border-purple-DEFAULT/30 bg-purple-muted/10 px-4 py-3.5 text-left shadow-[0_1px_3px_rgba(0,0,0,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:border-purple-DEFAULT/60 hover:shadow-[0_6px_16px_rgba(0,0,0,0.25),0_0_20px_rgba(180,145,255,0.15)] active:translate-y-0 active:scale-[0.99]"
             >
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-purple-DEFAULT/40 text-purple-DEFAULT">
