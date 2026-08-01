@@ -280,7 +280,10 @@ export default function Nav() {
         </Link>
       </nav>
 
-      <nav className="md:hidden fixed bottom-3 left-3 right-3 z-50 hud-card px-2 py-2">
+      <nav
+        className="md:hidden fixed left-3 right-3 z-50 hud-card px-2 py-2"
+        style={{ bottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+      >
         <div className="flex items-stretch gap-1 overflow-x-auto scrollbar-none">
           {[...navItems, {
             href: "/support",
