@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 const HOME_TITLE = "OBIXCORE — FPV Drone Tuning Platform | Betaflight PID, Preset, Calculator";
 const HOME_DESCRIPTION =
-  "OBIXCORE คือแพลตฟอร์มจูนโดรน FPV แบบครบวงจร: Tuning Wizard, ConfigDoctor, Problem Solver, Calculator, Preset Library และ 3D Build Visualizer — ใช้งานฟรีและออกแบบมาเพื่อมือถือก่อน";
+  "เครื่องมือจูนโดรน FPV ครบวงจร: Tuning Wizard คำนวณค่า PID Betaflight อัตโนมัติ, Problem Solver แก้ปัญหาการบิน, Calculator คำนวณ thrust/flight time, Preset Library และ 3D Build Visualizer — ใช้งานฟรีทั้งหมด";
 
 export const metadata: Metadata = {
   title: HOME_TITLE,
@@ -46,9 +46,7 @@ const tools = [
     badge: "แนะนำ",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 18c1-6 4-11 8-15 4 4 7 9 8 15-2.5-1.5-5.3-2-8-2s-5.5.5-8 2Z" />
-        <path d="M9 6l.6 1.6M14.4 7.6L15 6" />
-        <circle cx="12" cy="4" r="1" />
+        <path d="M4 18c1-6 4-11 8-15 4 4 7 9 8 15-2.5-1.5-5.3-2-8-2s-5.5.5-8 2Z"/><path d="M9 6l.6 1.6M14.4 7.6L15 6"/><circle cx="12" cy="4" r="1"/>
       </svg>
     ),
   },
@@ -56,14 +54,12 @@ const tools = [
     href: "/diagnose",
     title: "ConfigDoctor",
     titleTh: "วิเคราะห์ปัญหา Build โดรน",
-    description: "Health / Safety / Efficiency / Performance / Reliability Score พร้อม warning และคำแนะนำเรียงลำดับความสำคัญ",
+    description: "Health/Safety/Efficiency/Performance/Reliability Score พร้อม warning และคำแนะนำเรียงลำดับความสำคัญ",
     accentColor: "red" as const,
     badge: "NEW",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="10.5" cy="10.5" r="6.5" />
-        <path d="M6 10.5h2l1.2-2.5 1.6 4 1.2-1.5h2" />
-        <line x1="15.2" y1="15.2" x2="20" y2="20" />
+        <circle cx="10.5" cy="10.5" r="6.5"/><path d="M6 10.5h2l1.2-2.5 1.6 4 1.2-1.5h2"/><line x1="15.2" y1="15.2" x2="20" y2="20"/>
       </svg>
     ),
   },
@@ -75,9 +71,8 @@ const tools = [
     accentColor: "amber" as const,
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-        <line x1="12" y1="9" x2="12" y2="13" />
-        <line x1="12" y1="17" x2="12.01" y2="17" />
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
       </svg>
     ),
   },
@@ -89,14 +84,7 @@ const tools = [
     accentColor: "blue" as const,
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="4" y="2" width="16" height="20" rx="2" />
-        <line x1="8" y1="6" x2="16" y2="6" />
-        <circle cx="8" cy="11" r="0.9" fill="currentColor" stroke="none" />
-        <circle cx="12" cy="11" r="0.9" fill="currentColor" stroke="none" />
-        <circle cx="16" cy="11" r="0.9" fill="currentColor" stroke="none" />
-        <circle cx="8" cy="15" r="0.9" fill="currentColor" stroke="none" />
-        <circle cx="12" cy="15" r="0.9" fill="currentColor" stroke="none" />
-        <circle cx="16" cy="15" r="0.9" fill="currentColor" stroke="none" />
+        <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><circle cx="8" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="12" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="16" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="8" cy="15" r="0.9" fill="currentColor" stroke="none"/><circle cx="12" cy="15" r="0.9" fill="currentColor" stroke="none"/><circle cx="16" cy="15" r="0.9" fill="currentColor" stroke="none"/>
       </svg>
     ),
   },
@@ -108,9 +96,7 @@ const tools = [
     accentColor: "purple" as const,
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <polyline points="14 2 14 8 20 8" />
-        <path d="M12 12.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1.1-2 1.1.4-2.2-1.6-1.5 2.2-.3z" />
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 12.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1.1-2 1.1.4-2.2-1.6-1.5 2.2-.3z"/>
       </svg>
     ),
   },
@@ -118,12 +104,11 @@ const tools = [
     href: "/visualizer",
     title: "3D Build Visualizer",
     titleTh: "ดู Build โดรน 3D",
-    description: "Preview โดรน FPV แบบ interactive พร้อมตรวจ compatibility ของ frame / prop / motor / battery",
+    description: "Preview โดรน FPV แบบ interactive พร้อมตรวจ compatibility ของ frame/prop/motor/battery",
     accentColor: "cyan" as const,
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3Z" />
-        <path d="M12 3v9M12 12l8-4.5M12 12l-8-4.5M12 12v9" />
+        <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="M12 3v9M12 12l8-4.5M12 12l-8-4.5M12 12v9"/>
       </svg>
     ),
   },
@@ -131,7 +116,7 @@ const tools = [
     href: "/blackbox",
     title: "Blackbox / Step-Response",
     titleTh: "วิเคราะห์การบินแบบไม่ต้องมี Log",
-    description: "ตอบคำถามว่าโดรนคุณรู้สึกยังไงตอนบิน แล้วรับคำแนะนำ PID / filter delta พร้อมคำสั่ง CLI",
+    description: "ตอบคำถามว่าโดรนคุณรู้สึกยังไงตอนบิน แล้วรับคำแนะนำ PID/filter delta พร้อมคำสั่ง CLI",
     accentColor: "pink" as const,
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -163,9 +148,7 @@ const tools = [
     badge: "NEW",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 4c4 0 6 2 8 6 2-4 4-6 8-6" />
-        <path d="M4 20c4 0 6-2 8-6 2 4 4 6 8 6" />
-        <circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none" />
+        <path d="M4 4c4 0 6 2 8 6 2-4 4-6 8-6"/><path d="M4 20c4 0 6-2 8-6 2 4 4 6 8 6"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>
       </svg>
     ),
   },
@@ -178,7 +161,7 @@ const tools = [
     badge: "NEW",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14.7 6.3a3 3 0 0 0-4.24 4.24l-6.36 6.36a1.5 1.5 0 0 0 2.12 2.12l6.36-6.36a3 3 0 0 0 4.24-4.24l-2.12 2.12-2.12-2.12z" />
+        <path d="M14.7 6.3a3 3 0 0 0-4.24 4.24l-6.36 6.36a1.5 1.5 0 0 0 2.12 2.12l6.36-6.36a3 3 0 0 0 4.24-4.24l-2.12 2.12-2.12-2.12z"/>
       </svg>
     ),
   },
@@ -191,10 +174,10 @@ const featurePills = [
     accent: "green" as const,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="1" />
-        <ellipse cx="12" cy="12" rx="10" ry="4.5" />
-        <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(60 12 12)" />
-        <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(120 12 12)" />
+        <circle cx="12" cy="12" r="1"/>
+        <ellipse cx="12" cy="12" rx="10" ry="4.5"/>
+        <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(60 12 12)"/>
+        <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(120 12 12)"/>
       </svg>
     ),
   },
@@ -204,9 +187,9 @@ const featurePills = [
     accent: "blue" as const,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2 3 7l9 5 9-5-9-5Z" />
-        <path d="M3 12l9 5 9-5" />
-        <path d="M3 17l9 5 9-5" />
+        <path d="M12 2 3 7l9 5 9-5-9-5Z"/>
+        <path d="M3 12l9 5 9-5"/>
+        <path d="M3 17l9 5 9-5"/>
       </svg>
     ),
   },
@@ -216,8 +199,8 @@ const featurePills = [
     accent: "purple" as const,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="4 17 10 11 4 5" />
-        <line x1="12" y1="19" x2="20" y2="19" />
+        <polyline points="4 17 10 11 4 5"/>
+        <line x1="12" y1="19" x2="20" y2="19"/>
       </svg>
     ),
   },
@@ -227,8 +210,8 @@ const featurePills = [
     accent: "amber" as const,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M7 11l3 3 7-7" />
-        <circle cx="12" cy="12" r="10" />
+        <path d="M7 11l3 3 7-7"/>
+        <circle cx="12" cy="12" r="10"/>
       </svg>
     ),
   },
@@ -241,10 +224,8 @@ const quickStats = [
     color: "text-purple-DEFAULT",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="7" height="7" rx="1.5" />
-        <rect x="14" y="3" width="7" height="7" rx="1.5" />
-        <rect x="3" y="14" width="7" height="7" rx="1.5" />
-        <rect x="14" y="14" width="7" height="7" rx="1.5" />
+        <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
       </svg>
     ),
   },
@@ -254,8 +235,8 @@ const quickStats = [
     color: "text-amber-DEFAULT",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <polyline points="14 2 14 8 20 8" />
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
       </svg>
     ),
   },
@@ -265,9 +246,7 @@ const quickStats = [
     color: "text-blue-DEFAULT",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2 3 7l9 5 9-5-9-5Z" />
-        <path d="M3 12l9 5 9-5" />
-        <path d="M3 17l9 5 9-5" />
+        <path d="M12 2 3 7l9 5 9-5-9-5Z"/><path d="M3 12l9 5 9-5"/><path d="M3 17l9 5 9-5"/>
       </svg>
     ),
   },
@@ -277,7 +256,7 @@ const quickStats = [
     color: "text-green-DEFAULT",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
       </svg>
     ),
   },
@@ -300,7 +279,7 @@ const flowSteps = [
   {
     step: "02",
     title: "วิเคราะห์",
-    body: "ระบบจัดกลุ่มคลาสโดรนและประเมิน propLoad / inertia จากสเปกจริง",
+    body: "ระบบจัดกลุ่มคลาสโดรนและประเมิน propLoad/inertia จากสเปกจริง",
     accent: "blue" as const,
   },
   {
@@ -324,54 +303,6 @@ const flowAccentClasses = {
   pink: { dot: "bg-pink-DEFAULT", text: "text-pink-DEFAULT", border: "border-pink-DEFAULT/25" },
 };
 
-function SectionHeading({ title, subtitle }: { title: string; subtitle?: string }) {
-  return (
-    <div className="section-title mb-3">
-      <div>
-        <h2 className="font-orbitron text-xs font-bold uppercase tracking-[0.35em] text-text-muted">{title}</h2>
-        {subtitle ? <p className="mt-1 text-[12px] text-text-faint">{subtitle}</p> : null}
-      </div>
-      <div className="section-title__line" />
-    </div>
-  );
-}
-
-function StartTuningWizardButton() {
-  return (
-    <Link
-      href="/wizard"
-      aria-label="Start Tuning Wizard"
-      className="group relative block w-full"
-    >
-      <div className="absolute -inset-[2px] rounded-[30px] bg-[linear-gradient(90deg,#d8ff56_0%,#70ffb5_48%,#56e8ff_100%)] opacity-90 blur-[10px] transition duration-300 group-hover:opacity-100" />
-      <div className="relative flex min-h-[92px] items-center justify-between overflow-hidden rounded-[28px] border border-black/35 bg-[linear-gradient(90deg,#d8ff56_0%,#70ffb5_48%,#56e8ff_100%)] px-4 py-4 shadow-[0_18px_40px_rgba(0,0,0,0.30)] transition duration-300 group-hover:-translate-y-0.5 sm:px-5">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.18),transparent_28%),radial-gradient(circle_at_82%_0%,rgba(255,255,255,0.14),transparent_24%),linear-gradient(180deg,rgba(255,255,255,0.12),transparent_38%)]" />
-        <div className="relative flex min-w-0 items-center gap-4">
-          <div className="flex h-15 w-15 shrink-0 items-center justify-center rounded-[22px] bg-[#111827] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06),0_0_16px_rgba(0,0,0,0.25)] sm:h-16 sm:w-16">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#7CFF89" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M13 2L4 14h7l-1 8 10-14h-7l1-6z" />
-            </svg>
-          </div>
-          <div className="min-w-0 text-left">
-            <div className="font-orbitron text-[11px] font-black uppercase tracking-[0.34em] text-[#071019] sm:text-[12px]">
-              START TUNING
-            </div>
-            <div className="font-orbitron text-[30px] font-black uppercase leading-[0.92] tracking-[0.20em] text-[#071019] sm:text-[34px]">
-              WIZARD
-            </div>
-          </div>
-        </div>
-        <div className="relative flex h-15 w-15 shrink-0 items-center justify-center rounded-full border border-[#071019]/70 text-[#071019] transition-transform duration-300 group-hover:translate-x-1 sm:h-16 sm:w-16">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14" />
-            <path d="M13 5l7 7-7 7" />
-          </svg>
-        </div>
-      </div>
-    </Link>
-  );
-}
-
 export default function HomePage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
@@ -385,16 +316,11 @@ export default function HomePage() {
             <OBIXLogo maxWidth={640} className="mx-auto" />
           </div>
 
-          <div className="mx-auto flex max-w-fit items-center gap-2 rounded-full border border-bg-border bg-bg-surface/60 px-3 py-1.5 text-[11px] text-text-muted">
-            <span className="h-2 w-2 rounded-full bg-green-DEFAULT shadow-[0_0_10px_rgba(0,232,122,0.8)]" />
-            Mobile-first FPV tuning platform
-          </div>
-
-          <h1 className="gradient-text mx-auto max-w-2xl text-2xl font-bold leading-tight md:text-4xl">
+          <h1 className="gradient-text font-orbitron mx-auto max-w-xl text-lg font-bold leading-snug md:text-2xl">
             จูนโดรน FPV จากฟิสิกส์จริง ไม่ใช่การเดา
           </h1>
 
-          <p className="mx-auto max-w-2xl text-[15px] leading-relaxed text-text-muted md:text-base">
+          <p className="mx-auto max-w-2xl text-[15px] leading-relaxed text-text-muted">
             เครื่องมือจูนโดรน FPV ที่ใช้งานได้จริง — ตั้งค่า, วิเคราะห์, คำนวณ และ copy ค่าพร้อมใช้ได้ในที่เดียว
           </p>
 
@@ -418,7 +344,31 @@ export default function HomePage() {
           </div>
 
           <div className="mx-auto max-w-3xl space-y-2">
-            <StartTuningWizardButton />
+            <Link
+              href="/wizard"
+              className="group flex items-center justify-between rounded-2xl border border-green-DEFAULT bg-gradient-to-r from-green-DEFAULT via-[#8ef0c8] to-cyan-DEFAULT px-4 py-4 text-left shadow-[0_0_24px_rgba(70,240,184,0.35)] transition-all hover:shadow-[0_0_34px_rgba(70,240,184,0.5)] active:scale-[0.99]"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-bg-DEFAULT text-green-DEFAULT">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M13 2L4 14h7l-1 8 10-14h-7l1-6z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="font-orbitron text-sm font-bold uppercase tracking-wide text-bg-DEFAULT">
+                    START TUNING
+                  </div>
+                  <div className="font-orbitron text-sm font-bold uppercase tracking-wide text-bg-DEFAULT">
+                    WIZARD
+                  </div>
+                </div>
+              </div>
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-bg-DEFAULT text-bg-DEFAULT transition-transform group-hover:translate-x-1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
+              </span>
+            </Link>
 
             <Link
               href="/problems"
@@ -427,9 +377,8 @@ export default function HomePage() {
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-purple-DEFAULT/40 text-purple-DEFAULT">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-                    <line x1="12" y1="9" x2="12" y2="13" />
-                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
                   </svg>
                 </span>
                 <div className="text-[13px]">
@@ -439,7 +388,7 @@ export default function HomePage() {
               </div>
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-purple-DEFAULT/40 text-purple-DEFAULT transition-transform group-hover:translate-x-1">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M13 5l7 7-7 7" />
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
                 </svg>
               </span>
             </Link>
@@ -458,7 +407,10 @@ export default function HomePage() {
       </section>
 
       <section className="mt-6">
-        <SectionHeading title="How It Works" subtitle="ไหลลื่นตั้งแต่เลือกปัญหาไปจนถึง copy ค่าจูน" />
+        <div className="section-title mb-3">
+          <h2 className="font-orbitron text-xs font-bold uppercase tracking-[0.35em] text-text-muted">How It Works</h2>
+          <div className="section-title__line" />
+        </div>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {flowSteps.map((s, i) => {
             const a = flowAccentClasses[s.accent];
@@ -472,7 +424,7 @@ export default function HomePage() {
                 <p className="mt-1.5 text-[12px] leading-relaxed text-text-muted">{s.body}</p>
                 {i < flowSteps.length - 1 && (
                   <svg className="absolute -right-3 top-1/2 hidden h-4 w-4 -translate-y-1/2 text-text-faint lg:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14M13 5l7 7-7 7" />
+                    <path d="M5 12h14M13 5l7 7-7 7"/>
                   </svg>
                 )}
               </div>
@@ -482,7 +434,10 @@ export default function HomePage() {
       </section>
 
       <section className="mt-6">
-        <SectionHeading title="Core Modules" subtitle="ทางลัดไปยังเครื่องมือหลักของ OBIXCORE" />
+        <div className="section-title mb-3">
+          <h2 className="font-orbitron text-xs font-bold uppercase tracking-[0.35em] text-text-muted">Core Modules</h2>
+          <div className="section-title__line" />
+        </div>
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {tools.map((tool) => (
             <ToolCard key={tool.href} {...tool} />
@@ -490,7 +445,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mt-6">
+      <section className="mt-4">
         <Link
           href="/support"
           className="group flex items-center justify-between gap-3 rounded-2xl border border-bg-border bg-bg-surface/60 px-4 py-3 text-left transition-all hover:border-pink-DEFAULT/40 hover:bg-pink-muted/10 active:scale-[0.99]"
@@ -499,9 +454,7 @@ export default function HomePage() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-pink-DEFAULT">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
             </svg>
-            <span className="text-[13px] text-text-muted">
-              OBIXCORE เป็นเครื่องมือฟรีที่ดูแลโดยนักบินคนเดียว — สนับสนุนโปรเจกต์นี้ได้ที่นี่
-            </span>
+            <span className="text-[13px] text-text-muted">OBIXCORE เป็นเครื่องมือฟรีที่ดูแลโดยนักบินคนเดียว — สนับสนุนโปรเจกต์นี้ได้ที่นี่</span>
           </div>
           <svg className="h-4 w-4 flex-shrink-0 text-text-faint transition-all group-hover:translate-x-1 group-hover:text-pink-DEFAULT" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M9 18l6-6-6-6" />
