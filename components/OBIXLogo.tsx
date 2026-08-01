@@ -13,7 +13,7 @@ interface OBIXLogoProps {
   className?: string;
 }
 
-const LOGO_ASPECT_RATIO = 1536 / 511;
+const LOGO_ASPECT_RATIO = 866 / 288;
 
 export default function OBIXLogo({
   iconOnly = false,
