@@ -152,6 +152,19 @@ const tools = [
       </svg>
     ),
   },
+  {
+    href: "/compatibility",
+    title: "Parts Compatibility",
+    titleTh: "เช็คมาตรฐานชิ้นส่วน",
+    description: "อ้างอิง mounting pattern, ขั้วแบต, และขั้วเสา VTX ที่ใช้กันทั่วไปในวงการ FPV",
+    accentColor: "lime" as const,
+    badge: "NEW",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14.7 6.3a3 3 0 0 0-4.24 4.24l-6.36 6.36a1.5 1.5 0 0 0 2.12 2.12l6.36-6.36a3 3 0 0 0 4.24-4.24l-2.12 2.12-2.12-2.12z"/>
+      </svg>
+    ),
+  },
 ];
 
 const featurePills = [
@@ -206,7 +219,7 @@ const featurePills = [
 
 const quickStats = [
   {
-    value: "9",
+    value: "10",
     label: "Modules",
     color: "text-purple-DEFAULT",
     icon: (
