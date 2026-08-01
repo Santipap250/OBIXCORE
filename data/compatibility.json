@@ -1,0 +1,110 @@
+[
+  {
+    "id": "motor-mount-9x9",
+    "category": "motor",
+    "title": "Motor mount 9×9mm",
+    "appliesTo": "มอเตอร์ขนาดเล็ก 0802-1404",
+    "detail": "รูยึดมอเตอร์ระยะห่าง 9×9mm (บางรุ่น 2 รู บางรุ่น 4 รู) — มาตรฐานของมอเตอร์ไซส์เล็กที่ใช้ในโดรน Tiny Whoop / Toothpick เฟรมกลุ่มนี้จะเจาะรูตามระยะนี้เช่นกัน",
+    "recommendedClasses": ["micro"],
+    "tags": ["motor", "mount", "9x9", "micro", "whoop"]
+  },
+  {
+    "id": "motor-mount-12x12",
+    "category": "motor",
+    "title": "Motor mount 12×12mm",
+    "appliesTo": "มอเตอร์ขนาดกลาง 2203-2306",
+    "detail": "มาตรฐานที่พบมากที่สุดในมอเตอร์ 5 นิ้วทั้ง freestyle และ racing รูยึด 4 รู ระยะ 12×12mm ใช้น็อต M3",
+    "recommendedClasses": ["cinewhoop", "freestyle", "racing"],
+    "tags": ["motor", "mount", "12x12", "5inch"]
+  },
+  {
+    "id": "motor-mount-16x16",
+    "category": "motor",
+    "title": "Motor mount 16×16mm",
+    "appliesTo": "มอเตอร์ขนาดใหญ่ 2806 ขึ้นไป",
+    "detail": "มาตรฐานของมอเตอร์ในโดรน 7 นิ้วขึ้นไปและงาน heavy lift รูยึด 4 รู ระยะ 16×16mm รับแรงบิดสูงกว่าปกติ",
+    "recommendedClasses": ["longrange", "heavylift"],
+    "tags": ["motor", "mount", "16x16", "longrange", "heavylift"]
+  },
+  {
+    "id": "prop-shaft-collet",
+    "category": "prop",
+    "title": "ใบพัดแบบสวมอัด (push-on / pinch-collet)",
+    "appliesTo": "มอเตอร์ไซส์เล็ก 0802-1404",
+    "detail": "ใบพัดสวมเข้ากับแกนมอเตอร์โดยตรงไม่ใช้น็อต เหมาะกับมอเตอร์กำลังต่ำที่แรงเหวี่ยงไม่สูงมาก ต้องเช็คขนาดรูใบพัดให้ตรงกับขนาดแกนมอเตอร์ (เช่น 0.8mm, 1.5mm)",
+    "recommendedClasses": ["micro"],
+    "tags": ["prop", "shaft", "collet", "micro"]
+  },
+  {
+    "id": "prop-shaft-m5-nut",
+    "category": "prop",
+    "title": "ใบพัดแบบขันน็อต M5",
+    "appliesTo": "มอเตอร์ 2203 ขึ้นไป",
+    "detail": "ใบพัดมีบู๊ชกลางแล้วขันด้วยน็อต M5 (บางรุ่นใช้ prop nut แบบล็อกทิศทางการหมุน CW/CCW คนละแบบ) เป็นมาตรฐานหลักของโดรน 5 นิ้วขึ้นไปทั้งหมด",
+    "recommendedClasses": ["cinewhoop", "freestyle", "racing", "longrange", "heavylift"],
+    "tags": ["prop", "shaft", "m5", "nut"]
+  },
+  {
+    "id": "stack-mount-20x20",
+    "category": "stack",
+    "title": "FC/ESC stack 20×20mm",
+    "appliesTo": "เฟรม Toothpick และ Cinewhoop ขนาดเล็ก",
+    "detail": "มาตรฐาน mounting hole รูปสี่เหลี่ยม 20×20mm ของ flight controller และ ESC ขนาดกะทัดรัด ใช้ในบิลด์ที่เน้นน้ำหนักเบา",
+    "recommendedClasses": ["micro", "cinewhoop"],
+    "tags": ["stack", "fc", "esc", "20x20", "mount"]
+  },
+  {
+    "id": "stack-mount-30x30",
+    "category": "stack",
+    "title": "FC/ESC stack 30.5×30.5mm",
+    "appliesTo": "เฟรม 5 นิ้วขึ้นไปส่วนใหญ่",
+    "detail": "มาตรฐาน mounting hole ที่พบมากที่สุดในตลาด FC/ESC ปัจจุบัน ใช้กับเฟรม 5 นิ้วเป็นหลัก มี adapter plate แปลงไป 20×20mm ได้ถ้าอยากผสม stack คนละไซส์",
+    "recommendedClasses": ["freestyle", "racing", "longrange", "heavylift"],
+    "tags": ["stack", "fc", "esc", "30x30", "mount"]
+  },
+  {
+    "id": "battery-xt30",
+    "category": "battery",
+    "title": "หัวแบต XT30",
+    "appliesTo": "แพ็คเล็ก ≲1300mAh 2-4S",
+    "detail": "ขั้วเล็กกว่า XT60 รับกระแสต่อเนื่องได้จำกัดกว่า เหมาะกับบิลด์เบาที่กระแสดึงไม่สูงมาก เช่น Toothpick หรือ 5 นิ้วน้ำหนักเบาพิเศษ",
+    "recommendedClasses": ["micro", "cinewhoop"],
+    "tags": ["battery", "connector", "xt30"]
+  },
+  {
+    "id": "battery-xt60",
+    "category": "battery",
+    "title": "หัวแบต XT60",
+    "appliesTo": "แพ็ค 1300-2200mAh 4-6S",
+    "detail": "ขั้วมาตรฐานที่พบมากที่สุดในโดรน 5 นิ้ว ทั้ง freestyle และ racing รับกระแสต่อเนื่องได้สูงกว่า XT30 พอสำหรับบิลด์ทั่วไป",
+    "recommendedClasses": ["freestyle", "racing"],
+    "tags": ["battery", "connector", "xt60"]
+  },
+  {
+    "id": "battery-xt90",
+    "category": "battery",
+    "title": "หัวแบต XT90",
+    "appliesTo": "แพ็คใหญ่ 3000mAh+ 6S ขึ้นไป หรือกระแสดึงสูง",
+    "detail": "ขั้วใหญ่รับกระแสต่อเนื่องสูงสุดในกลุ่มนี้ ใช้ในบิลด์ที่ดึงกระแสสูงต่อเนื่อง เช่น long range แบตจุมาก หรือ heavy lift ที่ยกน้ำหนักเยอะ",
+    "recommendedClasses": ["longrange", "heavylift"],
+    "tags": ["battery", "connector", "xt90"]
+  },
+  {
+    "id": "vtx-connector-ufl",
+    "category": "vtx",
+    "title": "ขั้วเสา VTX แบบ U.FL / MMCX",
+    "appliesTo": "บิลด์ที่ VTX ฝังในแผง FC stack",
+    "detail": "ขั้วเล็กบอบบางกว่า SMA ใช้ในบิลด์ whoop/micro ที่พื้นที่จำกัด ต้องระวังเรื่องการถอด-ใส่บ่อยๆ เพราะขั้วเปราะกว่า",
+    "recommendedClasses": ["micro", "cinewhoop"],
+    "tags": ["vtx", "connector", "ufl", "mmcx"]
+  },
+  {
+    "id": "vtx-connector-sma",
+    "category": "vtx",
+    "title": "ขั้วเสา VTX แบบ SMA / RP-SMA",
+    "appliesTo": "VTX แยกชิ้น (standalone) ส่วนใหญ่",
+    "detail": "ขั้วแข็งแรงกว่า ถอดเปลี่ยนเสาอากาศได้ง่าย เป็นมาตรฐานของ VTX แยกชิ้นในโดรน 5 นิ้วขึ้นไป — เช็คให้ตรงว่าเป็น SMA หรือ RP-SMA เพราะเกลียวกลับด้านกัน",
+    "recommendedClasses": ["freestyle", "racing", "longrange", "heavylift"],
+    "tags": ["vtx", "connector", "sma", "antenna"]
+  }
+]
