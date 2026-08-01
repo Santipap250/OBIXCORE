@@ -232,7 +232,13 @@ export default function DiagnoseClient() {
             </div>
           )}
 
-          <button onClick={handleDiagnose} className="w-full py-3.5 rounded-xl bg-red-DEFAULT text-bg-DEFAULT font-orbitron font-bold text-sm tracking-wide hover:opacity-90 active:scale-[0.99] transition-all">
+          <button
+            onClick={handleDiagnose}
+            className="group flex w-full items-center justify-center gap-2.5 rounded-xl border border-red-DEFAULT bg-red-DEFAULT py-4 font-orbitron text-sm font-bold tracking-wide text-bg-DEFAULT shadow-[0_0_20px_rgba(255,107,138,0.35)] transition-all hover:opacity-90 hover:shadow-[0_0_28px_rgba(255,107,138,0.5)] active:scale-[0.98]"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
             วิเคราะห์ Build (Diagnose)
           </button>
         </div>
