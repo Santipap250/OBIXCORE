@@ -173,6 +173,19 @@ html {
   .shimmer-sweep::after { display: none; }
 }
 
+/* Kept separate from the (max-width: 768px) block below on purpose — that
+   one is a mobile-perf rule, not an accessibility one, and this stagger is
+   a single brief entrance transition (not a loop), so it stays enabled on
+   mobile where it's most visible. Only true reduced-motion preference
+   should skip it. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-up,
+  .animate-fade-in {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+  }
+}
+
 .scanline-overlay {
   background: linear-gradient(
     180deg,
