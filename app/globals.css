@@ -198,6 +198,24 @@ html {
   animation: scanlineDrift 16s linear infinite;
 }
 
+/* Premium nav shell — gradient-ring glass panel reserved for the main
+   navigation bar (both mobile bottom bar and desktop pill bar). Uses the
+   same green→blue→purple brand gradient already seen on the hero's
+   color-strip, so it reads as "the same brand" rather than a new motif. */
+.nav-shell {
+  position: relative;
+  border-radius: 1.5rem;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(180deg, rgba(12, 18, 34, 0.97), rgba(6, 9, 18, 0.94)) padding-box,
+    linear-gradient(120deg, rgba(70, 240, 184, 0.55), rgba(99, 179, 255, 0.4), rgba(180, 145, 255, 0.5), rgba(70, 240, 184, 0.55)) border-box;
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.35),
+    0 0 26px rgba(70, 240, 184, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px);
+}
+
 .hud-card {
   position: relative;
   overflow: hidden;
@@ -342,7 +360,8 @@ pre {
 
   .hud-card,
   .hud-panel,
-  .hud-chip {
+  .hud-chip,
+  .nav-shell {
     backdrop-filter: none;
   }
 
