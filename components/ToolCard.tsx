@@ -1,5 +1,11 @@
 import Link from "next/link";
 
+/**
+ * The module-directory card used on Home's "Core Modules" grid. This is
+ * the shared "premium tool card" component for the project — icon badge,
+ * glow-on-hover accent per module, optional badge chip. Kept as one file
+ * rather than split further since every module page links back to it.
+ */
 interface ToolCardProps {
   href: string;
   title: string;

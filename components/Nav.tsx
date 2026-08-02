@@ -4,6 +4,13 @@ import { usePathname } from "next/navigation";
 import OBIXLogo from "@/components/OBIXLogo";
 
 /**
+ * This component is the project's "app dock" — a gradient-ring glass pill
+ * bar on desktop (top, floating) and a bottom tab dock on mobile. Both
+ * variants share one navItems list so icons/accents/labels never drift
+ * out of sync between breakpoints.
+ */
+
+/**
  * Line-style icon matching the reference mockup: thin uniform stroke,
  * neutral blue by default, tinted via currentColor when the tab is active
  * (color is applied by the wrapping element, not baked into an image).
