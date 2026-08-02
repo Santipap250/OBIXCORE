@@ -227,7 +227,7 @@ export default function Nav() {
 
   return (
     <>
-      <nav className="hidden md:flex fixed top-4 left-1/2 z-50 w-[min(1120px,calc(100%-1.5rem))] -translate-x-1/2 items-center justify-between rounded-2xl hud-card px-4 py-3">
+      <nav className="hidden md:flex fixed top-4 left-1/2 z-50 w-[min(1120px,calc(100%-1.5rem))] -translate-x-1/2 items-center justify-between rounded-2xl nav-shell px-4 py-3">
         <Link href="/" className="group flex items-center gap-0">
           <OBIXLogo height={38} className="transition-opacity group-hover:opacity-90" />
         </Link>
@@ -281,7 +281,7 @@ export default function Nav() {
       </nav>
 
       <nav
-        className="md:hidden fixed left-3 right-3 z-50 hud-card px-2 py-2"
+        className="md:hidden fixed left-3 right-3 z-50 nav-shell px-2 py-2"
         style={{ bottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
       >
         <div className="flex items-stretch gap-1 overflow-x-auto scrollbar-none">
