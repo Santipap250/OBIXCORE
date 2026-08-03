@@ -1,4 +1,5 @@
 "use client";
+import PageHeader from "@/components/PageHeader";
 import { useState } from "react";
 import { diagnose, type DiagnosisInput, type DiagnosisResult, type CurrentTune, type DiagnosisMetric, type MetricStatus } from "@/lib/diagnosis";
 import { DIAGNOSIS_SEVERITY_META } from "@/lib/utils";
@@ -116,18 +117,12 @@ export default function DiagnoseClient() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
       {/* Header */}
-      <div className="mb-6">
-        <span className="hud-chip inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.28em] text-red-DEFAULT">
-          <span className="h-1.5 w-1.5 rounded-full bg-red-DEFAULT shadow-[0_0_10px_rgba(255,107,138,0.6)]" />
-          ConfigDoctor
-        </span>
-        <h1 className="mt-3 font-orbitron text-2xl font-bold tracking-tight">
-          <span className="gradient-text">วิเคราะห์ปัญหา Build โดรน</span>
-        </h1>
-        <p className="mt-2 text-[13px] leading-relaxed text-text-muted">
-          วิเคราะห์ build โดรนแบบละเอียด — Health/Safety/Efficiency/Performance/Reliability Score พร้อม warning และคำแนะนำเรียงลำดับความสำคัญ
-        </p>
-      </div>
+      <PageHeader
+        accent="red"
+        badge="ConfigDoctor"
+        title="วิเคราะห์ปัญหา Build โดรน"
+        subtitle="วิเคราะห์ build โดรนแบบละเอียด — Health/Safety/Efficiency/Performance/Reliability Score พร้อม warning และคำแนะนำเรียงลำดับความสำคัญ"
+      />
 
       {step === "form" && (
         <div className="space-y-5 animate-fade-in">
