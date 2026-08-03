@@ -1,4 +1,5 @@
 "use client";
+import PageHeader from "@/components/PageHeader";
 import { useMemo, useState } from "react";
 import tricksData from "@/data/tricks.json";
 import type { Trick } from "@/types";
@@ -41,18 +42,12 @@ export default function TricksClient() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
       {/* Header */}
-      <div className="mb-5">
-        <span className="hud-chip inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.28em] text-orange-DEFAULT">
-          <span className="h-1.5 w-1.5 rounded-full bg-orange-DEFAULT shadow-[0_0_10px_rgba(255,150,80,0.6)]" />
-          Trick Library
-        </span>
-        <h1 className="mt-3 font-orbitron text-2xl font-bold tracking-tight">
-          <span className="gradient-text">คลังท่าบิน Freestyle</span>
-        </h1>
-        <p className="mt-2 text-[13px] leading-relaxed text-text-muted">
-          ตั้งแต่ท่าเริ่มต้นถึงขั้นสูง พร้อมขั้นตอน เคล็ดลับ และข้อผิดพลาดที่พบบ่อยของแต่ละท่า
-        </p>
-      </div>
+      <PageHeader
+        accent="orange"
+        badge="Trick Library"
+        title="คลังท่าบิน Freestyle"
+        subtitle="ตั้งแต่ท่าเริ่มต้นถึงขั้นสูง พร้อมขั้นตอน เคล็ดลับ และข้อผิดพลาดที่พบบ่อยของแต่ละท่า"
+      />
 
       {/* Safety note */}
       <div className="mb-4 flex gap-2 rounded-xl border border-amber-DEFAULT/25 bg-amber-muted/10 p-3">
