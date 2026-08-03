@@ -1,4 +1,5 @@
 "use client";
+import PageHeader from "@/components/PageHeader";
 import { useMemo, useState } from "react";
 import {
   estimateHoverCurrentA,
@@ -377,18 +378,12 @@ export default function CalculatorClient() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
       {/* Header */}
-      <div className="mb-5">
-        <span className="hud-chip inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.28em] text-blue-DEFAULT">
-          <span className="h-1.5 w-1.5 rounded-full bg-blue-DEFAULT shadow-[0_0_10px_rgba(99,179,255,0.6)]" />
-          Calculator
-        </span>
-        <h1 className="mt-3 font-orbitron text-2xl font-bold tracking-tight">
-          <span className="gradient-text">คำนวณ Thrust / Flight Time</span>
-        </h1>
-        <p className="mt-2 text-[13px] leading-relaxed text-text-muted">
-          คำนวณ flight time, thrust/weight, และ prop matching
-        </p>
-      </div>
+      <PageHeader
+        accent="blue"
+        badge="Calculator"
+        title="คำนวณ Thrust / Flight Time"
+        subtitle="คำนวณ flight time, thrust/weight, และ prop matching"
+      />
 
       {/* Mode tabs */}
       <div className="flex gap-1.5 mb-6 p-1 bg-bg-elevated rounded-xl border border-bg-border">
