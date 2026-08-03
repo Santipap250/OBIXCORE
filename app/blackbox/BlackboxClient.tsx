@@ -1,4 +1,5 @@
 "use client";
+import PageHeader from "@/components/PageHeader";
 import { useState } from "react";
 import { analyzeStepResponse } from "@/lib/blackbox";
 import type { BlackboxObservations, BlackboxResult, BlackboxFinding } from "@/lib/blackbox";
@@ -115,19 +116,13 @@ export default function BlackboxClient() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
       {/* Header */}
-      <div className="mb-6">
-        <span className="hud-chip inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.28em] text-pink-DEFAULT">
-          <span className="h-1.5 w-1.5 rounded-full bg-pink-DEFAULT shadow-[0_0_10px_rgba(255,95,183,0.6)]" />
-          Blackbox / Step-Response
-        </span>
-        <h1 className="mt-3 font-orbitron text-2xl font-bold tracking-tight">
-          <span className="gradient-text">Step-Response Reader</span>
-        </h1>
-        <p className="mt-2 text-[13px] leading-relaxed text-text-muted">
-          ไม่มี Blackbox log ก็วิเคราะห์ได้ — ตอบคำถามว่าโดรนคุณ &quot;รู้สึก&quot; ยังไงตอนบิน
-          แล้วรับคำแนะนำ PID/filter delta พร้อมคำสั่ง CLI
-        </p>
-      </div>
+      <PageHeader
+        accent="pink"
+        badge="Blackbox / Step-Response"
+        title="Step-Response Reader"
+        subtitle='ไม่มี Blackbox log ก็วิเคราะห์ได้ — ตอบคำถามว่าโดรนคุณ "รู้สึก" ยังไงตอนบิน
+          แล้วรับคำแนะนำ PID/filter delta พร้อมคำสั่ง CLI'
+      />
 
       {step === "form" && (
         <div className="space-y-5">
