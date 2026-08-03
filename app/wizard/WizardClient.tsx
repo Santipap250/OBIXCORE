@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { calculateTuning } from "@/lib/wizard";
 import { recommendPresets } from "@/lib/presetRecommender";
+import PageHeader from "@/components/PageHeader";
 import presetsData from "@/data/presets.json";
 import type { WizardInput, WizardResult, Preset } from "@/types";
 import { CONFIDENCE_META } from "@/lib/utils";
@@ -121,18 +122,12 @@ export default function WizardClient() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
       {/* Header */}
-      <div className="mb-6">
-        <span className="hud-chip inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.28em] text-green-DEFAULT">
-          <span className="h-1.5 w-1.5 rounded-full bg-green-DEFAULT shadow-[0_0_10px_rgba(70,240,184,0.6)]" />
-          Tuning Wizard
-        </span>
-        <h1 className="mt-3 font-orbitron text-2xl font-bold tracking-tight">
-          <span className="gradient-text">ตั้งค่า PID อัตโนมัติ</span>
-        </h1>
-        <p className="mt-2 text-[13px] leading-relaxed text-text-muted">
-          กรอกสเปกโดรน → ได้ค่า PID / Filter / Rates พร้อม CLI command + ความมั่นใจของคำแนะนำ
-        </p>
-      </div>
+      <PageHeader
+        accent="green"
+        badge="Tuning Wizard"
+        title="ตั้งค่า PID อัตโนมัติ"
+        subtitle="กรอกสเปกโดรน → ได้ค่า PID / Filter / Rates พร้อม CLI command + ความมั่นใจของคำแนะนำ"
+      />
 
       {step === "form" && (
         <div className="space-y-5 animate-fade-in">
