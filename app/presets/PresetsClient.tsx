@@ -1,4 +1,5 @@
 "use client";
+import PageHeader from "@/components/PageHeader";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import presetsData from "@/data/presets.json";
@@ -68,18 +69,12 @@ export default function PresetsClient() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
       {/* Header */}
-      <div className="mb-5">
-        <span className="hud-chip inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.28em] text-purple-DEFAULT">
-          <span className="h-1.5 w-1.5 rounded-full bg-purple-DEFAULT shadow-[0_0_10px_rgba(180,145,255,0.6)]" />
-          Preset Library
-        </span>
-        <h1 className="mt-3 font-orbitron text-2xl font-bold tracking-tight">
-          <span className="gradient-text">คลัง Preset พร้อมใช้</span>
-        </h1>
-        <p className="mt-2 text-[13px] leading-relaxed text-text-muted">
-          ค่า PID + Rates + Filters ครบทุกคลาสโดรน — คำนวณจากสูตรเดียวกับ Tuning Wizard กด copy แล้ววางใน Betaflight CLI
-        </p>
-      </div>
+      <PageHeader
+        accent="purple"
+        badge="Preset Library"
+        title="คลัง Preset พร้อมใช้"
+        subtitle="ค่า PID + Rates + Filters ครบทุกคลาสโดรน — คำนวณจากสูตรเดียวกับ Tuning Wizard กด copy แล้ววางใน Betaflight CLI"
+      />
 
       {/* Filters */}
       <div className="space-y-3 mb-5 p-4 rounded-xl bg-bg-surface border border-bg-border">
