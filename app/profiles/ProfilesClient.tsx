@@ -1,4 +1,5 @@
 "use client";
+import PageHeader from "@/components/PageHeader";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { FrameSize, FlightStyle } from "@/lib/droneSpec";
@@ -153,18 +154,12 @@ export default function ProfilesClient() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
       {/* Header */}
-      <div className="mb-6">
-        <span className="hud-chip inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.28em] text-blue-DEFAULT">
-          <span className="h-1.5 w-1.5 rounded-full bg-blue-DEFAULT shadow-[0_0_10px_rgba(99,179,255,0.6)]" />
-          Drone Profiles
-        </span>
-        <h1 className="mt-3 font-orbitron text-2xl font-bold tracking-tight">
-          <span className="gradient-text">จัดการสเปกโดรนของคุณ</span>
-        </h1>
-        <p className="mt-2 text-[13px] leading-relaxed text-text-muted">
-          บันทึกสเปกโดรนแต่ละลำไว้ แล้วโหลดเข้า Wizard หรือ Visualizer ได้ทันทีโดยไม่ต้องกรอกใหม่ทุกครั้ง
-        </p>
-      </div>
+      <PageHeader
+        accent="blue"
+        badge="Drone Profiles"
+        title="จัดการสเปกโดรนของคุณ"
+        subtitle="บันทึกสเปกโดรนแต่ละลำไว้ แล้วโหลดเข้า Wizard หรือ Visualizer ได้ทันทีโดยไม่ต้องกรอกใหม่ทุกครั้ง"
+      />
 
       {!storageOk && (
         <div className="mb-4 rounded-xl border border-amber-DEFAULT/30 bg-amber-muted p-3">
