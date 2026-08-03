@@ -106,7 +106,7 @@ export default function SupportPage() {
 
         <div className="relative mx-auto max-w-2xl space-y-5 text-center">
           <span className="hud-chip mx-auto inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.28em] text-text-muted">
-            <span className="h-1.5 w-1.5 rounded-full bg-green-DEFAULT shadow-[0_0_10px_rgba(0,232,122,0.6)]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-green-DEFAULT shadow-[0_0_10px_rgba(70,240,184,0.6)]" />
             Ground Crew
           </span>
 
