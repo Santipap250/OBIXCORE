@@ -1,4 +1,5 @@
 "use client";
+import PageHeader from "@/components/PageHeader";
 import { useMemo, useState } from "react";
 import problemsData from "@/data/problems.json";
 import type { Problem } from "@/types";
@@ -42,18 +43,12 @@ export default function ProblemsClient() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
       {/* Header */}
-      <div className="mb-5">
-        <span className="hud-chip inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.28em] text-amber-DEFAULT">
-          <span className="h-1.5 w-1.5 rounded-full bg-amber-DEFAULT shadow-[0_0_10px_rgba(255,209,102,0.6)]" />
-          Problem Solver
-        </span>
-        <h1 className="mt-3 font-orbitron text-2xl font-bold tracking-tight">
-          <span className="gradient-text">แก้ปัญหาโดรน</span>
-        </h1>
-        <p className="mt-2 text-[13px] leading-relaxed text-text-muted">
-          เลือกอาการที่เจอ → ได้ขั้นตอนแก้ไขทีละ step
-        </p>
-      </div>
+      <PageHeader
+        accent="amber"
+        badge="Problem Solver"
+        title="แก้ปัญหาโดรน"
+        subtitle="เลือกอาการที่เจอ → ได้ขั้นตอนแก้ไขทีละ step"
+      />
 
       {/* Category filter */}
       <div className="flex gap-2 overflow-x-auto pb-2 mb-4 scrollbar-none">
