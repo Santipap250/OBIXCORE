@@ -28,10 +28,26 @@ export default function MissionHero({
   version,
   moduleCount,
   featurePills,
+  headline = "จูนโดรน FPV จากฟิสิกส์จริง ไม่ใช่การเดา",
+  subheadline = "เครื่องมือจูนโดรน FPV ที่ใช้งานได้จริง — ตั้งค่า, วิเคราะห์, คำนวณ และ copy ค่าพร้อมใช้ได้ในที่เดียว",
+  wizardHref = "/wizard",
+  wizardLabel1 = "START TUNING",
+  wizardLabel2 = "WIZARD",
+  problemsHref = "/problems",
+  problemsPrompt = "เจอปัญหาการบินอยู่?",
+  problemsLabel = "ไปที่ PROBLEM SOLVER",
 }: {
   version: string;
   moduleCount: number;
   featurePills: FeaturePill[];
+  headline?: string;
+  subheadline?: string;
+  wizardHref?: string;
+  wizardLabel1?: string;
+  wizardLabel2?: string;
+  problemsHref?: string;
+  problemsPrompt?: string;
+  problemsLabel?: string;
 }) {
   return (
     <div className="relative space-y-6 text-center">
@@ -42,11 +58,11 @@ export default function MissionHero({
       <StatusCard version={version} moduleCount={moduleCount} />
 
       <h1 className="gradient-text font-orbitron mx-auto max-w-xl text-lg font-bold leading-snug md:text-2xl">
-        จูนโดรน FPV จากฟิสิกส์จริง ไม่ใช่การเดา
+        {headline}
       </h1>
 
       <p className="mx-auto max-w-2xl text-[15px] leading-relaxed text-text-muted">
-        เครื่องมือจูนโดรน FPV ที่ใช้งานได้จริง — ตั้งค่า, วิเคราะห์, คำนวณ และ copy ค่าพร้อมใช้ได้ในที่เดียว
+        {subheadline}
       </p>
 
       <div className="grid grid-cols-2 gap-2">
@@ -70,7 +86,7 @@ export default function MissionHero({
 
       <div className="mx-auto max-w-3xl space-y-2">
         <Link
-          href="/wizard"
+          href={wizardHref}
           className="shimmer-sweep group flex items-center justify-between rounded-2xl border border-green-DEFAULT bg-gradient-to-r from-green-DEFAULT via-[#8ef0c8] to-cyan-DEFAULT px-4 py-4 text-left shadow-[0_2px_4px_rgba(0,0,0,0.3),0_0_28px_rgba(70,240,184,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(0,0,0,0.35),0_0_40px_rgba(70,240,184,0.5)] active:translate-y-0 active:scale-[0.99]"
         >
           <div className="flex items-center gap-3">
@@ -81,10 +97,10 @@ export default function MissionHero({
             </div>
             <div>
               <div className="font-orbitron text-sm font-bold uppercase tracking-wide text-bg-DEFAULT">
-                START TUNING
+                {wizardLabel1}
               </div>
               <div className="font-orbitron text-sm font-bold uppercase tracking-wide text-bg-DEFAULT">
-                WIZARD
+                {wizardLabel2}
               </div>
             </div>
           </div>
@@ -96,7 +112,7 @@ export default function MissionHero({
         </Link>
 
         <Link
-          href="/problems"
+          href={problemsHref}
           className="shimmer-sweep group flex items-center justify-between rounded-2xl border border-purple-DEFAULT/30 bg-purple-muted/10 px-4 py-3.5 text-left shadow-[0_1px_3px_rgba(0,0,0,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:border-purple-DEFAULT/60 hover:shadow-[0_6px_16px_rgba(0,0,0,0.25),0_0_20px_rgba(180,145,255,0.15)] active:translate-y-0 active:scale-[0.99]"
         >
           <div className="flex items-center gap-3">
@@ -107,8 +123,8 @@ export default function MissionHero({
               </svg>
             </span>
             <div className="text-[13px]">
-              <div className="text-text-muted">เจอปัญหาการบินอยู่?</div>
-              <div className="font-orbitron text-[13px] font-bold text-purple-DEFAULT">ไปที่ PROBLEM SOLVER</div>
+              <div className="text-text-muted">{problemsPrompt}</div>
+              <div className="font-orbitron text-[13px] font-bold text-purple-DEFAULT">{problemsLabel}</div>
             </div>
           </div>
           <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-purple-DEFAULT/40 text-purple-DEFAULT transition-transform group-hover:translate-x-1">
