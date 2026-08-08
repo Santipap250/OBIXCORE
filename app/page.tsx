@@ -3,6 +3,7 @@ import Link from "next/link";
 import MissionHero from "@/components/MissionHero";
 import MetricStrip from "@/components/MetricStrip";
 import SectionHeader from "@/components/SectionHeader";
+import LanguageSwitch from "@/components/LanguageSwitch";
 import { CHANGELOG } from "@/lib/changelog";
 import type { Metadata } from "next";
 
@@ -23,7 +24,10 @@ export const metadata: Metadata = {
     "จูนโดรน",
     "ตั้งค่า PID Betaflight",
   ],
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: { "th-TH": "/", "en-US": "/en" },
+  },
   openGraph: {
     title: HOME_TITLE,
     description: HOME_DESCRIPTION,
@@ -304,6 +308,10 @@ export default function HomePage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
+      <div className="mb-4 flex justify-end">
+        <LanguageSwitch enHref="/en" />
+      </div>
+
       <section className="hud-card overflow-hidden rounded-[1.75rem] p-5 md:p-6">
         <div className="absolute inset-x-0 top-0 h-1 color-strip" />
         <div className="absolute -right-12 top-8 h-40 w-40 rounded-full bg-blue-DEFAULT/10 blur-3xl" />
