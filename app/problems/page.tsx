@@ -16,7 +16,10 @@ export const metadata: Metadata = {
     "แก้ปัญหา PID โดรน",
     "drone flying issues",
   ],
-  alternates: { canonical: "/problems" },
+  alternates: {
+    canonical: "/problems",
+    languages: { "th-TH": "/problems", "en-US": "/en/problems" },
+  },
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,

@@ -1,15 +1,15 @@
 "use client";
 import PageHeader from "@/components/PageHeader";
+import LanguageSwitch from "@/components/LanguageSwitch";
 import { useMemo, useState } from "react";
-import problemsData from "@/data/problems.json";
+import problemsDataTh from "@/data/problems.json";
+import problemsDataEn from "@/data/problems.en.json";
 import type { Problem } from "@/types";
 import CopyButton from "@/components/CopyButton";
 import Badge from "@/components/Badge";
 import { SEVERITY_META } from "@/lib/utils";
 
-const problems = problemsData as Problem[];
-
-const CATEGORIES = [
+const CATEGORIES_TH = [
   { value: "all", label: "ทั้งหมด", icon: "🔍" },
   { value: "flight", label: "การบิน", icon: "🚁" },
   { value: "video", label: "วิดีโอ/FPV", icon: "📡" },
@@ -17,14 +17,49 @@ const CATEGORIES = [
   { value: "mechanical", label: "เครื่องกล", icon: "🔧" },
 ] as const;
 
-export default function ProblemsClient() {
+const CATEGORIES_EN = [
+  { value: "all", label: "All", icon: "🔍" },
+  { value: "flight", label: "Flight", icon: "🚁" },
+  { value: "video", label: "Video/FPV", icon: "📡" },
+  { value: "power", label: "Power", icon: "⚡" },
+  { value: "mechanical", label: "Mechanical", icon: "🔧" },
+] as const;
+
+const STRINGS = {
+  th: {
+    badge: "Problem Solver",
+    title: "แก้ปัญหาโดรน",
+    subtitle: "เลือกอาการที่เจอ → ได้ขั้นตอนแก้ไขทีละ step",
+    noResults: "ไม่พบปัญหาในหมวดนี้",
+    stepsCount: (n: number) => `${n} ขั้นตอน`,
+    commonCauses: "สาเหตุที่พบบ่อย",
+    fixSteps: "ขั้นตอนแก้ไข",
+    cliCommand: "CLI Command",
+    categories: CATEGORIES_TH,
+  },
+  en: {
+    badge: "Problem Solver",
+    title: "Fix Flight Issues",
+    subtitle: "Pick the symptom you're seeing → get a step-by-step fix",
+    noResults: "No problems found in this category",
+    stepsCount: (n: number) => `${n} step${n === 1 ? "" : "s"}`,
+    commonCauses: "Common Causes",
+    fixSteps: "Fix Steps",
+    cliCommand: "CLI Command",
+    categories: CATEGORIES_EN,
+  },
+};
+
+export default function ProblemsClient({ locale = "th" }: { locale?: "th" | "en" }) {
+  const t = STRINGS[locale];
+  const problems = (locale === "en" ? problemsDataEn : problemsDataTh) as Problem[];
   const [category, setCategory] = useState<string>("all");
   const [selected, setSelected] = useState<Problem | null>(null);
   const [openSteps, setOpenSteps] = useState<Set<number>>(new Set([0]));
 
   const filtered = useMemo(() => (category === "all"
     ? problems
-    : problems.filter((p) => p.category === category)), [category]);
+    : problems.filter((p) => p.category === category)), [category, problems]);
 
   const selectProblem = (p: Problem) => {
     setSelected(p);
@@ -42,17 +77,21 @@ export default function ProblemsClient() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="mb-4 flex justify-end">
+        <LanguageSwitch enHref="/en/problems" />
+      </div>
+
       {/* Header */}
       <PageHeader
         accent="amber"
-        badge="Problem Solver"
-        title="แก้ปัญหาโดรน"
-        subtitle="เลือกอาการที่เจอ → ได้ขั้นตอนแก้ไขทีละ step"
+        badge={t.badge}
+        title={t.title}
+        subtitle={t.subtitle}
       />
 
       {/* Category filter */}
       <div className="flex gap-2 overflow-x-auto pb-2 mb-4 scrollbar-none">
-        {CATEGORIES.map((c) => (
+        {t.categories.map((c) => (
           <button
             key={c.value}
             onClick={() => setCategory(c.value)}
@@ -73,7 +112,7 @@ export default function ProblemsClient() {
       <div className="space-y-2 mb-6">
         {filtered.length === 0 && (
           <p role="status" aria-live="polite" className="text-center text-text-faint font-sarabun py-8 text-sm">
-            ไม่พบปัญหาในหมวดนี้
+            {t.noResults}
           </p>
         )}
         {filtered.map((p) => {
@@ -101,7 +140,7 @@ export default function ProblemsClient() {
               </div>
               <div className="flex gap-2 mt-2 flex-wrap">
                 <Badge variant="default">{p.category}</Badge>
-                <span className="text-[10px] font-mono text-text-faint">{p.steps.length} ขั้นตอน</span>
+                <span className="text-[10px] font-mono text-text-faint">{t.stepsCount(p.steps.length)}</span>
               </div>
             </button>
           );
@@ -131,7 +170,7 @@ export default function ProblemsClient() {
 
           {/* Causes */}
           <div className="p-4 rounded-xl bg-amber-muted/30 border border-amber-DEFAULT/20 mb-4">
-            <p className="text-xs font-mono text-amber-DEFAULT uppercase tracking-wider mb-2">สาเหตุที่พบบ่อย</p>
+            <p className="text-xs font-mono text-amber-DEFAULT uppercase tracking-wider mb-2">{t.commonCauses}</p>
             <ul className="space-y-1">
               {selected.causes.map((c, i) => (
                 <li key={i} className="flex gap-2 text-xs font-sarabun text-text leading-relaxed">
@@ -144,7 +183,7 @@ export default function ProblemsClient() {
 
           {/* Steps */}
           <div className="mb-3">
-            <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-3">ขั้นตอนแก้ไข</p>
+            <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-3">{t.fixSteps}</p>
             <div className="space-y-2">
               {selected.steps.map((step, i) => {
                 const isOpen = openSteps.has(i);
@@ -170,7 +209,7 @@ export default function ProblemsClient() {
                         {step.action && (
                           <div className="rounded-lg overflow-hidden border border-green-DEFAULT/20">
                             <div className="flex items-center justify-between px-3 py-2 bg-bg-elevated border-b border-bg-border">
-                              <span className="text-[10px] font-mono text-text-faint uppercase">CLI Command</span>
+                              <span className="text-[10px] font-mono text-text-faint uppercase">{t.cliCommand}</span>
                               <CopyButton text={step.action} size="sm" />
                             </div>
                             <pre className="px-3 py-2.5 text-xs font-mono text-green-DEFAULT bg-bg-surface leading-relaxed whitespace-pre-wrap">
