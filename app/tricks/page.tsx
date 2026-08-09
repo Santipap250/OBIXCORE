@@ -16,7 +16,10 @@ export const metadata: Metadata = {
     "FPV drone tricks tutorial",
     "freestyle drone flying",
   ],
-  alternates: { canonical: "/tricks" },
+  alternates: {
+    canonical: "/tricks",
+    languages: { "th-TH": "/tricks", "en-US": "/en/tricks" },
+  },
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
