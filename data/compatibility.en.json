@@ -1,0 +1,110 @@
+[
+  {
+    "id": "motor-mount-9x9",
+    "category": "motor",
+    "title": "Motor mount 9×9mm",
+    "appliesTo": "Small motors 0802-1404",
+    "detail": "Mounting holes spaced 9×9mm apart (2-hole on some, 4-hole on others) — the standard for small motors used in Tiny Whoop / Toothpick drones. Frames in this class are drilled to match.",
+    "recommendedClasses": ["micro"],
+    "tags": ["motor", "mount", "9x9", "micro", "whoop"]
+  },
+  {
+    "id": "motor-mount-12x12",
+    "category": "motor",
+    "title": "Motor mount 12×12mm",
+    "appliesTo": "Mid-size motors 2203-2306",
+    "detail": "The most common standard for 5\" motors, both freestyle and racing. 4-hole pattern spaced 12×12mm, uses M3 screws.",
+    "recommendedClasses": ["cinewhoop", "freestyle", "racing"],
+    "tags": ["motor", "mount", "12x12", "5inch"]
+  },
+  {
+    "id": "motor-mount-16x16",
+    "category": "motor",
+    "title": "Motor mount 16×16mm",
+    "appliesTo": "Large motors, 2806 and up",
+    "detail": "The standard for motors on 7\"+ drones and heavy-lift builds. 4-hole pattern spaced 16×16mm, built to handle higher torque.",
+    "recommendedClasses": ["longrange", "heavylift"],
+    "tags": ["motor", "mount", "16x16", "longrange", "heavylift"]
+  },
+  {
+    "id": "prop-shaft-collet",
+    "category": "prop",
+    "title": "Push-on / pinch-collet props",
+    "appliesTo": "Small motors 0802-1404",
+    "detail": "Props press directly onto the motor shaft with no nut. Suited to low-power motors with modest centrifugal force. Check the prop's bore size matches the motor shaft diameter exactly (e.g. 0.8mm, 1.5mm).",
+    "recommendedClasses": ["micro"],
+    "tags": ["prop", "shaft", "collet", "micro"]
+  },
+  {
+    "id": "prop-shaft-m5-nut",
+    "category": "prop",
+    "title": "M5 screw-on props",
+    "appliesTo": "Motors 2203 and up",
+    "detail": "Props have a center bushing secured with an M5 nut (some use directional prop nuts for CW/CCW rotation). This is the dominant standard across all 5\"+ drones.",
+    "recommendedClasses": ["cinewhoop", "freestyle", "racing", "longrange", "heavylift"],
+    "tags": ["prop", "shaft", "m5", "nut"]
+  },
+  {
+    "id": "stack-mount-20x20",
+    "category": "stack",
+    "title": "FC/ESC stack 20×20mm",
+    "appliesTo": "Toothpick frames and small Cinewhoops",
+    "detail": "The 20×20mm square mounting-hole standard for compact flight controllers and ESCs. Used on weight-conscious builds.",
+    "recommendedClasses": ["micro", "cinewhoop"],
+    "tags": ["stack", "fc", "esc", "20x20", "mount"]
+  },
+  {
+    "id": "stack-mount-30x30",
+    "category": "stack",
+    "title": "FC/ESC stack 30.5×30.5mm",
+    "appliesTo": "Most 5\"+ frames",
+    "detail": "The most common mounting-hole standard on the market today, used mainly on 5\" frames. Adapter plates are available to fit a 20×20mm stack if you want to mix sizes.",
+    "recommendedClasses": ["freestyle", "racing", "longrange", "heavylift"],
+    "tags": ["stack", "fc", "esc", "30x30", "mount"]
+  },
+  {
+    "id": "battery-xt30",
+    "category": "battery",
+    "title": "XT30 connector",
+    "appliesTo": "Small packs, roughly ≤1300mAh, 2-4S",
+    "detail": "Smaller than XT60 with a lower continuous-current rating. Suited to lightweight builds that don't draw much current, like Toothpicks or ultralight 5\" builds.",
+    "recommendedClasses": ["micro", "cinewhoop"],
+    "tags": ["battery", "connector", "xt30"]
+  },
+  {
+    "id": "battery-xt60",
+    "category": "battery",
+    "title": "XT60 connector",
+    "appliesTo": "1300-2200mAh packs, 4-6S",
+    "detail": "The most common connector on 5\" drones, both freestyle and racing. Handles higher continuous current than XT30, plenty for a typical build.",
+    "recommendedClasses": ["freestyle", "racing"],
+    "tags": ["battery", "connector", "xt60"]
+  },
+  {
+    "id": "battery-xt90",
+    "category": "battery",
+    "title": "XT90 connector",
+    "appliesTo": "Large packs 3000mAh+ 6S and up, or high current draw",
+    "detail": "The largest connector in this group with the highest continuous-current rating. Used on builds that draw sustained high current — big-pack long-range setups or heavy-lift builds carrying significant payload.",
+    "recommendedClasses": ["longrange", "heavylift"],
+    "tags": ["battery", "connector", "xt90"]
+  },
+  {
+    "id": "vtx-connector-ufl",
+    "category": "vtx",
+    "title": "U.FL / MMCX VTX connector",
+    "appliesTo": "Builds with the VTX built into the FC stack",
+    "detail": "Smaller and more delicate than SMA, used on whoop/micro builds where space is tight. Be careful with repeated connect/disconnect since these connectors are more fragile.",
+    "recommendedClasses": ["micro", "cinewhoop"],
+    "tags": ["vtx", "connector", "ufl", "mmcx"]
+  },
+  {
+    "id": "vtx-connector-sma",
+    "category": "vtx",
+    "title": "SMA / RP-SMA VTX connector",
+    "appliesTo": "Most standalone VTX modules",
+    "detail": "Sturdier and easier to swap antennas on. The standard for standalone VTX on 5\"+ drones — double-check whether it's SMA or RP-SMA, since the thread polarity is reversed between them.",
+    "recommendedClasses": ["freestyle", "racing", "longrange", "heavylift"],
+    "tags": ["vtx", "connector", "sma", "antenna"]
+  }
+]

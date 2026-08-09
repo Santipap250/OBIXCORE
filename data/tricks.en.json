@@ -1,0 +1,199 @@
+[
+  {
+    "id": "trick-power-loop",
+    "name": "Power Loop",
+    "nameTh": "Power Loop",
+    "difficulty": "beginner",
+    "category": "aerial",
+    "description": "The most fundamental freestyle move — fly a full vertical circle, using motor power to carry the drone up and loop back down to the starting point.",
+    "steps": [
+      "Start flying level at a moderate speed, with at least 15-20 meters of clear space above you",
+      "Push throttle up while pushing pitch forward (nose down) to start climbing into an arc",
+      "Hold throttle steady through the whole loop, adjusting pitch to shape the circle you want",
+      "At the top of the loop, ease off throttle slightly so you don't overshoot past where you meant to go",
+      "Continue down until you're back at your original altitude, then steady the throttle again"
+    ],
+    "tips": [
+      "Practice in wide open space first — never practice near people or obstacles",
+      "Start with big loops, then gradually tighten them once your throttle control is steady",
+      "If you get PID oscillation while climbing steeply (high-throttle oscillation), check the ConfigDoctor page alongside this"
+    ],
+    "commonMistakes": [
+      "Uneven throttle input makes the loop lopsided instead of round",
+      "Too much throttle at the start sends you higher than intended"
+    ],
+    "prerequisiteTrickIds": [],
+    "recommendedClasses": ["micro", "cinewhoop", "freestyle", "racing"],
+    "tags": ["beginner", "throttle-control", "vertical"]
+  },
+  {
+    "id": "trick-split-s",
+    "name": "Split-S",
+    "nameTh": "Split-S",
+    "difficulty": "beginner",
+    "category": "aerial",
+    "description": "Fly up into a half-loop then flip inverted, descending in the opposite direction from where you started. Used to reverse direction quickly without turning.",
+    "steps": [
+      "Fly level, then pitch up to start climbing into a half-loop (like the first half of a Power Loop)",
+      "At the inverted point (upside down), hold throttle steady and let the nose fall through along the same line",
+      "Continue pitching until the drone returns to level flight — now facing the opposite direction from when you started"
+    ],
+    "tips": [
+      "This builds directly on the Power Loop — once that's steady, Split-S isn't a big leap",
+      "Commonly used when you're approaching an obstacle and need to reverse direction immediately"
+    ],
+    "commonMistakes": [
+      "Letting off throttle while inverted causes you to lose altitude too fast to make your intended line",
+      "Not accounting for the altitude lost over the whole maneuver — easy to hit the ground/an obstacle if practicing in tight spaces"
+    ],
+    "prerequisiteTrickIds": ["trick-power-loop"],
+    "recommendedClasses": ["freestyle", "racing", "cinewhoop"],
+    "tags": ["beginner", "direction-change", "inverted"]
+  },
+  {
+    "id": "trick-barrel-roll",
+    "name": "Barrel Roll",
+    "nameTh": "Barrel Roll",
+    "difficulty": "beginner",
+    "category": "aerial",
+    "description": "A full 360° rotation around the roll axis (front-to-back axis) while still flying forward in the same direction.",
+    "steps": [
+      "Fly level at a constant speed with reasonable open space to the side",
+      "Hold the roll stick to one side until you complete a full rotation",
+      "Keep throttle steady through the whole roll so you don't lose much altitude"
+    ],
+    "tips": [
+      "If you're just starting out, practice at a lower roll rate first — it's easier to time the stop precisely",
+      "Practice both directions (left/right) until you're equally comfortable with each, not just your favored side"
+    ],
+    "commonMistakes": [
+      "Letting off throttle mid-roll causes altitude loss and throws off your heading",
+      "Releasing the roll stick before completing the full rotation leaves the move looking stuck halfway"
+    ],
+    "prerequisiteTrickIds": [],
+    "recommendedClasses": ["micro", "cinewhoop", "freestyle", "racing"],
+    "tags": ["beginner", "roll-axis"]
+  },
+  {
+    "id": "trick-power-dive",
+    "name": "Power Dive",
+    "nameTh": "Power Dive (High-Speed Dive)",
+    "difficulty": "intermediate",
+    "category": "dive",
+    "description": "Dive from altitude at speed, then pull up before reaching the ground. Used to build speed and change altitude quickly.",
+    "steps": [
+      "Climb to a safe altitude first (noticeably higher than you think you'll actually need)",
+      "Pitch the nose down steeply, letting gravity help build speed — you can ease off throttle somewhat",
+      "Judge the distance carefully before your intended low point, then pull pitch up while adding throttle to pull out"
+    ],
+    "tips": [
+      "Always practice pulling out higher than you think you need to, especially the first few times at a new location",
+      "Watch out for propwash on the hard pull-out after a fast dive — if the drone shakes on pull-out, check D-term/filter settings on the ConfigDoctor page"
+    ],
+    "commonMistakes": [
+      "Pulling out too late because the accumulated speed was misjudged",
+      "Pitching down too steeply, making it hard to control direction close to the ground"
+    ],
+    "prerequisiteTrickIds": ["trick-power-loop"],
+    "recommendedClasses": ["freestyle", "racing"],
+    "tags": ["intermediate", "speed", "altitude-change"]
+  },
+  {
+    "id": "trick-proximity-ground-skim",
+    "name": "Ground Skimming",
+    "nameTh": "Ground Skimming",
+    "difficulty": "intermediate",
+    "category": "proximity",
+    "description": "Fly low, following the terrain's contours (rising and falling over low hills/obstacles). Prioritizes throttle precision over speed.",
+    "steps": [
+      "Choose a route you can see clearly ahead of time, with no obstacles hidden from the FPV camera's angle",
+      "Fly low while holding a constant distance from the ground, adjusting throttle to follow the terrain's rise and fall",
+      "Fly slower than normal level flight, to leave yourself reaction time for obstacles that appear"
+    ],
+    "tips": [
+      "Start practicing higher off the ground than you actually intend to fly, then lower it gradually as you gain confidence",
+      "Light and shadow through the FPV camera can easily throw off your height judgment, especially in harsh sunlight"
+    ],
+    "commonMistakes": [
+      "Fixating on one point too long instead of scanning ahead for upcoming obstacles",
+      "Flying faster than your skill level allows, leaving insufficient reaction time"
+    ],
+    "prerequisiteTrickIds": ["trick-barrel-roll"],
+    "recommendedClasses": ["cinewhoop", "freestyle"],
+    "tags": ["intermediate", "proximity", "precision"]
+  },
+  {
+    "id": "trick-wall-ride",
+    "name": "Wall Ride",
+    "nameTh": "Wall Ride",
+    "difficulty": "advanced",
+    "category": "proximity",
+    "description": "Fly parallel alongside a steep wall or vertical surface, banking the drone slightly toward the wall for the whole pass.",
+    "steps": [
+      "Approach the wall at a shallow angle (not head-on), holding a steady speed",
+      "Roll the drone to bank slightly toward the wall, so your flight line runs parallel to the surface",
+      "Hold the bank angle and distance from the wall steady for the whole pass",
+      "Before the wall ends, gradually roll back to level flight"
+    ],
+    "tips": [
+      "Practice judging distance from a wall in open space first (simulate the distance using something else you won't damage if you hit it) before trying a real wall",
+      "Consistent speed matters more than high speed here — this move is about steadiness, not speed"
+    ],
+    "commonMistakes": [
+      "Getting too close to the wall, leaving no margin to correct if you misjudge the distance",
+      "Rolling too far so your flight line angles into the wall instead of staying parallel"
+    ],
+    "prerequisiteTrickIds": ["trick-proximity-ground-skim", "trick-barrel-roll"],
+    "recommendedClasses": ["freestyle"],
+    "tags": ["advanced", "proximity", "precision"]
+  },
+  {
+    "id": "trick-matty-flip",
+    "name": "Matty Flip",
+    "nameTh": "Matty Flip",
+    "difficulty": "advanced",
+    "category": "combo",
+    "description": "A combo move that blends pitch and roll input at the same time, rotating the drone along a diagonal axis instead of a single roll or loop axis.",
+    "steps": [
+      "Start flying level at moderate speed with reasonable clear space in all directions (this move uses more 3D space than a single-axis move)",
+      "Push pitch and roll together in roughly equal proportion, so the rotation follows a diagonal line",
+      "Hold throttle steady through the rotation, adjusting for the altitude lost during the move",
+      "Release both sticks back to center together once you've completed the rotation you wanted"
+    ],
+    "tips": [
+      "Get comfortable with Power Loop and Barrel Roll separately first, then work up to blending both axes at once",
+      "Start by practicing with a steady count/timing before attempting it as part of full freestyle flow"
+    ],
+    "commonMistakes": [
+      "Uneven pitch/roll proportion throws the rotation off the intended diagonal line",
+      "Releasing the two axes' sticks at different times makes the move look jerky at the end"
+    ],
+    "prerequisiteTrickIds": ["trick-power-loop", "trick-barrel-roll"],
+    "recommendedClasses": ["freestyle"],
+    "tags": ["advanced", "combo", "diagonal-axis"]
+  },
+  {
+    "id": "trick-stall-turn",
+    "name": "Stall Turn (Hammerhead)",
+    "nameTh": "Stall Turn / Hammerhead",
+    "difficulty": "advanced",
+    "category": "aerial",
+    "description": "Climb straight up until speed is nearly gone, then yaw around to face the opposite direction at the top before diving back down.",
+    "steps": [
+      "Climb straight up steeply on high throttle, letting speed bleed off gradually to gravity",
+      "As speed nears zero at the top, apply hard yaw input to spin the nose around to face the opposite direction",
+      "Once facing the new direction, let the drone dive straight down, then pull back up into level flight"
+    ],
+    "tips": [
+      "The yaw input only works once speed is nearly zero — timed too early, the drone won't finish the turn or will lose stability",
+      "Learn your own build's \"speed-out point\" first — every build climbs to a different height/speed before running out"
+    ],
+    "commonMistakes": [
+      "Yawing before speed has actually bled off causes the drone to lose stability mid-air",
+      "Not climbing straight enough vertically throws off the direction of the dive back down"
+    ],
+    "prerequisiteTrickIds": ["trick-power-loop", "trick-power-dive"],
+    "recommendedClasses": ["freestyle", "racing"],
+    "tags": ["advanced", "yaw-control", "vertical"]
+  }
+]

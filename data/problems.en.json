@@ -1,0 +1,231 @@
+[
+  {
+    "id": "prob-hf-oscillation",
+    "symptom": "High-Frequency Oscillation (Buzz)",
+    "category": "flight",
+    "severity": "high",
+    "description": "The drone vibrates constantly or when throttle increases, often with an audible high-pitched motor whine.",
+    "causes": [
+      "D term set too high",
+      "RPM filter not enabled, or Bidirectional DSHOT not working",
+      "High gyro noise from a mount with no vibration dampening",
+      "Unbalanced or bent props"
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "title": "Check Blackbox or watch motor noise",
+        "description": "Open Betaflight and go to the Motors tab, observe motor debug to see how much it's oscillating. Without blackbox, you can also feel it by holding the frame.",
+        "action": null,
+        "warning": null
+      },
+      {
+        "order": 2,
+        "title": "Lower D term first",
+        "description": "Reduce d_roll and d_pitch by 5, then test-fly. Repeat until the oscillation is gone.",
+        "action": "set d_roll = [current value - 5]\nset d_pitch = [current value - 5]\nsave",
+        "warning": "Reducing D too much causes overshoot after flips/rolls"
+      },
+      {
+        "order": 3,
+        "title": "Check RPM Filter",
+        "description": "Go to Betaflight Configuration → make sure MOTOR_STOP is off, verify the DSHOT protocol is correct, and enable Bidirectional DSHOT under ESC Telemetry.",
+        "action": "set dshot_bidir = ON\nset rpm_filter_harmonics = 3\nsave",
+        "warning": null
+      },
+      {
+        "order": 4,
+        "title": "Inspect props and motor mounts",
+        "description": "Remove each prop one at a time and check if it's bent. Check that motor screws aren't loose, and that the stack mount is properly soft-mounted.",
+        "action": null,
+        "warning": "Even a slightly bent prop can cause abnormally high vibration"
+      }
+    ],
+    "relatedPresetIds": [
+      "preset-freestyle-5in-4s-001"
+    ],
+    "tags": [
+      "pid",
+      "d-term",
+      "oscillation",
+      "rpm-filter",
+      "props"
+    ]
+  },
+  {
+    "id": "prob-propwash",
+    "symptom": "Propwash After Throttle Drop (drone shakes when throttle comes back up)",
+    "category": "flight",
+    "severity": "medium",
+    "description": "After diving and then bringing the throttle back up, the drone visibly shakes or wobbles, causing shaky video.",
+    "causes": [
+      "I term accumulation during zero-throttle",
+      "Props flying through their own turbulent air (vortex ring state)",
+      "Not enough D term",
+      "iterm_relax not configured"
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "title": "Enable iterm_relax",
+        "description": "Set iterm_relax to RP (Roll + Pitch) to stop I term accumulation at low throttle.",
+        "action": "set iterm_relax = RP\nset iterm_relax_type = SETPOINT\nset iterm_relax_cutoff = 15\nsave",
+        "warning": null
+      },
+      {
+        "order": 2,
+        "title": "Increase D term slightly",
+        "description": "Try increasing d_roll and d_pitch by 3-5. D term helps damp the shake after throttle comes back.",
+        "action": "set d_roll = [current value + 3]\nset d_pitch = [current value + 3]\nsave",
+        "warning": "Don't increase D so much that motors overheat — check motor temp right after landing from one battery"
+      },
+      {
+        "order": 3,
+        "title": "Adjust throttle transition (if available)",
+        "description": "On BF 4.4+, try set throttle_boost = 5-10 to help motors punch out of the vortex faster.",
+        "action": "set throttle_boost = 7\nsave",
+        "warning": null
+      }
+    ],
+    "relatedPresetIds": [
+      "preset-freestyle-5in-4s-001"
+    ],
+    "tags": [
+      "propwash",
+      "i-term",
+      "throttle",
+      "freestyle"
+    ]
+  },
+  {
+    "id": "prob-toilet-bowl",
+    "symptom": "Toilet Bowl / Yaw Drift (drone rotates or drifts in yaw on its own)",
+    "category": "flight",
+    "severity": "medium",
+    "description": "The drone slowly rotates around the yaw axis without stick input, or keeps rotating even after the stick returns to center.",
+    "causes": [
+      "Yaw P set too high",
+      "Motor imbalance (bent shaft or worn bearing)",
+      "Frame imbalance, prop guard mounted on the wrong side",
+      "Yaw I set too low"
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "title": "Lower Yaw P first",
+        "description": "Reduce p_yaw by 5, then test-hover in place and check if the drift is reduced.",
+        "action": "set p_yaw = [current value - 5]\nsave",
+        "warning": null
+      },
+      {
+        "order": 2,
+        "title": "Check each motor's spin individually",
+        "description": "Open the Betaflight Motor tab, remove the props, and spin each motor one at a time — listen for noise and watch the shaft for wobble.",
+        "action": null,
+        "warning": "Caution! Never spin a motor with props still attached"
+      },
+      {
+        "order": 3,
+        "title": "Check the frame is square",
+        "description": "Place the frame on a flat surface and check that the arms aren't twisted or misaligned. A warped frame makes tuning much harder.",
+        "action": null,
+        "warning": null
+      }
+    ],
+    "relatedPresetIds": [],
+    "tags": [
+      "yaw",
+      "toilet-bowl",
+      "drift",
+      "motor"
+    ]
+  },
+  {
+    "id": "prob-video-noise",
+    "symptom": "Video Lines / Shaking / Interference (Video noise / Lines)",
+    "category": "video",
+    "severity": "medium",
+    "description": "The FPV feed shows horizontal lines, flickering, or heavy static, especially when throttle increases.",
+    "causes": [
+      "VTX and camera don't have a noise-filtering capacitor installed",
+      "FC power supply isn't filtered well enough",
+      "Video wire routed too close to a power wire",
+      "Ground loop between VTX and camera"
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "title": "Add a capacitor at the battery pad",
+        "description": "Solder a 1000-2200μF 35V capacitor to the battery pad on the FC or PDB — positive lead to +, negative lead to -.",
+        "action": null,
+        "warning": "⚠️ Watch polarity carefully. A reverse-connected capacitor can explode"
+      },
+      {
+        "order": 2,
+        "title": "Add an LC filter or video filter",
+        "description": "Add an LC filter (1206 inductor + 470μF cap) between the FC and VTX to filter high-frequency noise from the ESC.",
+        "action": null,
+        "warning": null
+      },
+      {
+        "order": 3,
+        "title": "Improve wire routing",
+        "description": "Route video/signal wires as far away as possible from power wires and ESC motor wires.",
+        "action": null,
+        "warning": null
+      }
+    ],
+    "relatedPresetIds": [],
+    "tags": [
+      "video",
+      "vtx",
+      "capacitor",
+      "noise",
+      "fpv-feed"
+    ]
+  },
+  {
+    "id": "prob-motor-hot",
+    "symptom": "Motor Running Abnormally Hot After Flight",
+    "category": "mechanical",
+    "severity": "high",
+    "description": "A motor is too hot to touch or smells burnt after just one battery. Anything above 60°C is considered too hot.",
+    "causes": [
+      "D term set too high, causing the motor to oscillate constantly",
+      "Props too large or too high-pitch for that KV rating",
+      "Current draw exceeding the motor's rating",
+      "Worn motor bearing"
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "title": "Lower D term immediately",
+        "description": "D term set too high causes constant motor oscillation, which generates a lot of heat. Reduce d_roll and d_pitch by 5-8.",
+        "action": "set d_roll = [current value - 6]\nset d_pitch = [current value - 6]\nsave",
+        "warning": "Test-fly after this change and check motor temp immediately after landing"
+      },
+      {
+        "order": 2,
+        "title": "Check motor rating vs. props",
+        "description": "Check the motor's datasheet for max thrust with the props you're using. For example, a 1750KV motor is normally fine on 5\" 4S — the same 1750KV motor on 6S will run very hot.",
+        "action": null,
+        "warning": "⚠️ A motor that's overheated to the point of burning is permanently damaged"
+      },
+      {
+        "order": 3,
+        "title": "Try a lower-pitch prop",
+        "description": "Switching from a high-pitch prop (e.g. 5148) to a lower-pitch one (e.g. 5045) will reduce current draw.",
+        "action": null,
+        "warning": null
+      }
+    ],
+    "relatedPresetIds": [],
+    "tags": [
+      "motor",
+      "heat",
+      "d-term",
+      "props",
+      "current"
+    ]
+  }
+]
