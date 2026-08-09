@@ -15,7 +15,10 @@ export const metadata: Metadata = {
     "FC ESC stack mounting",
     "FPV drone parts guide",
   ],
-  alternates: { canonical: "/compatibility" },
+  alternates: {
+    canonical: "/compatibility",
+    languages: { "th-TH": "/compatibility", "en-US": "/en/compatibility" },
+  },
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,

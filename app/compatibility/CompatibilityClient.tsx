@@ -1,13 +1,13 @@
 "use client";
 import PageHeader from "@/components/PageHeader";
+import LanguageSwitch from "@/components/LanguageSwitch";
 import { useMemo, useState } from "react";
-import compatData from "@/data/compatibility.json";
+import compatDataTh from "@/data/compatibility.json";
+import compatDataEn from "@/data/compatibility.en.json";
 import type { CompatFact, PartCategory } from "@/types";
 import Badge from "@/components/Badge";
 
-const facts = compatData as CompatFact[];
-
-const CATEGORIES: { value: PartCategory | "all"; label: string }[] = [
+const CATEGORIES_TH: { value: PartCategory | "all"; label: string }[] = [
   { value: "all", label: "ทั้งหมด" },
   { value: "motor", label: "มอเตอร์" },
   { value: "prop", label: "ใบพัด" },
@@ -16,7 +16,39 @@ const CATEGORIES: { value: PartCategory | "all"; label: string }[] = [
   { value: "vtx", label: "VTX" },
 ];
 
-export default function CompatibilityClient() {
+const CATEGORIES_EN: { value: PartCategory | "all"; label: string }[] = [
+  { value: "all", label: "All" },
+  { value: "motor", label: "Motor" },
+  { value: "prop", label: "Prop" },
+  { value: "stack", label: "FC/ESC" },
+  { value: "battery", label: "Battery" },
+  { value: "vtx", label: "VTX" },
+];
+
+const STRINGS = {
+  th: {
+    badge: "Parts Compatibility",
+    title: "เช็คมาตรฐานชิ้นส่วนโดรน",
+    subtitle: "อ้างอิง mounting pattern, ขั้วแบต, และขั้วเสา VTX ที่ใช้กันทั่วไปในวงการ FPV",
+    disclaimer: "เป็นข้อมูลอ้างอิงตามมาตรฐานที่ใช้กันทั่วไป ผู้ผลิตบางรายอาจมีสเปกต่างจากนี้ — เช็คสเปกจริงจากหน้าสินค้าก่อนซื้อทุกครั้ง",
+    searchPlaceholder: "ค้นหา เช่น XT60, 30.5, motor mount...",
+    noResults: "ไม่พบผลลัพธ์ที่ตรงกับคำค้นหา",
+    categories: CATEGORIES_TH,
+  },
+  en: {
+    badge: "Parts Compatibility",
+    title: "Check Hardware Standards",
+    subtitle: "Reference for mounting patterns, battery connectors, and VTX antenna connectors commonly used in FPV",
+    disclaimer: "This is reference info based on commonly-used standards. Some manufacturers may spec things differently — always check the actual product page before buying.",
+    searchPlaceholder: "Search e.g. XT60, 30.5, motor mount...",
+    noResults: "No results match your search",
+    categories: CATEGORIES_EN,
+  },
+};
+
+export default function CompatibilityClient({ locale = "th" }: { locale?: "th" | "en" }) {
+  const t = STRINGS[locale];
+  const facts = (locale === "en" ? compatDataEn : compatDataTh) as CompatFact[];
   const [category, setCategory] = useState<PartCategory | "all">("all");
   const [query, setQuery] = useState("");
 
@@ -28,16 +60,20 @@ export default function CompatibilityClient() {
       const haystack = `${f.title} ${f.appliesTo} ${f.detail} ${f.tags.join(" ")}`.toLowerCase();
       return haystack.includes(q);
     });
-  }, [category, query]);
+  }, [category, query, facts]);
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
+      <div className="mb-4 flex justify-end">
+        <LanguageSwitch enHref="/en/compatibility" />
+      </div>
+
       {/* Header */}
       <PageHeader
         accent="lime"
-        badge="Parts Compatibility"
-        title="เช็คมาตรฐานชิ้นส่วนโดรน"
-        subtitle="อ้างอิง mounting pattern, ขั้วแบต, และขั้วเสา VTX ที่ใช้กันทั่วไปในวงการ FPV"
+        badge={t.badge}
+        title={t.title}
+        subtitle={t.subtitle}
       />
 
       {/* Disclaimer */}
@@ -49,7 +85,7 @@ export default function CompatibilityClient() {
           </svg>
         </span>
         <p className="text-[12px] leading-relaxed text-text-muted">
-          เป็นข้อมูลอ้างอิงตามมาตรฐานที่ใช้กันทั่วไป ผู้ผลิตบางรายอาจมีสเปกต่างจากนี้ — เช็คสเปกจริงจากหน้าสินค้าก่อนซื้อทุกครั้ง
+          {t.disclaimer}
         </p>
       </div>
 
@@ -62,14 +98,14 @@ export default function CompatibilityClient() {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="ค้นหา เช่น XT60, 30.5, motor mount..."
+          placeholder={t.searchPlaceholder}
           className="w-full rounded-xl border border-bg-border bg-bg-surface py-2.5 pl-9 pr-3 text-sm text-text placeholder:text-text-faint focus:border-lime-DEFAULT/50 focus:outline-none"
         />
       </div>
 
       {/* Category filter */}
       <div className="mb-4 flex gap-2 overflow-x-auto pb-2 scrollbar-none">
-        {CATEGORIES.map((c) => (
+        {t.categories.map((c) => (
           <button
             key={c.value}
             onClick={() => setCategory(c.value)}
@@ -89,7 +125,7 @@ export default function CompatibilityClient() {
       <div className="space-y-2">
         {filtered.length === 0 && (
           <p role="status" aria-live="polite" className="py-8 text-center text-sm font-sarabun text-text-faint">
-            ไม่พบผลลัพธ์ที่ตรงกับคำค้นหา
+            {t.noResults}
           </p>
         )}
         {filtered.map((f, i) => (
