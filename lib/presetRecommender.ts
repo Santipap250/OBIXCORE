@@ -29,6 +29,24 @@ const STYLE_LABEL_TH: Record<WizardInput["style"], string> = {
   cinematic: "Cinematic",
 };
 
+// English labels reuse the exact same class/style keys as the Thai maps
+// above — kept side by side rather than merged into one bilingual object
+// so neither language's copy can silently drift the other's wording.
+const CLASS_LABEL_EN: Record<SetupClass, string> = {
+  micro: "Micro / Tiny Whoop",
+  cinewhoop: "Cinewhoop / Toothpick",
+  freestyle: "Freestyle 5\"",
+  racing: "Racing 5\"",
+  longrange: "Long Range",
+  heavylift: "Heavy Lifter",
+};
+
+const STYLE_LABEL_EN: Record<WizardInput["style"], string> = {
+  race: "Race",
+  freestyle: "Freestyle",
+  cinematic: "Cinematic",
+};
+
 // Classes that share the same physical size bracket (5" freestyle vs
 // racing gear) get partial credit instead of zero — a racing preset is
 // still a much closer starting point for a 5" freestyle build than a
@@ -77,26 +95,44 @@ function specScore(preset: Preset, input: WizardInput): { score: number; propClo
   return { score, propClose: propC > 0.75, battClose: battC > 0.85, weightClose: weightC > 0.6 };
 }
 
-export function scorePreset(preset: Preset, input: WizardInput, result: WizardResult): PresetMatch {
+export function scorePreset(preset: Preset, input: WizardInput, result: WizardResult, locale: "th" | "en" = "th"): PresetMatch {
   const cScore = classScore(preset.setupClass, result.setupClass);
   const sScore = styleScore(preset.style, input.style);
   const { score: spScore, propClose, battClose, weightClose } = specScore(preset, input);
 
   const matchScore = Math.round(clamp(cScore + sScore + spScore, 0, 100));
 
+  const CLASS_LABEL = locale === "en" ? CLASS_LABEL_EN : CLASS_LABEL_TH;
+  const STYLE_LABEL = locale === "en" ? STYLE_LABEL_EN : STYLE_LABEL_TH;
+
   const reasons: string[] = [];
-  if (preset.setupClass === result.setupClass) {
-    reasons.push(`อยู่ในกลุ่มเดียวกัน: ${CLASS_LABEL_TH[preset.setupClass]}`);
-  } else if (ADJACENT_CLASSES[result.setupClass]?.includes(preset.setupClass)) {
-    reasons.push(`กลุ่มใกล้เคียงกัน: ${CLASS_LABEL_TH[preset.setupClass]} (build ของคุณคือ ${CLASS_LABEL_TH[result.setupClass]})`);
+  if (locale === "en") {
+    if (preset.setupClass === result.setupClass) {
+      reasons.push(`Same class: ${CLASS_LABEL[preset.setupClass]}`);
+    } else if (ADJACENT_CLASSES[result.setupClass]?.includes(preset.setupClass)) {
+      reasons.push(`Adjacent class: ${CLASS_LABEL[preset.setupClass]} (your build is ${CLASS_LABEL[result.setupClass]})`);
+    }
+    if (preset.style === input.style) {
+      reasons.push(`Matching flying style: "${STYLE_LABEL[preset.style]}"`);
+    }
+    if (battClose) reasons.push(`Battery ${preset.batteryS}S is close to your build (${input.batteryS}S)`);
+    if (propClose) reasons.push(`Prop size ${preset.propSizeIn}" is close to your build (${(input.propSize / 10).toFixed(1)}")`);
+    if (weightClose) reasons.push(`Similar total weight (~${preset.weightG}g)`);
+    if (reasons.length === 0) reasons.push("Closest spec match currently available in the preset library");
+  } else {
+    if (preset.setupClass === result.setupClass) {
+      reasons.push(`อยู่ในกลุ่มเดียวกัน: ${CLASS_LABEL[preset.setupClass]}`);
+    } else if (ADJACENT_CLASSES[result.setupClass]?.includes(preset.setupClass)) {
+      reasons.push(`กลุ่มใกล้เคียงกัน: ${CLASS_LABEL[preset.setupClass]} (build ของคุณคือ ${CLASS_LABEL[result.setupClass]})`);
+    }
+    if (preset.style === input.style) {
+      reasons.push(`สไตล์การบิน "${STYLE_LABEL[preset.style]}" ตรงกัน`);
+    }
+    if (battClose) reasons.push(`แบต ${preset.batteryS}S ใกล้เคียงกับ build ของคุณ (${input.batteryS}S)`);
+    if (propClose) reasons.push(`ขนาด prop ${preset.propSizeIn}" ใกล้เคียงกับ build ของคุณ (${(input.propSize / 10).toFixed(1)}")`);
+    if (weightClose) reasons.push(`น้ำหนักรวมใกล้เคียงกัน (~${preset.weightG}g)`);
+    if (reasons.length === 0) reasons.push("สเปกใกล้เคียงที่สุดเท่าที่มีในคลัง preset ตอนนี้");
   }
-  if (preset.style === input.style) {
-    reasons.push(`สไตล์การบิน "${STYLE_LABEL_TH[preset.style]}" ตรงกัน`);
-  }
-  if (battClose) reasons.push(`แบต ${preset.batteryS}S ใกล้เคียงกับ build ของคุณ (${input.batteryS}S)`);
-  if (propClose) reasons.push(`ขนาด prop ${preset.propSizeIn}" ใกล้เคียงกับ build ของคุณ (${(input.propSize / 10).toFixed(1)}")`);
-  if (weightClose) reasons.push(`น้ำหนักรวมใกล้เคียงกัน (~${preset.weightG}g)`);
-  if (reasons.length === 0) reasons.push("สเปกใกล้เคียงที่สุดเท่าที่มีในคลัง preset ตอนนี้");
 
   return { preset, matchScore, reasons };
 }
@@ -107,10 +143,11 @@ export function recommendPresets(
   input: WizardInput,
   result: WizardResult,
   presets: Preset[],
-  topN = 3
+  topN = 3,
+  locale: "th" | "en" = "th"
 ): PresetMatch[] {
   return presets
-    .map((p) => scorePreset(p, input, result))
+    .map((p) => scorePreset(p, input, result, locale))
     .sort((a, b) => b.matchScore - a.matchScore)
     .slice(0, topN);
 }

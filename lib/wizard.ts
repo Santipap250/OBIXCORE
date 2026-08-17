@@ -512,5 +512,23 @@ export function calculateTuning(input: WizardInput): WizardResult {
     // recomputing a parallel formula.
     propLoad,
     inertia,
+    debug: {
+      propDiameterIn: propDiameter,
+      propBlades,
+      bladesEstimated,
+      motorCount,
+      motorCountEstimated,
+      payloadG,
+      nominalWeightG: nominalWeight,
+      frameSizeMm: frameSize,
+      motorKV,
+      batteryS,
+      style,
+      loadBias,
+      dampingBias,
+      gripBias,
+      styleGainP: styleGain.p,
+      styleGainD: styleGain.d,
+    },
   };
 }
