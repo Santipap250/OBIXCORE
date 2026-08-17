@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { calculateTuning } from "@/lib/wizard";
 import { recommendPresets } from "@/lib/presetRecommender";
 import PageHeader from "@/components/PageHeader";
+import LanguageSwitch from "@/components/LanguageSwitch";
 import presetsData from "@/data/presets.json";
 import type { WizardInput, WizardResult, Preset } from "@/types";
 import { CONFIDENCE_META } from "@/lib/utils";
@@ -12,6 +13,7 @@ import ValueDisplay from "@/components/ValueDisplay";
 import CodeBlock from "@/components/CodeBlock";
 import CopyButton from "@/components/CopyButton";
 import { getProfile, profileToWizardInput } from "@/lib/droneProfile";
+import { getWarningsEn, getTipsEn, getReasoningEn, getSummaryEn, getEstimatedFieldsEn, getCliCommandsEn } from "@/lib/i18n/wizardMessagesEn";
 
 const presets = presetsData as unknown as Preset[];
 
@@ -26,10 +28,16 @@ const DEFAULT_INPUT: WizardInput = {
   motorCount: 4,
 };
 
-const STYLE_OPTIONS = [
+const STYLE_OPTIONS_TH = [
   { value: "freestyle", label: "Freestyle", labelTh: "บินอิสระ/ท่า", color: "purple" },
   { value: "race",      label: "Race",      labelTh: "แข่ง/เร็ว",    color: "red" },
   { value: "cinematic", label: "Cinematic", labelTh: "ถ่ายวิดีโอ",   color: "blue" },
+] as const;
+
+const STYLE_OPTIONS_EN = [
+  { value: "freestyle", label: "Freestyle", labelTh: "Flips & flow", color: "purple" },
+  { value: "race",      label: "Race",      labelTh: "Fast & direct", color: "red" },
+  { value: "cinematic", label: "Cinematic", labelTh: "Smooth video",  color: "blue" },
 ] as const;
 
 const BLADE_OPTIONS = [2, 3, 4, 5, 6] as const;
@@ -44,6 +52,105 @@ const SETUP_LABELS: Record<WizardResult["setupClass"], string> = {
 };
 
 const MOTOR_COUNT_OPTIONS = [2, 3, 4, 6, 8] as const;
+
+const STRINGS = {
+  th: {
+    badge: "Tuning Wizard",
+    title: "ตั้งค่า PID อัตโนมัติ",
+    subtitle: "กรอกสเปกโดรน → ได้ค่า PID / Filter / Rates พร้อม CLI command + ความมั่นใจของคำแนะนำ",
+    profileLoaded: (name: string) => `โหลดสเปกจากโปรไฟล์ "${name}" แล้ว`,
+    styleOptions: STYLE_OPTIONS_TH,
+    styleLabel: "สไตล์การบิน",
+    frameSublabel: "ขนาด frame (มม.)",
+    motorSublabel: "KV rating ของมอเตอร์",
+    batterySublabel: "จำนวน cell (1S–12S)",
+    propSublabel: 'ขนาด prop (x10) — 12=1.2" ... 140=14"',
+    weightLabel: "Weight (AUW)",
+    weightSublabel: "น้ำหนักลำ+แบต+กล้อง (ไม่รวม payload ที่แขวนเพิ่ม)",
+    bladesLabel: "จำนวนใบพัด",
+    bladeSuffix: "-blade",
+    motorCountLabel: "จำนวนมอเตอร์",
+    advancedToggle: "ตัวเลือกเพิ่มเติม (Battery mAh / ESC / Payload)",
+    batteryCapLabel: "Battery Cap.",
+    batteryCapSublabel: "ความจุแบต (ไม่บังคับ)",
+    escRatingLabel: "ESC Rating",
+    escRatingSublabel: "กระแสสูงสุด ESC ต่อตัว (ไม่บังคับ)",
+    payloadLabel: "Payload",
+    payloadSublabel: "น้ำหนัก payload ที่แขวนเพิ่ม (ไม่บังคับ, สำหรับ Heavy Lifter)",
+    advancedNote: "ใส่ Battery Capacity เพื่อประมาณเวลาบิน, ESC Rating เพื่อเช็ก headroom, และ Payload สำหรับโดรนที่แบกของ — เว้นว่างได้ถ้าไม่ทราบ ระบบจะใช้ค่าประมาณแทน",
+    ctaButton: "⚡ คำนวณค่าจูน",
+    ctaNote: "ค่าที่ได้เป็นจุดเริ่มต้น — ควร fine-tune ตามโดรนจริง",
+    backButton: "แก้ไขข้อมูล",
+    specLabel: "สเปก:",
+    whyThisTuning: "Why this tuning",
+    estimateFieldsLabel: "ค่าที่ใช้เป็นค่าประมาณ (Estimate)",
+    recommendedPresets: "Preset ที่แนะนำ",
+    matchLabel: "Match",
+    viewPreset: "ดู preset นี้",
+    estimatedPower: "Estimated Power",
+    hoverCurrent: "Hover Current",
+    avgFlightCurrent: "Avg Flight Current",
+    flightTime: "Est. Flight Time",
+    estimateNote: "* ประมาณการจากแรงขับที่ต้องใช้ลอยตัวจริง (น้ำหนัก/prop/แรงดัน) — ไม่ใช้ค่าตายตัว ใส่ Battery Capacity ในตัวเลือกเพิ่มเติมเพื่อดูเวลาบิน",
+    pidValues: "PID Values",
+    filters: "Filters",
+    rpmFilterOn: "ON (ต้องการ Bidirectional DSHOT)",
+    rates: "Rates (Actual)",
+    cliTitle: "Betaflight CLI",
+    copyAllNote: "copy ทั้งหมด วางใน CLI",
+    tips: "Tips",
+    recalcButton: "← คำนวณใหม่",
+    setupLabels: SETUP_LABELS,
+  },
+  en: {
+    badge: "Tuning Wizard",
+    title: "Auto PID Tuning",
+    subtitle: "Enter your drone specs → get PID / Filter / Rates with CLI commands + a confidence score",
+    profileLoaded: (name: string) => `Loaded specs from profile "${name}"`,
+    styleOptions: STYLE_OPTIONS_EN,
+    styleLabel: "Flying Style",
+    frameSublabel: "Frame size (mm)",
+    motorSublabel: "Motor KV rating",
+    batterySublabel: "Cell count (1S–12S)",
+    propSublabel: 'Prop size (x10) — 12=1.2" ... 140=14"',
+    weightLabel: "Weight (AUW)",
+    weightSublabel: "All-up weight incl. battery/camera (not including any extra payload)",
+    bladesLabel: "Prop Blade Count",
+    bladeSuffix: "-blade",
+    motorCountLabel: "Motor Count",
+    advancedToggle: "Advanced options (Battery mAh / ESC / Payload)",
+    batteryCapLabel: "Battery Cap.",
+    batteryCapSublabel: "Battery capacity (optional)",
+    escRatingLabel: "ESC Rating",
+    escRatingSublabel: "Max current per ESC (optional)",
+    payloadLabel: "Payload",
+    payloadSublabel: "Extra payload weight (optional, for Heavy Lifter)",
+    advancedNote: "Add Battery Capacity to estimate flight time, ESC Rating to check headroom, and Payload for a drone carrying cargo — leave blank if unknown, estimates will be used instead",
+    ctaButton: "⚡ CALCULATE TUNING",
+    ctaNote: "These values are a starting point — fine-tune against your real drone",
+    backButton: "Edit Specs",
+    specLabel: "Spec:",
+    whyThisTuning: "Why this tuning",
+    estimateFieldsLabel: "Values Used as Estimates",
+    recommendedPresets: "Recommended Presets",
+    matchLabel: "Match",
+    viewPreset: "View this preset",
+    estimatedPower: "Estimated Power",
+    hoverCurrent: "Hover Current",
+    avgFlightCurrent: "Avg Flight Current",
+    flightTime: "Est. Flight Time",
+    estimateNote: "* Estimated from the thrust needed for real hover (weight/prop/voltage) — not a fixed value. Add Battery Capacity in advanced options to see flight time.",
+    pidValues: "PID Values",
+    filters: "Filters",
+    rpmFilterOn: "ON (requires Bidirectional DSHOT)",
+    rates: "Rates (Actual)",
+    cliTitle: "Betaflight CLI",
+    copyAllNote: "copy all, paste into CLI",
+    tips: "Tips",
+    recalcButton: "← Recalculate",
+    setupLabels: SETUP_LABELS,
+  },
+};
 
 function InputField({
   label, sublabel, value, min, max, step = 1, unit, onChange,
@@ -84,7 +191,8 @@ function InputField({
   );
 }
 
-export default function WizardClient() {
+export default function WizardClient({ locale = "th" }: { locale?: "th" | "en" }) {
+  const t = STRINGS[locale];
   const searchParams = useSearchParams();
   const [input, setInput] = useState<WizardInput>(DEFAULT_INPUT);
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -116,17 +224,32 @@ export default function WizardClient() {
 
   const presetMatches = useMemo(() => {
     if (!result) return [];
-    return recommendPresets(input, result, presets, 2);
-  }, [input, result]);
+    return recommendPresets(input, result, presets, 2, locale);
+  }, [input, result, locale]);
+
+  // Locale-aware derived text — lib/wizard.ts's calculation is 100%
+  // unchanged; only which *text* we read differs (see
+  // lib/i18n/wizardMessagesEn.ts for how the English side is derived from
+  // the same computed numbers instead of duplicating any math).
+  const summaryText = result ? (locale === "en" ? getSummaryEn(result.setupClass) : result.summary) : "";
+  const reasoningText = result ? (locale === "en" ? getReasoningEn(result, input) : result.reasoning) : [];
+  const warningsText = result ? (locale === "en" ? getWarningsEn(result, input) : result.warnings) : [];
+  const tipsText = result ? (locale === "en" ? getTipsEn(result, input) : result.tips) : [];
+  const estimatedFieldsText = result ? (locale === "en" ? getEstimatedFieldsEn(result, input) : result.estimatedFields) : [];
+  const cliCommandsText = result ? (locale === "en" ? getCliCommandsEn(result) : result.cliCommands) : [];
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="mb-4 flex justify-end">
+        <LanguageSwitch enHref="/en/wizard" />
+      </div>
+
       {/* Header */}
       <PageHeader
         accent="green"
-        badge="Tuning Wizard"
-        title="ตั้งค่า PID อัตโนมัติ"
-        subtitle="กรอกสเปกโดรน → ได้ค่า PID / Filter / Rates พร้อม CLI command + ความมั่นใจของคำแนะนำ"
+        badge={t.badge}
+        title={t.title}
+        subtitle={t.subtitle}
       />
 
       {step === "form" && (
@@ -136,14 +259,14 @@ export default function WizardClient() {
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0 text-blue-DEFAULT">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
-              <span className="font-sarabun text-xs text-blue-DEFAULT">โหลดสเปกจากโปรไฟล์ &quot;{loadedProfileName}&quot; แล้ว</span>
+              <span className="font-sarabun text-xs text-blue-DEFAULT">{t.profileLoaded(loadedProfileName)}</span>
             </div>
           )}
           {/* Style selector */}
           <div>
-            <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">สไตล์การบิน</p>
+            <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">{t.styleLabel}</p>
             <div className="grid grid-cols-3 gap-2">
-              {STYLE_OPTIONS.map((s) => (
+              {t.styleOptions.map((s) => (
                 <button
                   key={s.value}
                   onClick={() => set("style", s.value)}
@@ -172,36 +295,36 @@ export default function WizardClient() {
           <div className="grid grid-cols-2 gap-4">
             <InputField
               label="Frame Size"
-              sublabel="ขนาด frame (มม.)"
+              sublabel={t.frameSublabel}
               value={input.frameSize}
               min={50} max={900} step={5} unit="mm"
               onChange={(v) => set("frameSize", v)}
             />
             <InputField
               label="Motor KV"
-              sublabel="KV rating ของมอเตอร์"
+              sublabel={t.motorSublabel}
               value={input.motorKV}
               min={300} max={30000} step={50} unit="KV"
               onChange={(v) => set("motorKV", v)}
             />
             <InputField
               label="Battery"
-              sublabel="จำนวน cell (1S–12S)"
+              sublabel={t.batterySublabel}
               value={input.batteryS}
               min={1} max={12} step={1} unit="S"
               onChange={(v) => set("batteryS", v)}
             />
             <InputField
               label="Prop Size"
-              sublabel={'ขนาด prop (x10) — 12=1.2" ... 140=14"'}
+              sublabel={t.propSublabel}
               value={input.propSize}
               min={12} max={180} step={1} unit={'×0.1"'}
               onChange={(v) => set("propSize", v)}
             />
           </div>
           <InputField
-            label="Weight (AUW)"
-            sublabel="น้ำหนักลำ+แบต+กล้อง (ไม่รวม payload ที่แขวนเพิ่ม)"
+            label={t.weightLabel}
+            sublabel={t.weightSublabel}
             value={input.weight}
             min={20} max={20000} step={10} unit="g"
             onChange={(v) => set("weight", v)}
@@ -209,7 +332,7 @@ export default function WizardClient() {
 
           {/* Prop blades */}
           <div>
-            <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">จำนวนใบพัด</p>
+            <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">{t.bladesLabel}</p>
             <div className="grid grid-cols-3 gap-2">
               {BLADE_OPTIONS.map((b) => (
                 <button
@@ -222,7 +345,7 @@ export default function WizardClient() {
                       : "border-bg-border bg-bg-surface text-text-muted hover:bg-bg-elevated"
                   }`}
                 >
-                  {b}-blade
+                  {b}{t.bladeSuffix}
                 </button>
               ))}
             </div>
@@ -230,7 +353,7 @@ export default function WizardClient() {
 
           {/* Motor count */}
           <div>
-            <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">จำนวนมอเตอร์</p>
+            <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">{t.motorCountLabel}</p>
             <div className="grid grid-cols-5 gap-2">
               {MOTOR_COUNT_OPTIONS.map((m) => (
                 <button
@@ -258,34 +381,34 @@ export default function WizardClient() {
             <svg className={`w-3.5 h-3.5 transition-transform ${showAdvanced ? "rotate-180" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="6 9 12 15 18 9"/>
             </svg>
-            ตัวเลือกเพิ่มเติม (Battery mAh / ESC / Payload)
+            {t.advancedToggle}
           </button>
 
           {showAdvanced && (
             <div className="grid grid-cols-2 gap-4 p-3 rounded-xl bg-bg-elevated border border-bg-border animate-fade-in">
               <InputField
-                label="Battery Cap."
-                sublabel="ความจุแบต (ไม่บังคับ)"
+                label={t.batteryCapLabel}
+                sublabel={t.batteryCapSublabel}
                 value={input.batteryMah ?? 0}
                 min={0} max={30000} step={50} unit="mAh"
                 onChange={(v) => set("batteryMah", v || (undefined as unknown as number))}
               />
               <InputField
-                label="ESC Rating"
-                sublabel="กระแสสูงสุด ESC ต่อตัว (ไม่บังคับ)"
+                label={t.escRatingLabel}
+                sublabel={t.escRatingSublabel}
                 value={input.escCurrentRatingA ?? 0}
                 min={0} max={300} step={5} unit="A"
                 onChange={(v) => set("escCurrentRatingA", v || (undefined as unknown as number))}
               />
               <InputField
-                label="Payload"
-                sublabel="น้ำหนัก payload ที่แขวนเพิ่ม (ไม่บังคับ, สำหรับ Heavy Lifter)"
+                label={t.payloadLabel}
+                sublabel={t.payloadSublabel}
                 value={input.payloadG ?? 0}
                 min={0} max={15000} step={50} unit="g"
                 onChange={(v) => set("payloadG", v || (undefined as unknown as number))}
               />
               <p className="col-span-2 text-[10px] text-text-faint font-sarabun">
-                ใส่ Battery Capacity เพื่อประมาณเวลาบิน, ESC Rating เพื่อเช็ก headroom, และ Payload สำหรับโดรนที่แบกของ — เว้นว่างได้ถ้าไม่ทราบ ระบบจะใช้ค่าประมาณแทน
+                {t.advancedNote}
               </p>
             </div>
           )}
@@ -312,11 +435,11 @@ export default function WizardClient() {
             onClick={handleCalculate}
             className="w-full py-4 rounded-xl bg-green-DEFAULT text-bg-DEFAULT font-orbitron font-bold text-sm tracking-widest hover:bg-green-dim active:scale-[0.99] transition-all glow-green"
           >
-            ⚡ คำนวณค่าจูน
+            {t.ctaButton}
           </button>
 
           <p className="text-center text-[11px] text-text-faint font-sarabun">
-            ค่าที่ได้เป็นจุดเริ่มต้น — ควร fine-tune ตามโดรนจริง
+            {t.ctaNote}
           </p>
         </div>
       )}
@@ -331,12 +454,12 @@ export default function WizardClient() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 5l-7 7 7 7"/>
             </svg>
-            แก้ไขข้อมูล
+            {t.backButton}
           </button>
 
           {/* Config badge */}
           <div className="p-3 rounded-xl bg-bg-elevated border border-bg-border flex flex-wrap gap-3 items-center">
-            <span className="text-[10px] font-mono text-text-faint uppercase tracking-wider">สเปก:</span>
+            <span className="text-[10px] font-mono text-text-faint uppercase tracking-wider">{t.specLabel}</span>
             <span className="text-xs font-mono text-green-DEFAULT">
               {input.frameSize}mm · {input.motorKV}KV · {input.batteryS}S · {(input.propSize/10).toFixed(1)}" · {input.propBlades ?? 3}-blade ·{" "}
               {result.totalWeightG}g{input.payloadG ? ` (${input.weight}g + ${input.payloadG}g payload)` : ""}
@@ -347,7 +470,7 @@ export default function WizardClient() {
               : "bg-purple-muted text-purple-DEFAULT"
             }`}>{input.style}</span>
             <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-bg-border text-text-muted">
-              {SETUP_LABELS[result.setupClass]}
+              {t.setupLabels[result.setupClass]}
             </span>
             <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${CONFIDENCE_META[result.confidenceLabel].classes}`}>
               Confidence: {result.confidenceLabel} ({result.confidence}%)
@@ -355,21 +478,21 @@ export default function WizardClient() {
           </div>
 
           <div className="p-3 rounded-xl border border-blue-DEFAULT/20 bg-blue-muted/15">
-            <p className="text-[10px] font-mono text-blue-DEFAULT uppercase tracking-widest mb-1">Why this tuning</p>
-            <p className="text-xs font-sarabun text-text leading-relaxed mb-3">{result.summary}</p>
+            <p className="text-[10px] font-mono text-blue-DEFAULT uppercase tracking-widest mb-1">{t.whyThisTuning}</p>
+            <p className="text-xs font-sarabun text-text leading-relaxed mb-3">{summaryText}</p>
             <ul className="space-y-1.5">
-              {result.reasoning.map((r, i) => (
+              {reasoningText.map((r, i) => (
                 <li key={i} className="flex gap-2 text-[11px] font-sarabun text-text-muted leading-relaxed">
                   <span className="text-blue-DEFAULT flex-shrink-0">→</span>
                   {r}
                 </li>
               ))}
             </ul>
-            {result.estimatedFields.length > 0 && (
+            {estimatedFieldsText.length > 0 && (
               <div className="mt-3 pt-3 border-t border-blue-DEFAULT/15">
-                <p className="text-[10px] font-mono text-text-faint uppercase tracking-widest mb-1">ค่าที่ใช้เป็นค่าประมาณ (Estimate)</p>
+                <p className="text-[10px] font-mono text-text-faint uppercase tracking-widest mb-1">{t.estimateFieldsLabel}</p>
                 <ul className="space-y-1">
-                  {result.estimatedFields.map((f, i) => (
+                  {estimatedFieldsText.map((f, i) => (
                     <li key={i} className="text-[11px] font-sarabun text-text-faint leading-relaxed">• {f}</li>
                   ))}
                 </ul>
@@ -381,7 +504,7 @@ export default function WizardClient() {
           {presetMatches.length > 0 && (
             <section>
               <div className="flex items-center gap-3 mb-3">
-                <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">Preset ที่แนะนำ</h2>
+                <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">{t.recommendedPresets}</h2>
                 <div className="flex-1 h-px bg-bg-border" />
               </div>
               <div className="space-y-2">
@@ -390,7 +513,7 @@ export default function WizardClient() {
                     <div className="flex items-start justify-between gap-3 mb-1.5">
                       <p className="font-orbitron font-semibold text-sm text-text">{preset.name}</p>
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-purple-DEFAULT/40 bg-purple-muted text-purple-DEFAULT shrink-0">
-                        Match {matchScore}%
+                        {t.matchLabel} {matchScore}%
                       </span>
                     </div>
                     <ul className="space-y-1 mb-2.5">
@@ -406,7 +529,7 @@ export default function WizardClient() {
                         href={`/presets?highlight=${preset.id}`}
                         className="flex-1 text-center text-xs font-mono py-2 rounded-lg border border-purple-DEFAULT/40 text-purple-DEFAULT hover:bg-purple-muted/40 transition-colors"
                       >
-                        ดู preset นี้
+                        {t.viewPreset}
                       </Link>
                       <CopyButton text={preset.cliCommands.join("\n")} label="Copy CLI" size="sm" />
                     </div>
@@ -419,12 +542,12 @@ export default function WizardClient() {
           {/* Estimated current / flight time */}
           <section>
             <div className="flex items-center gap-3 mb-3">
-              <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">Estimated Power</h2>
+              <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">{t.estimatedPower}</h2>
               <div className="flex-1 h-px bg-bg-border" />
             </div>
             <div className="grid grid-cols-2 gap-2">
               <ValueDisplay
-                label="Hover Current"
+                label={t.hoverCurrent}
                 value={result.estimatedHoverCurrentA.typical.toFixed(1)}
                 unit="A"
                 color="blue"
@@ -432,7 +555,7 @@ export default function WizardClient() {
                 range={{ low: result.estimatedHoverCurrentA.low, high: result.estimatedHoverCurrentA.high, decimals: 1 }}
               />
               <ValueDisplay
-                label="Avg Flight Current"
+                label={t.avgFlightCurrent}
                 value={result.estimatedFlightCurrentA.typical.toFixed(1)}
                 unit="A"
                 color="amber"
@@ -443,7 +566,7 @@ export default function WizardClient() {
             {result.estimatedFlightTimeMin && (
               <div className="mt-2">
                 <ValueDisplay
-                  label="Est. Flight Time"
+                  label={t.flightTime}
                   value={result.estimatedFlightTimeMin.typical.toFixed(1)}
                   unit="min"
                   color="green"
@@ -453,14 +576,14 @@ export default function WizardClient() {
               </div>
             )}
             <p className="text-[10px] text-text-faint font-sarabun mt-2">
-              * ประมาณการจากแรงขับที่ต้องใช้ลอยตัวจริง (น้ำหนัก/prop/แรงดัน) — ไม่ใช้ค่าตายตัว ใส่ Battery Capacity ในตัวเลือกเพิ่มเติมเพื่อดูเวลาบิน
+              {t.estimateNote}
             </p>
           </section>
 
           {/* Warnings */}
-          {result.warnings.length > 0 && (
+          {warningsText.length > 0 && (
             <div className="space-y-2">
-              {result.warnings.map((w, i) => (
+              {warningsText.map((w, i) => (
                 <div key={i} className="flex gap-3 p-3 rounded-xl bg-amber-muted border border-amber-DEFAULT/30">
                   <span className="text-amber-DEFAULT text-sm mt-0.5 flex-shrink-0">⚠</span>
                   <p className="text-xs font-sarabun text-amber-DEFAULT leading-relaxed">{w}</p>
@@ -472,7 +595,7 @@ export default function WizardClient() {
           {/* PID Values */}
           <section>
             <div className="flex items-center gap-3 mb-3">
-              <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">PID Values</h2>
+              <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">{t.pidValues}</h2>
               <div className="flex-1 h-px bg-bg-border" />
             </div>
             <div className="space-y-3">
@@ -497,7 +620,7 @@ export default function WizardClient() {
           {/* Filters */}
           <section>
             <div className="flex items-center gap-3 mb-3">
-              <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">Filters</h2>
+              <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">{t.filters}</h2>
               <div className="flex-1 h-px bg-bg-border" />
             </div>
             <div className="p-3 rounded-xl bg-bg-surface border border-bg-border">
@@ -515,7 +638,7 @@ export default function WizardClient() {
                 <span className={`w-2 h-2 rounded-full ${result.filters.rpmFilter ? "bg-green-DEFAULT" : "bg-red-DEFAULT"}`} />
                 <span className="text-xs font-mono text-text-muted">
                   RPM Filter: <span className={result.filters.rpmFilter ? "text-green-DEFAULT" : "text-red-DEFAULT"}>
-                    {result.filters.rpmFilter ? "ON (ต้องการ Bidirectional DSHOT)" : "OFF"}
+                    {result.filters.rpmFilter ? t.rpmFilterOn : "OFF"}
                   </span>
                 </span>
               </div>
@@ -525,7 +648,7 @@ export default function WizardClient() {
           {/* Rates */}
           <section>
             <div className="flex items-center gap-3 mb-3">
-              <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">Rates (Actual)</h2>
+              <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">{t.rates}</h2>
               <div className="flex-1 h-px bg-bg-border" />
             </div>
             <div className="p-3 rounded-xl bg-bg-surface border border-bg-border space-y-2">
@@ -555,22 +678,22 @@ export default function WizardClient() {
           {/* CLI Commands */}
           <section>
             <div className="flex items-center gap-3 mb-3">
-              <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">Betaflight CLI</h2>
+              <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">{t.cliTitle}</h2>
               <div className="flex-1 h-px bg-bg-border" />
-              <span className="text-[10px] text-text-faint font-sarabun">copy ทั้งหมด วางใน CLI</span>
+              <span className="text-[10px] text-text-faint font-sarabun">{t.copyAllNote}</span>
             </div>
-            <CodeBlock lines={result.cliCommands} title="betaflight_cli.txt" />
+            <CodeBlock lines={cliCommandsText} title="betaflight_cli.txt" />
           </section>
 
           {/* Tips */}
-          {result.tips.length > 0 && (
+          {tipsText.length > 0 && (
             <section>
               <div className="flex items-center gap-3 mb-3">
-                <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">Tips</h2>
+                <h2 className="text-xs font-mono text-text-muted uppercase tracking-widest">{t.tips}</h2>
                 <div className="flex-1 h-px bg-bg-border" />
               </div>
               <div className="space-y-2">
-                {result.tips.map((tip, i) => (
+                {tipsText.map((tip, i) => (
                   <div key={i} className="flex gap-3 p-3 rounded-xl bg-blue-muted border border-blue-DEFAULT/20">
                     <span className="text-blue-DEFAULT text-sm flex-shrink-0">💡</span>
                     <p className="text-xs font-sarabun text-blue-DEFAULT leading-relaxed">{tip}</p>
@@ -585,7 +708,7 @@ export default function WizardClient() {
             onClick={() => setStep("form")}
             className="w-full py-3 rounded-xl bg-bg-elevated border border-bg-border text-text-muted font-sarabun text-sm hover:bg-bg-surface transition-all"
           >
-            ← คำนวณใหม่
+            {t.recalcButton}
           </button>
         </div>
       )}

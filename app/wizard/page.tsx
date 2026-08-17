@@ -17,7 +17,10 @@ export const metadata: Metadata = {
     "drone tuning wizard",
     "PID filter rates",
   ],
-  alternates: { canonical: "/wizard" },
+  alternates: {
+    canonical: "/wizard",
+    languages: { "th-TH": "/wizard", "en-US": "/en/wizard" },
+  },
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
