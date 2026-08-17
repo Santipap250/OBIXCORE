@@ -199,6 +199,30 @@ export interface WizardResult {
   /** Total weight vs. the class's nominal reference weight (clamped
    * 0.5–2.4×). Same rationale as propLoad above. */
   inertia: number;
+  /** Additive-only fields below — expose intermediate values already
+   * computed inside calculateTuning() so a locale-specific message
+   * generator (see lib/i18n/wizardMessagesEn.ts) can reconstruct
+   * warnings/tips/reasoning text in another language without duplicating
+   * or touching any of the actual PID/filter/rate math above. None of
+   * these change what calculateTuning() already returned/computed. */
+  debug: {
+    propDiameterIn: number;
+    propBlades: number;
+    bladesEstimated: boolean;
+    motorCount: number;
+    motorCountEstimated: boolean;
+    payloadG: number;
+    nominalWeightG: number;
+    frameSizeMm: number;
+    motorKV: number;
+    batteryS: number;
+    style: WizardInput["style"];
+    loadBias: number;
+    dampingBias: number;
+    gripBias: number;
+    styleGainP: number;
+    styleGainD: number;
+  };
 }
 
 export interface CalculatorResult {
